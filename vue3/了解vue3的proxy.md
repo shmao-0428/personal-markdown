@@ -181,8 +181,6 @@ obj.name = '女'
 
 通过上面两种不同实现方式，我们可以大概的了解到Object.defineProperty和Proxy的用法，但是当给对象添加新的属性的时候，区别就出来了，比如
 
-通过上面两种不同实现方式，我们可以大概的了解到Object.defineProperty和Proxy的用法，但是当给对象添加新的属性的时候，区别就出来了，比如
-
 ```javascript
 // 添加公众号字段
 obj.gzh = '前端有的玩'
@@ -218,10 +216,15 @@ handler里面的方法可以有以下这十三个，每一个都对应的一种�
 
 handler.get当通过proxy去读取对象里面的属性的时候，会进入到get钩子函数里面
 handler.set当通过proxy去为对象设置修改属性的时候，会进入到set钩子函数里面
-handler.has当使用in判断属性是否在proxy代理对象里面时，会触发has，比如const obj = {
+handler.has当使用in判断属性是否在proxy代理对象里面时，会触发has，比如
+
+```JavaScript
+const obj = {
 name: '子君'
 }
 console.log('name' in obj)
+```
+
 handler.deleteProperty当使用delete去删除对象里面的属性的时候，会进入deleteProperty`钩子函数
 handler.apply当proxy监听的是一个函数的时候，当调用这个函数时，会进入apply钩子函数
 handle.ownKeys当通过Object.getOwnPropertyNames,Object.getownPropertySymbols,Object.keys,Reflect.ownKeys去获取对象的信息的时候，就会进入ownKeys这个钩子函数
@@ -242,7 +245,6 @@ Proxy提供了十三种拦截对象操作的方法，本文主要挑选其中一
 
 ```javascript
 /**
-
  * target: 目标对象，即通过proxy代理的对象
  * key: 要访问的属性名称
  * receiver: receiver相当于是我们要读取的属性的this,一般情况
