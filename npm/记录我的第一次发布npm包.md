@@ -4,6 +4,10 @@
 
 ![img](https://img2018.cnblogs.com/blog/1123519/201904/1123519-20190416104328203-605495593.png)
 
+
+
+![image-20200822092339708](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200822092339708.png)
+
 name：
  包的名字，默认是你这个文件夹的名字。先去npm上找一下有没有同名的包。最好的测试方式就是，在命令行里面输入npm install 要取的名字，如果没有报错，npm上没有跟你同名的包，把包发布出去。如果成功下载下来了，则不能发布。
 
@@ -29,6 +33,8 @@ author：写你的账号或者你的github账号吧
 
 license：这个直接回车，开源文件来着。。。
 
+
+
 ##### 建立src文件夹，并建立index.js
 
 注意目录结构入下
@@ -36,6 +42,35 @@ license：这个直接回车，开源文件来着。。。
  -package-lock.json
  -src/index.js
  -node_module[如果没有引入包等就不会产生该文件夹]
+
+**LICENCE.**文件
+
+```
+The MIT License (MIT)
+
+Copyright (c) 2020 <maosuhui@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+```
+
+
 
 
 
