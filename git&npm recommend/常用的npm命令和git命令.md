@@ -1061,27 +1061,128 @@ git branch --set-upstream develop origin/develop
 
 ### git tag
 
-   tag a point in history as import.
+通常在发布软件的时候打一个tag，tag会记录版本的commit号，方便后期回溯。
 
-   会在一个提交上建立永久性的书签,通常是发布一个release版本或者ship了什么东西之后加tag.
+##### 列出已有的tag
 
-   比如: git tag v1.0
 
-   git tag -a v1.0, -a参数会允许你添加一些信息,即make an annotated tag.
 
-   当你运行git tag -a命令的时候,Git会打开一个编辑器让你输入tag信息.
+![img](https:////upload-images.jianshu.io/upload_images/1371196-efc2dafd62c01a68.png?imageMogr2/auto-orient/strip|imageView2/2/w/521/format/webp)
 
-   
+##### 显示tag
 
-   我们可以利用commit SHA来给一个过去的提交打tag:
+加上`-l`命令可以使用通配符来过滤`tag`
 
-   git tag -a v0.9 XXXX
+![img](https:////upload-images.jianshu.io/upload_images/1371196-cb45d5a653cd40cc.png?imageMogr2/auto-orient/strip|imageView2/2/w/538/format/webp)
 
- 
+##### tag显示过滤
 
-   push的时候是不包含tag的,如果想包含,可以在push时加上--tags参数.
+##### 新建tag
 
-   fetch的时候,branch HEAD可以reach的tags是自动被fetch下来的, tags that aren’t reachable from branch heads will be skipped.如果想确保所有的tags都被包含进来,需要加上--tags选项.
+使用`git tag`命令跟上tag名字，直接创建一个tag。
+
+
+
+```css
+git tag v1.0
+```
+
+上面创建一个名为`v1.0`的tag。使用`git tag`命令可以看到新增加的tag。
+
+![img](https:////upload-images.jianshu.io/upload_images/1371196-d80f098f01a1e2d8.png?imageMogr2/auto-orient/strip|imageView2/2/w/584/format/webp)
+
+##### 创建tag
+
+
+
+还可以加上`-a`参数来创建一个带备注的tag，备注信息由`-m`指定。如果你未传入`-m`则创建过程系统会自动为你打开编辑器让你填写备注信息。
+
+
+
+```bash
+git tag -a tagName -m "my tag"
+```
+
+![img](https:////upload-images.jianshu.io/upload_images/1371196-0205fbd05520da61.png?imageMogr2/auto-orient/strip|imageView2/2/w/570/format/webp)
+
+创建有备注信息的tag
+
+##### 查看tag详细信息
+
+`git show`命令可以查看tag的详细信息，包括commit号等。
+
+
+
+```dart
+git show tagName
+```
+
+查看`v1.0`tag的详细信息
+
+![img](https:////upload-images.jianshu.io/upload_images/1371196-f631d7cd31638008.png?imageMogr2/auto-orient/strip|imageView2/2/w/587/format/webp)
+
+
+ 查看带备注的`v1.1`的详细信息
+
+![img](https:////upload-images.jianshu.io/upload_images/1371196-7f0791baa58603c7.png?imageMogr2/auto-orient/strip|imageView2/2/w/732/format/webp)
+
+
+
+tag最重要的是有git commit号，后期我们可以根据这个commit号来回溯代码。
+
+##### 给指定的某个commit号加tag
+
+打tag不必要在head之上，也可在之前的版本上打，这需要你知道某个提交对象的校验和（通过git log获取，取校验和的前几位数字即可）。
+
+
+
+```bash
+git tag -a v1.2 9fceb02 -m "my tag"
+```
+
+![img](https:////upload-images.jianshu.io/upload_images/1371196-6be659e9bed600eb.png?imageMogr2/auto-orient/strip|imageView2/2/w/681/format/webp)
+
+##### 将tag同步到远程服务器
+
+同提交代码后，使用`git push`来推送到远程服务器一样，`tag`也需要进行推送才能到远端服务器。
+ 使用`git push origin [tagName]`推送单个分支。
+
+
+
+```css
+git push origin v1.0
+```
+
+推送本地所有tag，使用`git push origin --tags`。
+
+##### 切换到某个tag
+
+跟分支一样，可以直接切换到某个tag去。这个时候不位于任何分支，处于游离状态，可以考虑基于这个tag创建一个分支。
+
+
+
+![img](https:////upload-images.jianshu.io/upload_images/1371196-f6c361a2c7720ecb.png?imageMogr2/auto-orient/strip|imageView2/2/w/603/format/webp)
+
+##### 删除某个tag
+
+- 本地删除
+
+
+
+```css
+git tag -d v0.1.2 
+```
+
+![img](https:////upload-images.jianshu.io/upload_images/1371196-8b389934c95e002c.png?imageMogr2/auto-orient/strip|imageView2/2/w/527/format/webp)
+
+- 远端删除
+   git push origin :refs/tags/<tagName>
+
+
+
+```ruby
+git push origin :refs/tags/v0.1.2
+```
 
  
 
