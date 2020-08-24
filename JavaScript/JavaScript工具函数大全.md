@@ -35,7 +35,7 @@
 
 ### 1. `all`：布尔全等判断
 
-```
+```javascript
 const all = (arr, fn = Boolean) => arr.every(fn);
 
 all([4, 2, 3], x => x > 1); // true
@@ -44,7 +44,7 @@ all([1, 2, 3]); // true
 
 ### 2. `allEqual`：检查数组各项相等
 
-```
+```JavaScript
 const allEqual = arr => arr.every(val => val === arr[0]);
 
 allEqual([1, 2, 3, 4, 5, 6]); // false
@@ -53,7 +53,7 @@ allEqual([1, 1, 1, 1]); // true
 
 ### 3.`approximatelyEqual`：约等于
 
-```
+```javascript
 const approximatelyEqual = (v1, v2, epsilon = 0.001) => Math.abs(v1 - v2) < epsilon;
 
 approximatelyEqual(Math.PI / 2.0, 1.5708); // true
@@ -61,7 +61,7 @@ approximatelyEqual(Math.PI / 2.0, 1.5708); // true
 
 ### 4.`arrayToCSV`：数组转`CSV`格式（带空格的字符串）
 
-```
+```javascript
 const arrayToCSV = (arr, delimiter = ',') =>
   arr.map(v => v.map(x => `"${x}"`).join(delimiter)).join('\n');
 
@@ -73,7 +73,7 @@ arrayToCSV([['a', 'b'], ['c', 'd']], ';'); // '"a";"b"\n"c";"d"'
 
 此代码段将数组的元素转换为`<li>`标签，并将其附加到给定ID的列表中。
 
-```
+```javascript
 const arrayToHtmlList = (arr, listID) =>
   (el => (
     (el = document.querySelector('#' + listID)),
@@ -85,7 +85,7 @@ arrayToHtmlList(['item 1', 'item 2'], 'myListID');
 
 ### 6. `average`：平均数
 
-```
+```javascript
 const average = (...nums) => nums.reduce((acc, val) => acc + val, 0) / nums.length;
 average(...[1, 2, 3]); // 2
 average(1, 2, 3); // 2
@@ -95,7 +95,7 @@ average(1, 2, 3); // 2
 
 此代码段将获取数组对象属性的平均值
 
-```
+```javascript
 const averageBy = (arr, fn) =>
   arr.map(typeof fn === 'function' ? fn : val => val[fn]).reduce((acc, val) => acc + val, 0) /
   arr.length;
@@ -108,7 +108,7 @@ averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], 'n'); // 5
 
 可以根据每个元素返回的值，使用`reduce()`和`push()` 将元素添加到第二次参数`fn`中 。
 
-```
+```javascript
 const bifurcate = (arr, filter) =>
   arr.reduce((acc, val, i) => (acc[filter[i] ? 0 : 1].push(val), acc), [[], []]);
 bifurcate(['beep', 'boop', 'foo', 'bar'], [true, true, false, true]); 
@@ -117,7 +117,7 @@ bifurcate(['beep', 'boop', 'foo', 'bar'], [true, true, false, true]);
 
 ### 9. `castArray`：其它类型转数组
 
-```
+```javascript
 const castArray = val => (Array.isArray(val) ? val : [val]);
 
 castArray('foo'); // ['foo']
@@ -127,7 +127,7 @@ castArray(1); // [1]
 
 ### 10. `compact`：去除数组中的无效/无用值
 
-```
+```javascript
 const compact = arr => arr.filter(Boolean);
 
 compact([0, 1, false, 2, '', 3, 'a', 'e' * 23, NaN, 's', 34]); 
@@ -136,14 +136,14 @@ compact([0, 1, false, 2, '', 3, 'a', 'e' * 23, NaN, 's', 34]);
 
 ### 11. `countOccurrences`：检测数值出现次数
 
-```
+```javascript
 const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
 countOccurrences([1, 1, 2, 1, 2, 3], 1); // 3
 ```
 
 ### 12. `deepFlatten`：递归扁平化数组
 
-```
+```javascript
 const deepFlatten = arr => [].concat(...arr.map(v => (Array.isArray(v) ? deepFlatten(v) : v)));
 
 deepFlatten([1, [2], [[3], 4], 5]); // [1,2,3,4,5]
@@ -153,7 +153,7 @@ deepFlatten([1, [2], [[3], 4], 5]); // [1,2,3,4,5]
 
 此代码段查找两个数组之间的差异。
 
-```
+```javascript
 const difference = (a, b) => {
   const s = new Set(b);
   return a.filter(x => !s.has(x));
@@ -166,7 +166,7 @@ difference([1, 2, 3], [1, 2, 4]); // [3]
 
 在将给定函数应用于两个列表的每个元素之后，此方法返回两个数组之间的差异。
 
-```
+```javascript
 const differenceBy = (a, b, fn) => {
   const s = new Set(b.map(fn));
   return a.filter(x => !s.has(fn(x)));
@@ -180,7 +180,7 @@ differenceBy([{ x: 2 }, { x: 1 }], [{ x: 1 }], v => v.x); // [ { x: 2 } ]
 
 此代码段从数组顶部开始删除元素，直到传递的函数返回为`true`。
 
-```
+```javascript
 const dropWhile = (arr, func) => {
   while (arr.length > 0 && !func(arr[0])) arr = arr.slice(1);
   return arr;
@@ -193,7 +193,7 @@ dropWhile([1, 2, 3, 4], n => n >= 3); // [3,4]
 
 此代码段第二参数可指定深度。
 
-```
+```javascript
 const flatten = (arr, depth = 1) =>
   arr.reduce((a, v) => a.concat(depth > 1 && Array.isArray(v) ? flatten(v, depth - 1) : v), []);
 
@@ -205,7 +205,7 @@ flatten([1, [2, [3, [4, 5], 6], 7], 8], 2); // [1, 2, 3, [4, 5], 6, 7, 8]
 
 此代码段可用于获取数组中某个值的所有索引，如果此值中未包含该值，则返回一个空数组。
 
-```
+```javascript
 const indexOfAll = (arr, val) => arr.reduce((acc, el, i) => (el === val ? [...acc, i] : acc), []);
 
 indexOfAll([1, 2, 3, 1, 2, 3], 1); // [0,3]
@@ -214,7 +214,7 @@ indexOfAll([1, 2, 3], 4); // []
 
 ### 18. `intersection`：两数组的交集
 
-```
+```javascript
 const intersection = (a, b) => {
   const s = new Set(b);
   return a.filter(x => s.has(x));
@@ -227,7 +227,7 @@ intersection([1, 2, 3], [4, 3, 2]); // [2, 3]
 
 此片段可用于在对两个数组的每个元素执行了函数之后，返回两个数组中存在的元素列表。
 
-```
+```javascript
 const intersectionBy = (a, b, fn) => {
   const s = new Set(b.map(fn));
   return a.filter(x => s.has(fn(x)));
@@ -238,7 +238,7 @@ intersectionBy([2.1, 1.2], [2.3, 3.4], Math.floor); // [2.1]
 
 ### 20. `intersectionWith`：先比较后返回交集
 
-```
+```javascript
 const intersectionWith = (a, b, comp) => a.filter(x => b.findIndex(y => comp(x, y)) !== -1);
 
 intersectionWith([1, 1.2, 1.5, 3, 0], [1.9, 3, 0, 3.9], (a, b) => Math.round(a) === Math.round(b)); // [1.5, 3, 0]
@@ -246,7 +246,7 @@ intersectionWith([1, 1.2, 1.5, 3, 0], [1.9, 3, 0, 3.9], (a, b) => Math.round(a) 
 
 ### 21. `minN`：返回指定长度的升序数组
 
-```
+```javascript
 const minN = (arr, n = 1) => [...arr].sort((a, b) => a - b).slice(0, n);
 
 minN([1, 2, 3]); // [1]
@@ -255,7 +255,7 @@ minN([1, 2, 3], 2); // [1,2]
 
 ### 22. `negate`：根据条件反向筛选
 
-```
+```javascript
 const negate = func => (...args) => !func(...args);
 
 [1, 2, 3, 4, 5, 6].filter(negate(n => n % 2 === 0)); // [ 1, 3, 5 ]
@@ -263,7 +263,7 @@ const negate = func => (...args) => !func(...args);
 
 ### 23. `randomIntArrayInRange`：生成两数之间指定长度的随机数组
 
-```
+```javascript
 const randomIntArrayInRange = (min, max, n = 1) =>
   Array.from({ length: n }, () => Math.floor(Math.random() * (max - min + 1)) + min);
 
@@ -272,7 +272,7 @@ randomIntArrayInRange(12, 35, 10); // [ 34, 14, 27, 17, 30, 27, 20, 26, 21, 14 ]
 
 ### 24. `sample`：在指定数组中获取随机数
 
-```
+```javascript
 const sample = arr => arr[Math.floor(Math.random() * arr.length)];
 
 sample([3, 7, 9, 11]); // 9
@@ -283,7 +283,7 @@ sample([3, 7, 9, 11]); // 9
 此代码段可用于从数组中获取指定长度的随机数，直至穷尽数组。
 **使用`Fisher-Yates`算法对数组中的元素进行随机选择。**
 
-```
+```javascript
 const sampleSize = ([...arr], n = 1) => {
   let m = arr.length;
   while (m) {
@@ -301,7 +301,7 @@ sampleSize([1, 2, 3], 4); // [2,3,1]
 
 此代码段使用`Fisher-Yates`算法随机排序数组的元素。
 
-```
+```javascript
 const shuffle = ([...arr]) => {
   let m = arr.length;
   while (m) {
@@ -319,7 +319,7 @@ shuffle(foo); // [2, 3, 1], foo = [1, 2, 3]
 
 根据每项的`parent_id`，生成具体树形结构的对象。
 
-```
+```javascript
 const nest = (items, id = null, link = 'parent_id') =>
   items
     .filter(item => item[link] === id)
@@ -328,7 +328,7 @@ const nest = (items, id = null, link = 'parent_id') =>
 
 用法：
 
-```
+```javascript
 const comments = [
   { id: 1, parent_id: null },
   { id: 2, parent_id: 1 },
@@ -357,7 +357,7 @@ const nestedComments = nest(comments); // [{ id: 1, parent_id: null, children: [
 
 该代码段执行一个函数，返回结果或捕获的错误对象。
 
-```
+```javascript
 onst attempt = (fn, ...args) => {
   try {
     return fn(...args);
@@ -375,7 +375,7 @@ if (elements instanceof Error) elements = []; // elements = []
 
 此代码段延迟了函数的执行，直到清除了当前调用堆栈。
 
-```
+```javascript
 const defer = (fn, ...args) => setTimeout(fn, 1, ...args);
 
 defer(console.log, 'a'), console.log('b'); // logs 'b' then 'a'
@@ -383,7 +383,7 @@ defer(console.log, 'a'), console.log('b'); // logs 'b' then 'a'
 
 ### 3. `runPromisesInSeries`：运行多个`Promises`
 
-```
+```javascript
 const runPromisesInSeries = ps => ps.reduce((p, next) => p.then(next), Promise.resolve());
 const delay = d => new Promise(r => setTimeout(r, d));
 
@@ -393,7 +393,7 @@ runPromisesInSeries([() => delay(1000), () => delay(2000)]);
 
 ### 4. `timeTaken`：计算函数执行时间
 
-```
+```javascript
 const timeTaken = callback => {
   console.time('timeTaken');
   const r = callback();
@@ -413,7 +413,7 @@ timeTaken(() => Math.pow(2, 10)); // 1024, (logged): timeTaken: 0.02099609375ms
 3. `on`，为事件创建一个数组（若不存在则为空数组），然后`.push()`将处理程序添加到该数组。
 4. `off`，用`.findIndex()`在事件数组中查找处理程序的索引，并使用`.splice()`删除。
 
-```
+```javascript
 const createEventHub = () => ({
   hub: Object.create(null),
   emit(event, data) {
@@ -433,7 +433,7 @@ const createEventHub = () => ({
 
 用法：
 
-```
+```javascript
 const handler = data => console.log(data);
 const hub = createEventHub();
 let increment = 0;
@@ -458,7 +458,7 @@ hub.off('message', handler);
 
 通过检查输入值的函数输出是否已缓存，返回存储一个参数的函数，该参数将被提供给已记忆的函数；如果没有，则存储并返回它。
 
-```
+```javascript
 const memoize = fn => {
   const cache = new Map();
   const cached = function(val) {
@@ -471,7 +471,7 @@ const memoize = fn => {
 
 **Ps: 这个版本可能不是很清晰，还有Vue源码版的：**
 
-```
+```javascript
 /**
  * Create a cached version of a pure function.
  */
@@ -486,7 +486,7 @@ export function cached<F: Function> (fn: F): F {
 
 ### 7. `once`：只调用一次的函数
 
-```
+```javascript
 const once = fn => {
   let called = false
   return function () {
@@ -507,7 +507,7 @@ const once = fn => {
 3. 否则，它将适当的前缀键值对添加到累加器对象。
 4. `prefix`除非您希望每个键都有一个前缀，否则应始终省略第二个参数。
 
-```
+```javascript
 const flattenObject = (obj, prefix = '') =>
   Object.keys(obj).reduce((acc, k) => {
     const pre = prefix.length ? prefix + '.' : '';
@@ -523,7 +523,7 @@ flattenObject({ a: { b: { c: 1 } }, d: 1 }); // { 'a.b.c': 1, d: 1 }
 
 与上面的相反，展开对象。
 
-```
+```javascript
 const unflattenObject = obj =>
   Object.keys(obj).reduce((acc, k) => {
     if (k.indexOf('.') !== -1) {
@@ -550,7 +550,7 @@ unflattenObject({ 'a.b.c': 1, d: 1 }); // { a: { b: { c: 1 } }, d: 1 }
 
 ### 1.`byteSize`：返回字符串的字节长度
 
-```
+```javascript
 const byteSize = str => new Blob([str]).size;
 
 byteSize('😀'); // 4
@@ -559,7 +559,7 @@ byteSize('Hello World'); // 11
 
 ### 2. `capitalize`：首字母大写
 
-```
+```javascript
 const capitalize = ([first, ...rest]) =>
   first.toUpperCase() + rest.join('');
 
@@ -569,7 +569,7 @@ capitalize('fooBar', true); // 'Foobar'
 
 ### 3. `capitalizeEveryWord`：每个单词首字母大写
 
-```
+```javascript
 const capitalizeEveryWord = str => str.replace(/\b[a-z]/g, char => char.toUpperCase());
 
 capitalizeEveryWord('hello world!'); // 'Hello World!'
@@ -577,7 +577,7 @@ capitalizeEveryWord('hello world!'); // 'Hello World!'
 
 ### 4. `decapitalize`：首字母小写
 
-```
+```javascript
 const decapitalize = ([first, ...rest]) =>
   first.toLowerCase() + rest.join('')
 
@@ -591,7 +591,7 @@ decapitalize('FooBar'); // 'fooBar'
 
 与`String.prototype.split('')`结合使用，以获取数字数组。获得最后一个数字。实施`luhn`算法。如果被整除，则返回，否则返回。
 
-```
+```javascript
 const luhnCheck = num => {
   let arr = (num + '')
     .split('')
@@ -606,7 +606,7 @@ const luhnCheck = num => {
 
 用例:
 
-```
+```javascript
 luhnCheck('4485275742308327'); // true
 luhnCheck(6011329933655299); //  false
 luhnCheck(123456789); // false
@@ -635,7 +635,7 @@ luhnCheck(123456789); // false
 
 使用`String.prototype.split()`和正则表达式匹配换行符并创建一个数组。
 
-```
+```javascript
 const splitLines = str => str.split(/\r?\n/);
 
 splitLines('This\nis a\nmultiline\nstring.\n'); // ['This', 'is a', 'multiline', 'string.' , '']
@@ -647,7 +647,7 @@ splitLines('This\nis a\nmultiline\nstring.\n'); // ['This', 'is a', 'multiline',
 
 使用正则表达式从字符串中删除`HTML / XML` 标记。
 
-```
+```javascript
 const stripHTMLTags = str => str.replace(/<[^>]*>/g, '');
 
 stripHTMLTags('<p><em>lorem</em> <strong>ipsum</strong></p>'); // 'lorem ipsum'
@@ -657,7 +657,7 @@ stripHTMLTags('<p><em>lorem</em> <strong>ipsum</strong></p>'); // 'lorem ipsum'
 
 ### 1. `dayOfYear`：当前日期天数
 
-```
+```javascript
 const dayOfYear = date =>
   Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
 
@@ -666,14 +666,14 @@ dayOfYear(new Date()); // 285
 
 ### 2. `forOwn`：迭代属性并执行回调
 
-```
+```javascript
 const forOwn = (obj, fn) => Object.keys(obj).forEach(key => fn(obj[key], key, obj));
 forOwn({ foo: 'bar', a: 1 }, v => console.log(v)); // 'bar', 1
 ```
 
 ### 3. `Get Time From Date`：返回当前24小时制时间的字符串
 
-```
+```javascript
 const getColonTimeFromDate = date => date.toTimeString().slice(0, 8);
 
 getColonTimeFromDate(new Date()); // "08:38:00"
@@ -681,7 +681,7 @@ getColonTimeFromDate(new Date()); // "08:38:00"
 
 ### 4. `Get Days Between Dates`：返回日期间的天数
 
-```
+```javascript
 const getDaysDiffBetweenDates = (dateInitial, dateFinal) =>
   (dateFinal - dateInitial) / (1000 * 3600 * 24);
 
@@ -690,7 +690,7 @@ getDaysDiffBetweenDates(new Date('2019-01-01'), new Date('2019-10-14')); // 286
 
 ### 5. `is`：检查值是否为特定类型。
 
-```
+```javascript
 const is = (type, val) => ![, null].includes(val) && val.constructor === type;
 
 is(Array, [1]); // true
@@ -710,7 +710,7 @@ is(Boolean, new Boolean(true)); // true
 
 ### 6. `isAfterDate`：检查是否在某日期后
 
-```
+```javascript
 const isAfterDate = (dateA, dateB) => dateA > dateB;
 
 isAfterDate(new Date(2010, 10, 21), new Date(2010, 10, 20)); // true
@@ -718,7 +718,7 @@ isAfterDate(new Date(2010, 10, 21), new Date(2010, 10, 20)); // true
 
 ### 7. `isBeforeDate`：检查是否在某日期前
 
-```
+```javascript
 const isBeforeDate = (dateA, dateB) => dateA < dateB;
 
 isBeforeDate(new Date(2010, 10, 20), new Date(2010, 10, 21)); // true
@@ -726,7 +726,7 @@ isBeforeDate(new Date(2010, 10, 20), new Date(2010, 10, 21)); // true
 
 ### 8 `tomorrow`：获取明天的字符串格式时间
 
-```
+```javascript
 const tomorrow = () => {
   let t = new Date();
   t.setDate(t.getDate() + 1);
@@ -742,7 +742,7 @@ tomorrow(); // 2019-10-15 (如果明天是2019-10-15)
 
 **此代码段精简的核心在于`Array.prototype.every()`的使用。**
 
-```
+```javascript
 const equals = (a, b) => {
   if (a === b) return true;
   if (a instanceof Date && b instanceof Date) return a.getTime() === b.getTime();
@@ -756,7 +756,7 @@ const equals = (a, b) => {
 
 用法：
 
-```
+```javascript
 equals({ a: [2, { e: 3 }], b: [4], c: 'foo' }, { a: [2, { e: 3 }], b: [4], c: 'foo' }); // true
 ```
 
@@ -764,7 +764,7 @@ equals({ a: [2, { e: 3 }], b: [4], c: 'foo' }, { a: [2, { e: 3 }], b: [4], c: 'f
 
 ### 1. `randomIntegerInRange`：生成指定范围的随机整数
 
-```
+```javascript
 const randomIntegerInRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 randomIntegerInRange(0, 5); // 3
@@ -772,7 +772,7 @@ randomIntegerInRange(0, 5); // 3
 
 ### 2. `randomNumberInRange`：生成指定范围的随机小数
 
-```
+```javascript
 const randomNumberInRange = (min, max) => Math.random() * (max - min) + min;
 
 randomNumberInRange(2, 10); // 6.0211363285087005
@@ -780,7 +780,7 @@ randomNumberInRange(2, 10); // 6.0211363285087005
 
 ### 3. `round`：四舍五入到指定位数
 
-```
+```javascript
 const round = (n, decimals = 0) => Number(`${Math.round(`${n}e${decimals}`)}e-${decimals}`);
 
 round(1.005, 2); // 1.01
@@ -788,7 +788,7 @@ round(1.005, 2); // 1.01
 
 ### 4. `sum`：计算数组或多个数字的总和
 
-```
+```javascript
 const sum = (...arr) => [...arr].reduce((acc, val) => acc + val, 0);
 
 sum(1, 2, 3, 4); // 10
@@ -797,7 +797,7 @@ sum(...[1, 2, 3, 4]); // 10
 
 ### 5. `toCurrency`：简单的货币单位转换
 
-```
+```javascript
 const toCurrency = (n, curr, LanguageFormat = undefined) =>
   Intl.NumberFormat(LanguageFormat, { style: 'currency', currency: curr }).format(n);
 
@@ -811,7 +811,7 @@ toCurrency(322342436423.2435, 'JPY'); // ¥322,342,436,423
 
 ### 1. `bottomVisible`：检查页面底部是否可见
 
-```
+```javascript
 const bottomVisible = () =>
   document.documentElement.clientHeight + window.scrollY >=
   (document.documentElement.scrollHeight || document.documentElement.clientHeight);
@@ -823,7 +823,7 @@ bottomVisible(); // true
 
 此代码段调用`fs`模块的`existsSync()`检查目录是否存在，如果不存在，则`mkdirSync()`创建该目录。
 
-```
+```javascript
 const fs = require('fs');
 const createDirIfNotExists = dir => (!fs.existsSync(dir) ? fs.mkdirSync(dir) : undefined);
 createDirIfNotExists('test'); 
@@ -831,7 +831,7 @@ createDirIfNotExists('test');
 
 ### 3. `currentURL`：返回当前链接`url`
 
-```
+```javascript
 const currentURL = () => window.location.href;
 
 currentURL(); // 'https://juejin.im'
@@ -841,7 +841,7 @@ currentURL(); // 'https://juejin.im'
 
 该代码段通过计算欧几里得距离来返回两点之间的距离。
 
-```
+```javascript
 const distance = (x0, y0, x1, y1) => Math.hypot(x1 - x0, y1 - y0);
 
 distance(1, 1, 2, 3); // 2.23606797749979
@@ -851,7 +851,7 @@ distance(1, 1, 2, 3); // 2.23606797749979
 
 此代码段检查父元素是否包含子元素。
 
-```
+```javascript
 const elementContains = (parent, child) => parent !== child && parent.contains(child);
 
 elementContains(document.querySelector('head'), document.querySelector('title')); // true
@@ -860,7 +860,7 @@ elementContains(document.querySelector('body'), document.querySelector('body'));
 
 ### 6. `getStyle`：返回指定元素的生效样式
 
-```
+```javascript
 const getStyle = (el, ruleName) => getComputedStyle(el)[ruleName];
 
 getStyle(document.querySelector('p'), 'font-size'); // '16px'
@@ -868,7 +868,7 @@ getStyle(document.querySelector('p'), 'font-size'); // '16px'
 
 ### 7. `getType`：返回值或变量的类型名
 
-```
+```javascript
 const getType = v =>
   v === undefined ? 'undefined' : v === null ? 'null' : v.constructor.name.toLowerCase();
 
@@ -878,14 +878,14 @@ getType([1, 2, 3]); // 'array'
 
 ### 8. `hasClass`：校验指定元素的类名
 
-```
+```javascript
 const hasClass = (el, className) => el.classList.contains(className);
 hasClass(document.querySelector('p.special'), 'special'); // true
 ```
 
 ### 9. `hide`：隐藏所有的指定标签
 
-```
+```javascript
 const hide = (...el) => [...el].forEach(e => (e.style.display = 'none'));
 
 hide(document.querySelectorAll('img')); // 隐藏所有<img>标签
@@ -893,7 +893,7 @@ hide(document.querySelectorAll('img')); // 隐藏所有<img>标签
 
 ### 10. `httpsRedirect`：`HTTP` 跳转 `HTTPS`
 
-```
+```javascript
 const httpsRedirect = () => {
   if (location.protocol !== 'https:') location.replace('https://' + location.href.split('//')[1]);
 };
@@ -903,7 +903,7 @@ httpsRedirect(); // 若在`http://www.baidu.com`, 则跳转到`https://www.baidu
 
 ### 11.`insertAfter`：在指定元素之后插入新元素
 
-```
+```javascript
 const insertAfter = (el, htmlString) => el.insertAdjacentHTML('afterend', htmlString);
 
 // <div id="myId">...</div> <p>after</p>
@@ -912,7 +912,7 @@ insertAfter(document.getElementById('myId'), '<p>after</p>');
 
 ### 12.`insertBefore`：在指定元素之前插入新元素
 
-```
+```javascript
 const insertBefore = (el, htmlString) => el.insertAdjacentHTML('beforebegin', htmlString);
 
 insertBefore(document.getElementById('myId'), '<p>before</p>'); // <p>before</p> <div id="myId">...</div>
@@ -922,7 +922,7 @@ insertBefore(document.getElementById('myId'), '<p>before</p>'); // <p>before</p>
 
 此代码段可用于确定当前运行时环境是否为浏览器。这有助于避免在服务器（节点）上运行前端模块时出错。
 
-```
+```javascript
 const isBrowser = () => ![typeof window, typeof document].includes('undefined');
 
 isBrowser(); // true (browser)
@@ -931,7 +931,7 @@ isBrowser(); // false (Node)
 
 ### 14. ` isBrowserTab`：检查当前标签页是否活动
 
-```
+```javascript
 const isBrowserTabFocused = () => !document.hidden;
 
 isBrowserTabFocused(); // true
@@ -939,7 +939,7 @@ isBrowserTabFocused(); // true
 
 ### 15. `nodeListToArray`：转换`nodeList`为数组
 
-```
+```javascript
 const nodeListToArray = nodeList => [...nodeList];
 
 nodeListToArray(document.childNodes); // [ <!DOCTYPE html>, html ]
@@ -947,7 +947,7 @@ nodeListToArray(document.childNodes); // [ <!DOCTYPE html>, html ]
 
 ### 16. `Random Hexadecimal Color Code`：随机十六进制颜色
 
-```
+```javascript
 const randomHexColorCode = () => {
   let n = (Math.random() * 0xfffff * 1000000).toString(16);
   return '#' + n.slice(0, 6);
@@ -960,7 +960,7 @@ randomHexColorCode(); // "#e34155"
 
 该代码段可用于平滑滚动到当前页面的顶部。
 
-```
+```javascript
 const scrollToTop = () => {
   const c = document.documentElement.scrollTop || document.body.scrollTop;
   if (c > 0) {
@@ -976,7 +976,7 @@ scrollToTop();
 
 该代码段可将指定元素平滑滚动到浏览器窗口的可见区域。
 
-```
+```javascript
 const smoothScroll = element =>
   document.querySelector(element).scrollIntoView({
     behavior: 'smooth'
@@ -988,7 +988,7 @@ smoothScroll('.fooBar');
 
 ### 19. `detectDeviceType`：检测移动/PC设备
 
-```
+```javascript
 const detectDeviceType = () =>
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
     ? 'Mobile'
@@ -999,7 +999,7 @@ const detectDeviceType = () =>
 
 默认参数为`window` ，`pageXOffset(pageYOffset)`为第一选择，没有则用`scrollLeft(scrollTop)`
 
-```
+```javascript
 const getScrollPosition = (el = window) => ({
   x: el.pageXOffset !== undefined ? el.pageXOffset : el.scrollLeft,
   y: el.pageYOffset !== undefined ? el.pageYOffset : el.scrollTop
@@ -1014,7 +1014,7 @@ getScrollPosition(); // {x: 0, y: 200}
 
 另外，多重三元运算符，是真香。
 
-```
+```javascript
 const size = val =>
   Array.isArray(val)
     ? val.length
@@ -1033,7 +1033,7 @@ size({ one: 1, two: 2, three: 3 }); // 3
 
 当然是用来防`XSS`攻击啦。
 
-```
+```javascript
 const escapeHTML = str =>
   str.replace(
     /[&<>'"]/g,
