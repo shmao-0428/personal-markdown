@@ -135,6 +135,67 @@ export default {
 </script>
 ```
 
+## 当传入的props过多时 可以使用该方法简化操作
 
+```js
+const getProps = (target) => {
+  function regx(key) {
+    return key.replace(/-[a-zA-Z]/g, function (k) {
+      return k.slice(1).toUpperCase();
+    });
+  }
+  function getType(type) {
+    switch (type) {
+      case String:
+        return '';
+      case Boolean:
+        return false;
+      case Number:
+        return 0;
+      case Object:
+        return () => {};
+      case Array:
+        return () => [];
+      case Function:
+        return () => {};
+    }
+  }
+  const props = {};
+  for (const [key, type, value] of target) {
+    props[regx(key)] = {
+      type,
+      default: value || getType(type),
+    };
+  }
+  return props;
+};
 
+const variable = [
+  ['title', String, 'ceshi'],
+  ['title-icon', String, 'icon-title'],
+  ['title-name', String, 'wawa'],
+  ['title-icon-name', String],
+  [
+    'get-list',
+    Function,
+    () => {
+      return 'ceshi';
+    },
+  ],
+  ['index', Number],
+  ['is-value', Boolean, true],
+  ['is-value-key', Boolean],
+  ['todo-list', Array, () => [1, 3, 4, 5]],
+  [
+    'todo-map',
+    Object,
+    () => {
+      return {
+        start: 1,
+      };
+    },
+  ],
+];
+console.log(getProps(variable));
+```
 
