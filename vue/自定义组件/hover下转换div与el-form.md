@@ -1272,7 +1272,7 @@ export default {
 
 
 
-# 版本五: 添加可编辑选项-基于版本三
+# 版本五: 添加可编辑选项与tooltip-基于版本三
 
 ### 代码
 
@@ -1283,7 +1283,7 @@ export default {
   * @Author: shmao
   * @Date: 2020-09-06 11:07:54
  * @LastEditors: shmao
- * @LastEditTime: 2020-09-06 19:05:42
+ * @LastEditTime: 2020-09-06 21:16:49
   -->
 <template>
   <div class="form-label">
@@ -1296,7 +1296,15 @@ export default {
       @mouseenter="handleMouseEnter"
       @mouseleave="handleMouseLeave"
     >
-      <span ref="context" class="form-label-context" />
+      <el-tooltip
+        class="item"
+        effect="dark"
+        :disabled="input.length < 13"
+        :content="input"
+        placement="top-start"
+      >
+        <span ref="context" class="form-label-context" />
+      </el-tooltip>
       <span v-if="edit" class="form-input-bar" />
       <i
         v-show="showIcon"
@@ -1471,6 +1479,7 @@ export default {
   border-bottom: 1px solid #ccc;
   padding: 0 15px;
   position: relative;
+  overflow: hidden;
 }
 .form-label .form-label-main--no-edit {
   flex: 1;
@@ -1535,6 +1544,9 @@ export default {
   height: 100%;
   display: block;
   font-size: 14px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .form-label .form-label-item {
   position: relative;
@@ -1551,7 +1563,6 @@ export default {
   transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 </style>
-
 ```
 
 #### form-input.vue
