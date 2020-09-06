@@ -137,6 +137,8 @@ export default {
 
 ## 当传入的props过多时 可以使用该方法简化操作
 
+### 版本1
+
 ```js
 const getProps = (target) => {
   function regx(key) {
@@ -192,10 +194,112 @@ const variable = [
     () => {
       return {
         start: 1,
+     };
+    },
+  ],
+];
+console.log(getProps(variable));
+```
+
+### 版本2
+
+```js
+/*
+ * @Author: shmao
+ * @Date: 2020-09-05 16:54:49
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-09-06 19:36:05
+ */
+const getProps = (target) => {
+  function regx(key) {
+    return key.replace(/-[a-zA-Z]/g, function (k) {
+      return k.slice(1).toUpperCase();
+    });
+  }
+  function getType(type) {
+    switch (type) {
+      case String:
+        return '';
+      case Boolean:
+        return false;
+      case Number:
+        return 0;
+      case Object:
+        return () => {};
+      case Array:
+        return () => [];
+      case Function:
+        return () => {};
+    }
+  }
+  const props = {};
+  for (const [key, type, value, validator] of variable) {
+    if (Object.prototype.toString.call(type) === '[object Array]') {
+      props[regx(key)] = {
+        type,
+      };
+    } else {
+      props[regx(key)] = {
+        type,
+        default: value || getType(type),
+      };
+    }
+    if (validator) {
+      if (validator[0] === 'validator') {
+        props[regx(key)] = {
+          type,
+          default: value || getType(type),
+          validator: validator[1],
+        };
+      } else {
+        props[regx(key)] = {
+          type,
+          default: value || getType(type),
+          require: validator[1],
+        };
+      }
+    }
+  }
+  return props;
+};
+
+const variable = [
+  [
+    'title',
+    String,
+    'ceshi',
+    [
+      'validator',
+      (t) => {
+        return ['top', 'buttom'].include(t);
+      },
+    ],
+  ],
+  ['title-icon', String, 'icon-title', ['require', true]],
+  ['title-name', String, 'wawa'],
+  ['title-icon-name', String],
+  [
+    'get-list',
+    Function,
+    () => {
+      return 'ceshi';
+    },
+  ],
+  ['index', [String, Number]],
+  ['is-value', Boolean, true],
+  ['is-value-key', Boolean],
+  ['todo-list', Array, () => [1, 3, 4, 5]],
+  [
+    'todo-map',
+    Object,
+    () => {
+      return {
+        start: 1,
       };
     },
   ],
 ];
 console.log(getProps(variable));
+
 ```
 
