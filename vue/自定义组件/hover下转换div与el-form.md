@@ -774,6 +774,110 @@ export default {
       <el-form-item label="活动形式:">
         <form-demo v-model="formText.type" :options="options" type="select" />
       </el-form-item>
-    </el-form>
+  </el-form>
 ```
 
+
+
+
+
+#  版本四 添加动画特效
+
+### 在版本三的基础上添加特效
+
+```html
+<template>
+  <div class="form-label">
+    <div
+      v-if="!showInput"
+      :class="['form-label-main', computedClasses]" --- > 这里
+      @mouseenter="handleMouseEnter"
+      @mouseleave="handleMouseLeave"
+    >
+      <span ref="context" class="form-label-context" />
+      <div class="form-input-bar" />  --- > 这里
+      <i
+        v-show="showIcon"
+        class="el-icon-edit"
+        @click.stop="handleInputShowing"
+      />
+    </div>
+    <component
+      v-else
+      ref="input"
+      :value.sync="input"
+      :is="componentName"
+      :options="options"
+      v-on="$listeners"
+      v-bind="$attrs"
+      @onInput="onInput"
+      @handleBlur="handleBlur"
+      @handleSelectFocus="handleSelectFocus"
+      @handleChange="handleChange"
+      @handelVisibleChange="handelVisibleChange"
+      @handleSelectBlur="handleSelectBlur"
+    />
+  </div>
+</template>
+```
+
+```js
+ computed: {
+    componentName() {
+      switch (this.type) {
+        case 'select':
+          return 'FormSelect';
+        default:
+          return 'FormInput';
+      }
+    },
+    // ---> 这里
+    computedClasses() {
+      return {
+        'is--active': this.showIcon, // has value
+      };
+    },
+  },
+```
+
+```css
+.form-label .form-input-bar::before {
+  background: #409eff;
+  content: '';
+  height: 1px;
+  width: 0;
+  bottom: 0;
+  left: 50%;
+  position: absolute;
+  -webkit-transition: 0.2s ease all;
+  transition: 0.2s ease all;
+}
+.form-label .form-input-bar::after {
+  background: #409eff;
+  content: '';
+  height: 1px;
+  width: 0;
+  right: 50%;
+  bottom: 0;
+  position: absolute;
+  -webkit-transition: 0.2s ease all;
+  transition: 0.2s ease all;
+}
+.form-label .is--active .form-input-bar::after {
+  width: 50%;
+}
+.form-label .is--active .form-input-bar::before {
+  width: 50%;
+}
+.form-input-bar {
+  position: relative;
+  display: block;
+  width: 100%;
+  left: -15px;
+  padding: 0 15px;
+}
+```
+
+### 效果
+
+![image-20200906172849901](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200906172849901.png)
