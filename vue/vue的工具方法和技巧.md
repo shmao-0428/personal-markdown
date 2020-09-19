@@ -303,3 +303,27 @@ console.log(getProps(variable));
 
 ```
 
+# 使用element-ui tooltip组件时 动态计算是否显示tooltip
+
+```js
+// text 标签文本内容
+// largesWidth 标签的宽度
+function isShowTooltip(text, largestWidth) {
+  // 创建一个动态span计算长度
+  let span = document.createElement('span');
+  span.style.display = 'inline-block';
+  span.style.visibility = 'hidden';
+  span.textContent = text;
+  document.body.appendChild(span);
+  const length = window.getComputedStyle(span).width.split('px')[0] * 1;
+
+  document.body.removeChild(span);
+
+  if (length > largestWidth) {
+    return false;
+  } else {
+    return true;
+  }
+}
+```
+
