@@ -1,0 +1,48 @@
+<!--
+ * @Author: shmao
+ * @Date: 2020-09-20 16:59:32
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-09-20 21:35:19
+-->
+<script>
+    /**
+     *  new
+     *  创建一个新对象
+     *  将构造函数的this指向这个对象
+     *  执行函数
+     *  返回新对象(实例化对象)
+     */
+    function createNew(Func, ...args) {
+        const instance = {};
+        // instance.__proto__ = Func.prototype;
+        // Object.setPrototypeOf(instance, Func.prototype);
+        Reflect.setPrototypeOf(instance, Func.prototype);
+        const res = Func.apply(instance, args);
+        console.log(res);
+        if (typeof res === 'function' || (typeof res === 'object' && res !== null)) return res
+        return instance;
+    }
+    // 测试
+
+    /**
+     *  Uncaught TypeError: Class constructor Person cannot be invoked without 'new'
+     */
+    // class Person {
+    //     constructor(name) {
+    //         this.name = name;
+    //     }
+    //     sayName() {
+    //         console.log(`My name is ${this.name}`)
+    //     }
+    // }
+    function Person(name) {
+        this.name = name
+    }
+    Person.prototype.sayName = function () {
+        console.log(`My name is ${this.name}`)
+    }
+
+    const me = createNew(Person, 'Jack')
+    me.sayName()
+    console.log(me)
+</script>

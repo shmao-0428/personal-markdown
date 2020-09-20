@@ -1,0 +1,26 @@
+<!--
+ * @Author: shmao
+ * @Date: 2020-09-20 16:59:51
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-09-21 00:03:10
+-->
+<script>
+
+    Function.prototype.createCall = function (context = globalThis) {
+        const key = Symbol(('key'));
+        context[key] = this;
+        let args = Array.from(arguments).slice(1);
+        let res = context[key](...args);
+        Reflect.deleteProperty(context, key);
+        return res;
+    }
+
+    // 测试
+    const me = { name: 'Jack' }
+    function say() {
+        console.log(`My name is ${this.name || 'default'}`);
+        return this.name
+    }
+    say.createCall(me)
+
+</script>

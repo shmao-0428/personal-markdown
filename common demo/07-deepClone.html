@@ -1,0 +1,30 @@
+<!--
+ * @Author: shmao
+ * @Date: 2020-09-20 17:00:04
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-09-21 00:08:49
+-->
+<script>
+    /**
+     *  简略版本
+     */
+    function deepClone(target) {
+        let result = Array.isArray(target) ? [] : {};
+        for (const key in target) {
+            if ((target.hasOwnProperty(key) || Object.prototype.hasOwnProperty(key)) && typeof target[key] === 'object') {
+                result[key] = deepClone(target[key])
+            } else {
+                result[key] = target[key]
+            }
+        }
+        return result
+    }
+
+    /**
+     *  精装版本
+     */
+    function deepCopy(target, cache = new WeakMap()) {
+
+    }
+
+</script>
