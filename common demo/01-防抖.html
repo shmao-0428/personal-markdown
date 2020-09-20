@@ -1,0 +1,28 @@
+<!--
+ * @Author: shmao
+ * @Date: 2020-09-20 12:14:31
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-09-20 12:26:54
+-->
+<script>
+
+    function debounce(func, timeout = 1000) {
+        let timer;
+        return function (...args) {
+            if (timer) {
+                clearTimeout(timer);
+            }
+            timer = setTimeout(() => {
+                func.apply(this, args);
+            }, timeout);
+        }
+    }
+
+    const task = () => {
+        console.log('run task');
+    }
+    const debounceTask = debounce(task, 1000);
+
+    window.addEventListener('click', debounceTask)
+
+</script>
