@@ -2,7 +2,7 @@
  * @Author: shmao
  * @Date: 2020-09-20 17:00:12
  * @LastEditors: shmao
- * @LastEditTime: 2020-09-23 22:34:20
+ * @LastEditTime: 2020-09-23 22:40:50
 -->
 
 <script>
@@ -10,6 +10,15 @@
     class EventBus {
         constructor() {
             this.cache = [];
+        }
+        on(eventName, eventCallback) {
+            if (this.cache[eventName]) {
+                this.cache.push(eventCallback)
+            } else {
+                this.cache[eventName] = [eventCallback]
+            }
+        }
+        emit(eventName, once = false) {
         }
     }
 </script>
