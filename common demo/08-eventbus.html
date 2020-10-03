@@ -1,24 +1,78 @@
 <!--
  * @Author: shmao
- * @Date: 2020-09-20 17:00:12
+ * @Date: 2020-10-03 13:15:03
  * @LastEditors: shmao
- * @LastEditTime: 2020-09-23 22:40:50
+ * @LastEditTime: 2020-10-03 18:08:27
 -->
+<!DOCTYPE html>
+<html lang="en">
 
-<script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./08-eventbus.js"></script>
+</head>
 
-    class EventBus {
-        constructor() {
-            this.cache = [];
+<body>
+    <button id="bt1">emit event1</button>
+    <button id="bt2">emit event2</button>
+    <button id="bt3">emit event3</button>
+    <input type="text">
+    <script>
+
+        const btn1 = document.querySelector('#bt1'),
+            btn2 = document.querySelector('#bt2'),
+            btn3 = document.querySelector('#bt3'),
+            input = document.querySelector('input');
+        btn1.addEventListener('click', function () {
+            eventbus.emit('first_event', 'come from btn1');
+            console.log(eventbus);
+        })
+        btn2.addEventListener('click', function () {
+            eventbus.emit('second_event', 'come from btn2')
+            console.log(eventbus);
+        })
+        btn3.addEventListener('click', function () {
+            eventbus.emit('first_event', 'come from btn3')
+            console.log(eventbus);
+        })
+        input.addEventListener('change', function () {
+            console.log(this.value);
+        })
+        window.onload = function () {
+            // eventbus.on('', (r) => {
+            //     input.value = r
+            //     console.log(r);
+            // });
+
+            eventbus.on('first_event', (r) => {
+                input.value = r
+                console.log(r);
+            });
+
+            eventbus.on('second_event', (r) => {
+                input.value = r
+                console.log(r);
+            });
         }
-        on(eventName, eventCallback) {
-            if (this.cache[eventName]) {
-                this.cache.push(eventCallback)
-            } else {
-                this.cache[eventName] = [eventCallback]
-            }
-        }
-        emit(eventName, once = false) {
-        }
-    }
-</script>
+        // chrome 不执行
+        // window.onunload = function () {
+        //     return '是否离开当前页面'
+        // }
+        // https://www.cnblogs.com/xianyulaodi/p/5035171.html
+
+
+        // window.onbeforeunload = function () {
+        //     eventbus.off('first_event', function () {
+        //         if (!eventbus.cache['first_event']) {
+        //             console.log('已销毁');
+        //         }
+        //     })
+        //     console.log(eventbus);
+        //     return '确定离开当前页面吗'
+        // }
+    </script>
+</body>
+
+</html>

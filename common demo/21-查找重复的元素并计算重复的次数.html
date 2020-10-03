@@ -1,0 +1,33 @@
+<!--
+ * @Author: shmao
+ * @Date: 2020-09-20 17:05:13
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-10-03 21:54:32
+-->
+
+<script>
+
+  function calcInfinite(arr) {
+    let res = {}
+    for (const item of arr) {
+      if (item in res) {
+        res[item]++
+      } else {
+        res[item] = 1
+      }
+    }
+    return res
+  }
+
+  function calcInfinite2(arr = []) {
+    let res = {}
+    for (const item of arr) {
+      res[item] = arr.filter(item1 => item1 === item).length
+    }
+    return res
+  }
+
+  const arr = [1, 1, 1, 1, 1, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5];
+  console.log(calcInfinite(arr));
+  console.log(calcInfinite2(arr));
+</script>

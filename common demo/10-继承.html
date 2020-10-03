@@ -1,0 +1,36 @@
+<!--
+ * @Author: shmao
+ * @Date: 2020-09-20 17:00:30
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-10-03 20:13:30
+-->
+<script src="./10-create.js"></script>
+<script>
+    /**
+     *  es5继承
+     */
+    function Father(name, age) {
+        this.name = name;
+        this.age = age;
+        this.fetch = function () {
+            console.log('i am man');
+        }
+    }
+    Father.prototype.sleep = function () {
+        console.log('i can sleep');
+    }
+
+    function Son(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    // Son.prototype = Father.prototype;
+    // Son.prototype = create(Father.prototype);
+    const son = new Son('son', 18);
+    const father = new Father('father', 40);
+    // console.log(father);
+    // son.__proto__ = father;
+    son.__proto__ = create(father);
+    son.sleep();
+    son.fetch();
+</script>

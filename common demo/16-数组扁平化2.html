@@ -1,0 +1,16 @@
+<!--
+ * @Author: shmao
+ * @Date: 2020-09-20 17:02:14
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-10-03 20:54:15
+-->
+<script>
+    function flat(array = []) {
+        return array.reduce((t, c) => {
+            return t.concat(Array.isArray(c) ? flat(c) : c)
+        }, [])
+    }
+
+    const source = [1, 2, [3, 4, [5, 6]], '7']
+    console.log(flat(source))
+</script>

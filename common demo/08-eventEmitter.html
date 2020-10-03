@@ -1,0 +1,23 @@
+<!--
+ * @Author: shmao
+ * @Date: 2020-10-03 18:16:42
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-10-03 18:21:03
+-->
+<script src="./08-eventEmitter.js"></script>
+<script>
+    // 测试
+    const eventBus = new EventEmitter();
+    const task1 = () => {
+        console.log('task1');
+    };
+    const task2 = () => {
+        console.log('task2');
+    };
+    eventBus.on('task', task1);
+    eventBus.on('task', task2);
+
+    setTimeout(() => {
+        eventBus.emit('task');
+    }, 1000);
+</script>

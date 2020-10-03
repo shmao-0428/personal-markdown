@@ -1,0 +1,22 @@
+<!--
+ * @Author: shmao
+ * @Date: 2020-09-20 17:02:14
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-10-03 20:49:46
+-->
+<script>
+    function flat(array) {
+        const result = [];
+        array.forEach(item => {
+            if (Array.isArray(item)) {
+                result.push(...flat(item))
+            } else {
+                result.push(item)
+            }
+        });
+        return result
+    }
+
+    const source = [1, 2, [3, 4, [5, 6]], '7']
+    console.log(flat(source))
+</script>
