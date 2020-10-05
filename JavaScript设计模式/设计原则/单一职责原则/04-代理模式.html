@@ -1,0 +1,39 @@
+<!--
+ * @Author: shmao
+ * @Date: 2020-10-05 17:48:52
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-10-05 17:49:40
+-->
+<script>
+    // 图片预加载的例子。
+    // 通过增加虚拟代理的方式，把预加载图
+    // 片的职责放到代理对象中，而本体仅仅负责往页面中添加 img 标签，这也是它最原始的职责。
+    // myImage 负责往页面中添加 img 标签：
+    var myImage = (function () {
+        var imgNode = document.createElement('img');
+        document.body.appendChild(imgNode);
+        return {
+            setSrc: function (src) {
+
+                imgNode.src = src;
+
+            }
+        }
+    })();
+    // proxyImage 负责预加载图片，并在预加载完成之后把请求交给本体 myImage：
+    var proxyImage = (function () {
+        var img = new Image;
+        img.onload = function () {
+            myImage.setSrc(this.src);
+        }
+        return {
+            setSrc: function (src) {
+                myImage.setSrc('file:// /C:/Users/svenzeng/Desktop/loading.gif');
+                img.src = src;
+            }
+        }
+    })();
+    // 把添加 img 标签的功能和预加载图片的职责分开放到两个对象中，这两个对象各自都只有一
+    // 个被修改的动机。在它们各自发生改变的时候，也不会影响另外的对象。
+    proxyImage.setSrc('http:// imgcache.qq.com/music/photo/000GGDys0yA0Nk.jpg');
+</script>

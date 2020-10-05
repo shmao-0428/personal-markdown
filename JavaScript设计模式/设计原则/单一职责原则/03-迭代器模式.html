@@ -1,0 +1,66 @@
+<!--
+ * @Author: shmao
+ * @Date: 2020-10-05 17:46:41
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-10-05 17:48:24
+-->
+<script>
+    /**
+     *  我们有这样一段代码，先遍历一个集合，然后往页面中添加一些 div，这些 div 的 innerHTML
+    *   分别对应集合里的元素：
+     */
+
+    ; (function () {
+
+        var appendDiv = function (data) {
+            for (var i = 0, l = data.length; i < l; i++) {
+                var div = document.createElement('div');
+                div.innerHTML = data[i];
+                document.body.appendChild(div);
+            }
+        };
+        appendDiv([1, 2, 3, 4, 5, 6]);
+
+    })()
+
+
+
+    /**
+     *  这其实是一段很常见的代码，经常用于 ajax 请求之后，在回调函数中遍历 ajax 请求返回的
+     *  数据，然后在页面中渲染节点。
+     *  appendDiv 函数本来只是负责渲染数据，但是在这里它还承担了遍历聚合对象 data 的职责。
+     *  我们想象一下，如果有一天 cgi 返回的 data 数据格式从 array 变成了 object，那我们遍历 data 的
+     *  代码就会出现问题，必须改成 for (var i in data) 的方式，这时候必须去修改 appendDiv 里的
+     *  代码，否则因为遍历方式的改变，导致不能顺利往页面中添加 div 节点。
+     *  我们有必要把遍历 data 的职责提取出来，这正是迭代器模式的意义，迭代器模式提供了一
+     *  种方法来访问聚合对象，而不用暴露这个对象的内部表示。
+     *  当把迭代聚合对象的职责单独封装在 each 函数中后，即使以后还要增加新的迭代方式，我
+     *  们只需要修改 each 函数即可，appendDiv 函数不会受到牵连，代码如下：
+     */
+
+    var each = function (obj, callback) {
+        var value,
+            i = 0,
+            length = obj.length,
+            isArray = isArraylike(obj); // isArraylike 函数未实现，可以翻阅 jQuery 源代码
+        if (isArray) { // 迭代类数组
+            for (; i < length; i++) {
+                callback.call(obj[i], i, obj[i]);
+            }
+        } else {
+            for (i in obj) { // 迭代 object 对象
+                value = callback.call(obj[i], i, obj[i]);
+            }
+        }
+        return obj;
+    };
+    var appendDiv = function (data) {
+        each(data, function (i, n) {
+            var div = document.createElement('div');
+            div.innerHTML = n;
+            document.body.appendChild(div);
+        });
+    };
+    appendDiv([1, 2, 3, 4, 5, 6]);
+    appendDiv({ a: 1, b: 2, c: 3, d: 4 })
+</script>

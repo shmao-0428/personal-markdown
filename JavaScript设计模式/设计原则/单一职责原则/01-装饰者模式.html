@@ -1,0 +1,38 @@
+<!--
+ * @Author: shmao
+ * @Date: 2020-10-05 17:39:36
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-10-05 17:41:13
+-->
+<html>
+
+<body>
+    <button tag="login" id="button">点击打开登录浮层</button>
+</body>
+<script>
+    /**
+     *  使用装饰者模式的时候，我们通常让类或者对象一开始只具有一些基础的职责，更多的职责
+     *  在代码运行时被动态装饰到对象上面。装饰者模式可以为对象动态增加职责，从另一个角度来看，
+     *  这也是分离职责的一种方式。
+     */
+    Function.prototype.after = function (afterfn) {
+        var __self = this;
+        return function () {
+            var ret = __self.apply(this, arguments);
+            afterfn.apply(this, arguments);
+            return ret;
+        }
+    };
+    var showLogin = function () {
+        console.log('打开登录浮层');
+    };
+    var log = function () {
+        console.log('上报标签为: ' + this.getAttribute('tag'));
+    };
+
+
+    // 打开登录浮层之后上报数据
+    document.getElementById('button').onclick = showLogin.after(log);
+</script>
+
+</html>
