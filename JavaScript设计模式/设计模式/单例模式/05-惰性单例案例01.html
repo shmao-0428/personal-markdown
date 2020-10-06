@@ -1,0 +1,28 @@
+<!--
+ * @Author: shmao
+ * @Date: 2020-10-06 19:20:58
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-10-06 19:21:12
+-->
+<html>
+
+<body>
+    <button id="loginBtn">登录</button>
+</body>
+<script>
+    // 第一种解决方案是在页面加载完成的时候便创建好这个 div 浮窗，这个浮窗一开始肯定是隐
+    // 藏状态的，当用户点击登录按钮的时候，它才开始显示：
+    var loginLayer = (function () {
+        var div = document.createElement('div');
+        div.innerHTML = '我是登录浮窗';
+        div.style.display = 'none';
+        document.body.appendChild(div);
+        return div;
+    })();
+    document.getElementById('loginBtn').onclick = function () {
+
+        loginLayer.style.display = 'block';
+    }; 
+</script>
+
+</html>

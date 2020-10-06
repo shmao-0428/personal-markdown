@@ -1,0 +1,31 @@
+<!--
+ * @Author: shmao
+ * @Date: 2020-10-06 19:21:52
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-10-06 19:22:08
+-->
+
+<html>
+
+<body>
+    <button id="loginBtn">登录</button>
+</body>
+<script>
+
+    // 这种方式有一个问题，也许我们进入 WebQQ 只是玩玩游戏或者看看天气，根本不需要进行
+    // 登录操作，因为登录浮窗总是一开始就被创建好，那么很有可能将白白浪费一些 DOM 节点。
+    // 现在改写一下代码，使用户点击登录按钮的时候才开始创建该浮窗：
+    var createLoginLayer = function () {
+        var div = document.createElement('div');
+        div.innerHTML = '我是登录浮窗';
+        div.style.display = 'none';
+        document.body.appendChild(div);
+        return div;
+    };
+    document.getElementById('loginBtn').onclick = function () {
+        var loginLayer = createLoginLayer();
+        loginLayer.style.display = 'block';
+    }; 
+</script>
+
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./04-使用策略模式实现缓动动画.js"></script>
+</head>
+
+<body>
+    <div style="position: absolute;background: skyblue;" id="div">我是div</div>
+    <script>
+        var div = document.getElementById('div');
+        var animate = new Animate(div);
+        animate.start('left', 500, 1000, 'strongEaseOut');
+        // animate.start('top', 1500, 500, 'strongEaseIn');
+    </script>
+</body>
+
+</html>
