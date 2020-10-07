@@ -1,84 +1,103 @@
-# Webpack
+# 模块化规范
 
-- [webpack官网](https://webpack.js.org/)
-- [webpack中文网](https://webpack.docschina.org/)
+### 1.1 模块化概述
 
-####  概念  ==>  webpack 是什么??  前端模块化打包(构建)工具
+#### 传统开发模式的主要问题
 
-> webpack可以解决这些依赖关系,并对他们进行打包
+1. 命名冲突
+2. 文件依赖
 
- ### webpack 的两个方面
+#### 通过模块化解决上述问题
 
-> 1 - 打包  2 - 模块化
+- **模块化**就是把单独的一个功能封装到一个模块(文件)中, 模块之间相互隔离, 但是可以通过特定的接口公开内部成员, 也可以依赖别的模块;
+-  模块化开发的好处: 方便代码的重用, 从而提升开发效率, 并且方便后期维护.
 
-#### 一、打包 : 前端打包(构建)都能做什么??
+> 什么是接口?
 
-1. **语法转换**
+### 1.2 浏览器端的模块化规范
 
-   ```js
-   - Less/SASS 预编译CSS -> CSS -> 浏览器中使用
-   - ES6 新语法有兼容性问题 -> ES5 -> 浏览器中使用
-   - const fn = () => {} ===> var fn = function() {}
-   ```
+- AMD
+  - Require.js ( http://www.requirejs.cn )
+- CMD
+  - Sea.js( https://seajs.github,io/seajs/docs )
 
-2. **文件压缩、合并**
+### 1.3 服务器端模块化规范
 
-   ```js
-   JS/HTML/CSS 压缩后，才能发布上线
-   文件合并（ 不管有多个JS、CSS，默认打包直接生成一个JS文件 ）
-   ```
+- common.js
+  - 模块分为 **单文件模块** 和 **包**
+  - 模块成员导出: module.exports 和 exports
+  - 模块成员导入: require('模块标识符')
 
-3. **开发期间提供一个服务器环境**
+### 1.4  大一统的模块化规范 - ES6模块化
 
-   ```js
-    自动打开浏览器、监视文件变化，自动刷新浏览器
-   ```
+> 浏览器端和服务器端通用的模块化规范
 
-4. **项目上线,打包后才能上线**
+#### 1. 定义:
 
-5. **总结**
+- 每一个js文件都是一个独立的模块
+- 导入模块成员使用 **import** 关键字
+- 暴露模块成员使用 **export** 关键字, **export default** 默认导出
 
-   ```js
-    webpack 这个打包（构建）工具，就是提供了前端开发需要的一整套完整的流程，也就是
-    webpack 能够渗透的前端开发的各个环节、各个流程中，帮你实现 复杂、繁琐、重复的工作，有了 webpack 后，开发人员只需要关注当前要实现的业务即可。
-   ```
+####  2. node.js使用**babel**(语法转换工具,将高级有兼容性的javascript转换为没有兼容性的低级代码)体验es6模块化
 
-   
+- `npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/node`
 
-###二、模块化功能
+- `npm i --save @babel/polyfill`
 
-- 模块化 :  逻辑
+- 项目根目录创建文件babel.config.js
 
-- 组件化 :   界面
+- babel.config.js 配置文件内容
 
-- webpack为前端提供了模块化开发环境，而且webpack是基于node,有了webpack，就可以像写Node代码一样，写前端代码了
-
-- 在 webpack 看来所有的资源都是模块，不管是： CSS、图片、字体、JS、html 等
-
-- ```js
-  在webpack提供的模块化环境中，
-  1 想要加载一个JS文件，只需要 require('./a.js')
-  2 想要加载一个CSS文件，只需要 require('../css/index.css')
-  3 想要加载一个图片文件，只需要 require('../iamges/a.png')
-  4 ...
+  ```JavaScript
+  const presets = [
+    [
+      '@babel/env',
+      {
+        targets: {
+          edge: '17',
+          firefox: '60',
+          chrome: '67',
+          safari: '11.1',
+        },
+      },
+    ],
+  ];
+  
+  module.exports = { presets };
   ```
 
+- 通过 `npx babel-node index.js` 执行代码
 
+# webpack
 
-## 三 : Webpack 四个核心概念：
+### 1.1 当前web开发面临的困境
+
+- 文件依赖关系复杂
+- 静态资源请求效率低
+- 模块化支持不友好
+- 浏览器对高级JavaScript特性兼容性较低
+- etc...
+
+### 1.2 webpack概述
+
+> webpack 是一个流行的前端项目构架工具(打包工具), 可以解决当前web开发中所面临的困境
+>
+> webpack提供了友好的模块化支持, 以及代码压缩混淆, 处理js兼容问题, 性能优化等强大的功能, 从而让程序员把工作重心放到具体的功能实现上, 提高了开发效率和项目的可维护性;
+
+### 1.3  Webpack 四个核心概念
 
 >  **入口(entry)**、**出口(output)**、**加载器(loader)**、**插件(plugins)**
 
 - 入口 : 要打包哪个文件
 - 出口 : 要打包到哪里
-- 加载器 : 加载除了js文件其他文件的功能
-- 插件 : 处理加载器完成不了的功能, 使用插件
+- 加载器(loader) : 加载除了js文件其他文件的功能
+- 插件 (plugins): 处理加载器完成不了的功能, 使用插件
 
+### 1.4 webpack 使用步骤
 
+#### webpack 第一阶段 
 
-# webpack 使用步骤
-
-## webpack 第一阶段 命名初始化阶段
+##### 命名初始化阶段
 
 > 文件名不能有汉字,不能取名叫 webpack
 
@@ -94,7 +113,7 @@ webpack-cli : 提供了一些在终端中使用的命令
 3. 创建一个`main.js`文件
 
 ```js
-console.log('我就要被打包了,哦也');
+console.log('我就要被打包了');
 ```
 
 4. 在 `package.json`的`scripts`中,添加脚本
@@ -103,7 +122,7 @@ console.log('我就要被打包了,哦也');
  "scripts": {
     "build": "webpack main.js"
   },
-// webpack 是webpack-cli 中提供的命令, 用来实现打包的
+// webpack 是 webpack-cli 中提供的命令, 用来实现打包的
 // ./main.js 入口文件,要打包哪个文件
 ```
 
@@ -121,10 +140,10 @@ console.log('我就要被打包了,哦也');
 // 项目开发的两种环境
   1. 开发环境 (development) : 开发过程就是开发环境
   2. 生产环境 (production) : 线上环境, 也就是 : 项目做好了,发布上线
-  生产环境下, 打包生产的js文件都是压缩后的,  开发环境下代码一般是不压缩的
+  生产环境下, 打包生产的js文件都是压缩后的,  开发环境下代码一般是不压缩混淆的
 ```
 
-## webpack 第一阶段 隔行变色案例
+##### 隔行变色案例
 
 1. 创建 `src/index.html` 
 2. 隔行案例 => `html => ul#list>li{我是 li \$}\*10`
@@ -145,7 +164,7 @@ $('#list > li:even').css('backgroundColor', 'green')
 ```js
 // 引入 main.js 会报错,因为浏览器不支持这个import 的Es6语法
 // npm run build 之后
-//  引入 dist/main.js 后会ok,因为webpack 帮我们转化为浏览器能够识别的es5语法了
+// 引入 dist/main.js 后会ok, 因为webpack 帮我们转化为浏览器能够识别的es5语法了
 ```
 
 6. 历程 :
@@ -160,10 +179,10 @@ $('#list > li:even').css('backgroundColor', 'green')
 
    > 看图 (打包流程)
 
-8. ***code 记得保存一份***
 
+#### webpack 第二阶段
 
-## webpack 第二阶段 webpack 配置文件
+##### webpack 配置文件
 
 1. 准备工作 : `src`源文件 : `index.html`和`main.js`
 
@@ -218,7 +237,7 @@ module.exports = {
 
 
 
-## webpack 第二阶段 webpack 配置文件 html-webpack-plugin
+##### webpack 配置文件 html-webpack-plugin
 
 1. html-webpack-plugin 必备的插件
 
@@ -246,7 +265,7 @@ plugins: [
 
 
 
-## webpack 第二阶段 webpack 配置文件 : webpack-dev-server 
+##### webpack 第二阶段 webpack 配置文件 : webpack-dev-server 
 
 1. **webpack-dev-server** 使用 webpack 必备的功能(插件)
 
@@ -287,7 +306,9 @@ plugins: [
   }
 ```
 
-## webpack 第三阶段 项目打包上线的说明
+#### webpack 第三阶段 
+
+##### 项目打包上线的说明
 
 1. 开发模式 : `npm run dev`
 2. 假设项目开发完成了,要上线,怎么操作?
@@ -298,11 +319,11 @@ plugins: [
 2.3 把dist文件里的内容放到服务器里即可, 直接运行`http-server`
 ```
 
-## webpack 第四阶段 : 打包非js文件
+#### webpack 第四阶段 : 打包非js文件
 
 > webpack 只能处理 js 文件,非 js(css.less.图片.字体等)处理处理不了, 借助 loader 加载器
 
-## webpack 第四阶段 1 : 处理 css 文件
+##### 1 : 处理 css 文件
 
 1. 创建一个 css 文件, 然后在 `main.js`中引入 `import '../css/index.css';`
 
@@ -327,7 +348,7 @@ module: {
 }
 ```
 
-## webpack 第四阶段 2 : 处理 less 文件
+##### 2 : 处理 less 文件
 
 1. 创建一个 less 文件, 然后再 main.js 中 引入 `import '../css/index.less';`
 2. 安装 : `npm i -D less-loader less style-loader css-loader`
@@ -351,25 +372,62 @@ ul {
     { test :/\.less$/, use : ['style-loader','css-loader','less-loader'] },
    ```
 
+##### 3 : 处理scss文件
 
+- 安装sass `npm i sass-loader node-sass -D`命令
 
-## webpack 第四阶段 3 : 处理 图片 文件
+- 在webpack.config.js的module->rules数组中, 添加loader规则如下
 
-> <div class='cls1'></div>
->
-> 设置背景图片
->
-> .cls {
->
-> width: 300px;
->
-> height: 300px;
->
-> background: url('../css/4.jpg');
->
-> background-size: 100%;
->
-> }
+  ```JavaScript
+  modules: {
+      rules: {
+          {
+              test: /\.scss&/, use: ['style-loader', 'css-loader', 'sass-loader']
+          }
+      }
+  }
+  ```
+
+##### 4 : 添加postCSS自动添加css兼容性前缀
+
+```html
+<input type="text" placeholder="ceshi"> 
+```
+
+```css
+// 存在浏览器兼容性 ie中无效 需要加上前缀 postCSS自动添加前缀
+::placeholder {
+	color: red;
+}
+```
+
+- 运行 `npm i postcss-loader autoprefixer -D` 命令
+- 在项目根目录中创建postcss的配置文件 postcss.config.js
+
+```js
+const autoprefixer = require('autoprefixer') // 导入自动添加前缀的插件
+module.exports = {
+    plugins: [autoprefixer]
+}
+```
+
+- 在webpack.config.js 的 module rules 中, 修改css的loader 规则
+
+```js
+module: {
+    rules: [
+        {test:/.css&/, use: ['style-loader', 'css-loader', 'postcss-loader']}
+    ]
+}
+```
+
+##### 5 : 处理 图片 文件
+
+```javascript
+<div class='cls1'></div>
+设置背景图片 
+.cls { width: 300px; height: 300px; background: url('../css/4.jpg'); background-size: 100%; }
+```
 
 1. 安装 : `npm i -D url-loader file-loader`
 
@@ -417,7 +475,7 @@ ul {
       },
 ```
 
-## webpack 第四阶段 4 : 处理 字体 文件
+##### 6 : 处理 字体 文件
 
 1. 准备字体图标: 字体图标文件 `iconfont` 或者 从`阿里矢量图标`里下载
 
@@ -438,7 +496,7 @@ ul {
   { test:/\.(svg|woff|woff2|ttf|eot)$/,use:'url-loader'}
 ```
 
-## webpack 第四阶段 5 : 处理 ES6 语法
+##### 7 : 处理 ES6 语法
 
 1. 现在的项目都是使用 ES6 开发的, 但是这些新的 ES6 语法, 并不是所有的浏览器都支持, 所以就需要有一个工具,帮我们转成 es5 语法, 这个就是: babel
 2. [babel](https://babeljs.io/)
@@ -486,7 +544,7 @@ ul {
 
 - 6.5 测试 : 谷歌 和 edge
 
-```js
+```JavaScript
 var obj = {
   name: 'zs',
   age: 20
@@ -495,3 +553,4 @@ var obj = {
 var o = { ...obj }
 console.log(o)
 ```
+
