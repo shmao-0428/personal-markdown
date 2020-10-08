@@ -82,7 +82,6 @@
 var regex = /hello/;
 console.log( regex.test("hello") ); 
 // => true
-复制代码
 ```
 
 正则表达式之所以强大，是因为其能实现模糊匹配。
@@ -102,7 +101,6 @@ var regex = /ab{2,5}c/g;
 var string = "abc abbc abbbc abbbbc abbbbbc abbbbbbc";
 console.log( string.match(regex) ); 
 // => ["abbc", "abbbc", "abbbbc", "abbbbbc"]
-复制代码
 ```
 
 注意：案例中用的正则是`/ab{2,5}c/g`，后面多了`g`，它是正则的一个修饰符。表示全局匹配，即在目标字符串中按顺序找到满足匹配模式的所有子串，强调的是“所有”，而不只是“第一个”。g是单词global的首字母。
@@ -120,7 +118,6 @@ var regex = /a[123]b/g;
 var string = "a0b a1b a2b a3b a4b";
 console.log( string.match(regex) ); 
 // => ["a1b", "a2b", "a3b"]
-复制代码
 ```
 
 以上就是本章讲的主体内容，只要掌握横向和纵向模糊匹配，就能解决很大部分正则匹配问题。
@@ -177,26 +174,25 @@ console.log( string.match(regex) );
 
 **3.1 简写形式**
 
-> `**{m,}**` 表示至少出现m次。
+> `{m,}` 表示至少出现m次。
 >
-> `**{m}**` 等价于`{m,m}`，表示出现m次。
+> `{m}` 等价于`{m,m}`，表示出现m次。
 >
-> `**?**` 等价于`{0,1}`，表示出现或者不出现。记忆方式：问号的意思表示，有吗？
+> `?` 等价于`{0,1}`，表示出现或者不出现。记忆方式：问号的意思表示，有吗？
 >
-> `**+** `等价于`{1,}`，表示出现至少一次。记忆方式：加号是追加的意思，得先有一个，然后才考虑追加。
+> `+`等价于`{1,}`，表示出现至少一次。记忆方式：加号是追加的意思，得先有一个，然后才考虑追加。
 >
-> `*****` 等价于`{0,}`，表示出现任意次，有可能不出现。记忆方式：看看天上的星星，可能一颗没有，可能零散有几颗，可能数也数不过来。
+> `*` 等价于`{0,}`，表示出现任意次，有可能不出现。记忆方式：看看天上的星星，可能一颗没有，可能零散有几颗，可能数也数不过来。
 
 **3.2 贪婪匹配和惰性匹配**
 
 看如下的例子：
 
-```
+```js
 var regex = /\d{2,5}/g;
 var string = "123 1234 12345 123456";
 console.log( string.match(regex) ); 
 // => ["123", "1234", "12345", "12345"]
-复制代码
 ```
 
 其中正则`/\d{2,5}/`，表示数字连续出现2到5次。会匹配2位、3位、4位、5位连续数字。
@@ -205,25 +201,24 @@ console.log( string.match(regex) );
 
 我们知道有时贪婪不是一件好事（请看文章最后一个例子）。而惰性匹配，就是尽可能少的匹配：
 
-```
+```js
 var regex = /\d{2,5}?/g;
 var string = "123 1234 12345 123456";
 console.log( string.match(regex) ); 
 // => ["12", "12", "34", "12", "34", "12", "34", "56"]
-复制代码
 ```
 
 其中`/\d{2,5}?/`表示，虽然2到5次都行，当2个就够的时候，就不在往下尝试了。
 
 通过在量词后面加个问号就能实现惰性匹配，因此所有惰性匹配情形如下：
 
-> ```
-> **{m,n}?**`
-> `**{m,}?**`
-> `**??**`
-> `**+?**`
-> `***?**
-> ```
+```
+{m,n}?
+{m,}?
+??
++?
+*?
+```
 
 对惰性匹配的记忆方式是：量词后面加个问号，问一问你知足了吗，你很贪婪吗？
 
@@ -235,32 +230,29 @@ console.log( string.match(regex) );
 
 例如要匹配"good"和"nice"可以使用`/good|nice/`。测试如下：
 
-```
+```js
 var regex = /good|nice/g;
 var string = "good idea, nice try.";
 console.log( string.match(regex) ); 
 // => ["good", "nice"]
-复制代码
 ```
 
 但有个事实我们应该注意，比如我用`/good|goodbye/`，去匹配"goodbye"字符串时，结果是"good"：
 
-```
+```js
 var regex = /good|goodbye/g;
 var string = "goodbye";
 console.log( string.match(regex) ); 
 // => ["good"]
-复制代码
 ```
 
 而把正则改成`/goodbye|good/`，结果是：
 
-```
+```js
 var regex = /goodbye|good/g;
 var string = "goodbye";
 console.log( string.match(regex) ); 
 // => ["goodbye"]
-复制代码
 ```
 
 也就是说，分支结构也是惰性的，即当前面的匹配上了，后面的就不再尝试了。
@@ -293,12 +285,11 @@ console.log( string.match(regex) );
 
 正则如下：
 
-```
+```js
 var regex = /#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})/g;
 var string = "#ffbbad #Fc01DF #FFF #ffE";
 console.log( string.match(regex) ); 
 // => ["#ffbbad", "#Fc01DF", "#FFF", "#ffE"]
-复制代码
 ```
 
 **5.2 匹配时间**
@@ -321,26 +312,26 @@ console.log( string.match(regex) );
 
 正则如下：
 
-```
+```js
 var regex = /^([01][0-9]|[2][0-3]):[0-5][0-9]$/;
 console.log( regex.test("23:59") ); 
 console.log( regex.test("02:07") ); 
 // => true
-// => true复制代码
+// => true
 ```
 
 如果也要求匹配7:9，也就是说时分前面的0可以省略。
 
 此时正则变成：
 
-```
+```js
 var regex = /^(0?[0-9]|1[0-9]|[2][0-3]):(0?[0-9]|[1-5][0-9])$/;
 console.log( regex.test("23:59") ); 
 console.log( regex.test("02:07") ); 
 console.log( regex.test("7:9") ); 
 // => true
 // => true
-// => true复制代码
+// => true
 ```
 
 **5.3 匹配日期**
@@ -361,11 +352,10 @@ console.log( regex.test("7:9") );
 
 正则如下：
 
-```
+```js
 var regex = /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
 console.log( regex.test("2017-06-10") ); 
 // => true
-复制代码
 ```
 
 **5.4 window操作系统文件路径**
@@ -394,7 +384,7 @@ console.log( regex.test("2017-06-10") );
 
 最后拼接成了一个看起来比较复杂的正则：
 
-```
+```js
 var regex = /^[a-zA-Z]:\\([^\\:*<>|"?\r\n/]+\\)*([^\\:*<>|"?\r\n/]+)?$/;
 console.log( regex.test("F:\\study\\javascript\\regex\\regular expression.pdf") ); 
 console.log( regex.test("F:\\study\\javascript\\regex\\") ); 
@@ -403,7 +393,7 @@ console.log( regex.test("F:\\") );
 // => true
 // => true
 // => true
-// => true复制代码
+// => true
 ```
 
 其中，JS中字符串表示`\`时，也要转义。
@@ -411,36 +401,34 @@ console.log( regex.test("F:\\") );
 **5.5 匹配id**
 
 要求从
-
-> <div id="container" class="main"></div>
+```html
+<div id="container" class="main"></div>
 
 提取出id="container"。
 
 可能最开始想到的正则是：
 
-```
+​```js
 var regex = /id=".*"/
 var string = '<div id="container" class="main"></div>';
 console.log(string.match(regex)[0]); 
 // => id="container" class="main"
-复制代码
 ```
 
 因为`.`是通配符，本身就匹配双引号的，而量词`*`又是贪婪的，当遇到container后面双引号时，不会停下来，会继续匹配，直到遇到最后一个双引号为止。
 
 解决之道，可以使用惰性匹配：
 
-```
+```js
 var regex = /id=".*?"/
 var string = '<div id="container" class="main"></div>';
 console.log(string.match(regex)[0]); 
 // => id="container"
-复制代码
 ```
 
 当然，这样也会有个问题。效率比较低，因为其匹配原理会涉及到“回溯”这个概念（这里也只是顺便提一下，第四章会详细说明）。可以优化如下：
 
-```
+```js
 var regex = /id="[^"]*"/
 var string = '<div id="container" class="main"></div>';
 console.log(string.match(regex)[0]); 
@@ -457,7 +445,7 @@ console.log(string.match(regex)[0]);
 
 ## 第二章 正则表达式位置匹配攻略
 
-正则表达式是匹配模式，要么匹配字符，要么匹配位置。请记住这句话。
+**正则表达式是匹配模式，要么匹配字符，要么匹配位置**。请记住这句话。
 
 然而大部分人学习正则时，对于匹配位置的重视程度没有那么高。
 
@@ -481,7 +469,7 @@ console.log(string.match(regex)[0]);
 在ES5中，共有6个锚字符：
 
 > ```
-> **^**` `**$**` `**\b**` `**\B**` `**(?=p)**` `**(?!p)**
+> ^ $ \b \B (?=p) (?!p)
 > ```
 
 **2.1 ^和$**
@@ -492,16 +480,15 @@ console.log(string.match(regex)[0]);
 
 比如我们把字符串的开头和结尾用"#"替换（位置可以替换成字符的！）：
 
-```
+```js
 var result = "hello".replace(/^|$/g, '#');
 console.log(result); 
 // => "#hello#"
-复制代码
 ```
 
 多行匹配模式时，二者是行的概念，这个需要我们的注意：
 
-```
+```js
 var result = "I\nlove\njavascript".replace(/^|$/gm, '#');
 console.log(result);
 /*
@@ -509,7 +496,6 @@ console.log(result);
 #love#
 #javascript#
 */
-复制代码
 ```
 
 **2.2 \b和\B**
@@ -518,11 +504,10 @@ console.log(result);
 
 比如一个文件名是"[JS] Lesson_01.mp4"中的`\b`，如下：
 
-```
+```js
 var result = "[JS] Lesson_01.mp4".replace(/\b/g, '#');
 console.log(result); 
 // => "[#JS#] #Lesson_01#.#mp4#"
-复制代码
 ```
 
 为什么是这样呢？这需要仔细看看。
@@ -546,11 +531,10 @@ console.log(result);
 
 比如上面的例子，把所有`\B`替换成"#"：
 
-```
+```js
 var result = "[JS] Lesson_01.mp4".replace(/\B/g, '#');
 console.log(result); 
 // => "#[J#S]# L#e#s#s#o#n#_#0#1.m#p#4"
-复制代码
 ```
 
 **2.3 (?=p)和(?!p)**
@@ -559,21 +543,19 @@ console.log(result);
 
 比如`(?=l)`，表示'l'字符前面的位置，例如：
 
-```
+```js
 var result = "hello".replace(/(?=l)/g, '#');
 console.log(result); 
 // => "he#l#lo"
-复制代码
 ```
 
 而`(?!p)`就是`(?=p)`的反面意思，比如：
 
-```
+```js
 var result = "hello".replace(/(?!l)/g, '#');
 
 console.log(result); 
 // => "#h#ell#o#"
-复制代码
 ```
 
 二者的学名分别是positive lookahead和negative lookahead。
@@ -598,34 +580,30 @@ ES6中，还支持positive lookbehind和negative lookbehind。
 
 比如"hello"字符串等价于如下的形式：
 
-```
+```js
 "hello" == "" + "h" + "" + "e" + "" + "l" + "" + "l" + "o" + "";
-复制代码
 ```
 
 也等价于：
 
-```
+```js
 "hello" == "" + "" + "hello"
-复制代码
 ```
 
 因此，把`/^hello$/`写成`/^^hello?$/`，是没有任何问题的：
 
-```
+```js
 var result = /^^hello?$/.test("hello");
 console.log(result); 
 // => true
-复制代码
 ```
 
 甚至可以写成更复杂的:
 
-```
+```js
 var result = /(?=he)^^he(?=\w)llo$\b\b$/.test("hello");
 console.log(result); 
 // => true
-复制代码
 ```
 
 也就是说字符之间的位置，可以写成多个。
@@ -654,11 +632,10 @@ easy，`/.^/`
 
 使用`(?=\d{3}$)`就可以做到：
 
-```
+```js
 var result = "12345678".replace(/(?=\d{3}$)/g, ',')
 console.log(result); 
 // => "12345,678"
-复制代码
 ```
 
 **4.2.2 弄出所有的逗号**
@@ -667,22 +644,20 @@ console.log(result);
 
 此时可以使用量词`+`：
 
-```
+```js
 var result = "12345678".replace(/(?=(\d{3})+$)/g, ',')
 console.log(result); 
 // => "12,345,678"
-复制代码
 ```
 
 **4.2.3 匹配其余案例**
 
 写完正则后，要多验证几个案例，此时我们会发现问题：
 
-```
+```js
 var result = "123456789".replace(/(?=(\d{3})+$)/g, ',')
 console.log(result); 
 // => ",123,456,789"
-复制代码
 ```
 
 因为上面的正则，仅仅表示把从结尾向前数，一但是3的倍数，就把其前面的位置替换成逗号。因此才会出现这个问题。
@@ -693,7 +668,7 @@ console.log(result);
 
 easy，`(?!^)`，你想到了吗？测试如下：
 
-```
+```js
 var string1 = "12345678",
 string2 = "123456789";
 reg = /(?!^)(?=(\d{3})+$)/g;
@@ -705,7 +680,6 @@ console.log(result);
 result = string2.replace(reg, ',');
 console.log(result); 
 // => "123,456,789"
-复制代码
 ```
 
 **4.2.4 支持其他形式**
@@ -714,14 +688,13 @@ console.log(result);
 
 此时我们需要修改正则，把里面的开头`^`和结尾`$`，替换成`\b`：
 
-```
+```js
 var string = "12345678 123456789",
 reg = /(?!\b)(?=(\d{3})+\b)/g;
 
 var result = string.replace(reg, ',')
 console.log(result); 
 // => "12,345,678 123,456,789"
-复制代码
 ```
 
 其中`(?!\b)`怎么理解呢？
@@ -742,9 +715,8 @@ console.log(result);
 
 不考虑“但必须至少包括2种字符”这一条件。我们可以容易写出：
 
-```
+```js
 var reg = /^[0-9A-Za-z]{6,12}$/;
-复制代码
 ```
 
 **4.3.2 判断是否包含有某一种字符**
@@ -753,9 +725,8 @@ var reg = /^[0-9A-Za-z]{6,12}$/;
 
 因此正则变成：
 
-```
+```js
 var reg = /(?=.*[0-9])^[0-9A-Za-z]{6,12}$/;
-复制代码
 ```
 
 **4.3.3 同时包含具体两种字符**
@@ -764,9 +735,8 @@ var reg = /(?=.*[0-9])^[0-9A-Za-z]{6,12}$/;
 
 因此正则变成：
 
-```
+```js
 var reg = /(?=.*[0-9])(?=.*[a-z])^[0-9A-Za-z]{6,12}$/;
-复制代码
 ```
 
 **4.3.4 解答**
@@ -782,7 +752,7 @@ var reg = /(?=.*[0-9])(?=.*[a-z])^[0-9A-Za-z]{6,12}$/;
 
 最终答案是：
 
-```
+```js
 var reg = /((?=.*[0-9])(?=.*[a-z])|(?=.*[0-9])(?=.*[A-Z])|(?=.*[a-z])(?=.*[A-Z]))^[0-9A-Za-z]{6,12}$/;
 console.log( reg.test("1234567") ); // false 全是数字
 console.log( reg.test("abcdef") ); // false 全是小写字母
@@ -790,14 +760,13 @@ console.log( reg.test("ABCDEFGH") ); // false 全是大写字母
 console.log( reg.test("ab23C") ); // false 不足6位
 console.log( reg.test("ABCDEF234") ); // true 大写字母和数字
 console.log( reg.test("abcdEF234") ); // true 三者都有
-复制代码
 ```
 
 **4.3.5 解惑**
 
 上面的正则看起来比较复杂，只要理解了第二步，其余就全部理解了。
 
-```
+```js
 /(?=.*[0-9])^[0-9A-Za-z]{6,12}$/
 ```
 
@@ -819,16 +788,15 @@ console.log( reg.test("abcdEF234") ); // true 三者都有
 
 对应的正则是：
 
-```
+```js
 var reg = /(?!^[0-9]{6,12}$)^[0-9A-Za-z]{6,12}$/;
-复制代码
 ```
 
 三种“都不能”呢？
 
 最终答案是：
 
-```
+```js
 var reg = /(?!^[0-9]{6,12}$)(?!^[a-z]{6,12}$)(?!^[A-Z]{6,12}$)^[0-9A-Za-z]{6,12}$/;
 console.log( reg.test("1234567") ); // false 全是数字
 console.log( reg.test("abcdef") ); // false 全是小写字母
@@ -836,7 +804,6 @@ console.log( reg.test("ABCDEFGH") ); // false 全是大写字母
 console.log( reg.test("ab23C") ); // false 不足6位
 console.log( reg.test("ABCDEF234") ); // true 大写字母和数字
 console.log( reg.test("abcdEF234") ); // true 三者都有
-复制代码
 ```
 
 ### 第二章小结
