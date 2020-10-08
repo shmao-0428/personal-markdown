@@ -2,17 +2,16 @@
  * @Author: shmao
  * @Date: 2020-10-03 11:35:02
  * @LastEditors: shmao
- * @LastEditTime: 2020-10-03 22:51:59
+ * @LastEditTime: 2020-10-08 14:33:45
 -->
 <script>
     function fn(args) {
         return spawn(function* () {
-            yield sleep(3000).then(res => console.log(res))
+            return yield sleep(1000)
             // throw Error('error')
-            console.log(1);
         });
     }
-    fn()
+
     function sleep(t) {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
@@ -20,6 +19,14 @@
             }, t);
         })
     }
+
+    (function () {
+        fn().then(res => {
+            console.log(res);
+        })
+        console.log(1);
+    })();
+
     function spawn(genF) {
         return new Promise(function (resolve, reject) {
             const gen = genF();

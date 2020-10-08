@@ -2,7 +2,7 @@
  * @Author: shmao
  * @Date: 2020-09-20 16:59:32
  * @LastEditors: shmao
- * @LastEditTime: 2020-09-20 21:35:19
+ * @LastEditTime: 2020-10-08 14:23:07
 -->
 <script>
     /**
@@ -14,7 +14,7 @@
      */
     function createNew(Func, ...args) {
         const instance = {};
-        // instance.__proto__ = Func.prototype;
+        // instance.__proto__ = Func.prototype; // 存在不兼容__proto___
         // Object.setPrototypeOf(instance, Func.prototype);
         Reflect.setPrototypeOf(instance, Func.prototype);
         const res = Func.apply(instance, args);

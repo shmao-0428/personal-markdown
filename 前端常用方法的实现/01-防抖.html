@@ -2,10 +2,12 @@
  * @Author: shmao
  * @Date: 2020-09-20 12:14:31
  * @LastEditors: shmao
- * @LastEditTime: 2020-09-20 12:26:54
+ * @LastEditTime: 2020-10-08 14:22:03
 -->
 <script>
-
+    /**
+     *  在规定时间内只执行最后一次
+     */
     function debounce(func, timeout = 1000) {
         let timer;
         return function (...args) {

@@ -2,10 +2,12 @@
  * @Author: shmao
  * @Date: 2020-09-20 12:14:31
  * @LastEditors: shmao
- * @LastEditTime: 2020-09-20 16:50:37
+ * @LastEditTime: 2020-10-08 14:22:28
 -->
 <script>
-
+    /**
+     *  在规定时间只执行第一次, 然后一直执行
+     */
     function throttle(func, timeout = 1000) {
         let timer;
         return function (...args) {
