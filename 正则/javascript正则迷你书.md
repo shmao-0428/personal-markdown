@@ -60,7 +60,7 @@
 
 ## 第一章 正则表达式字符匹配攻略
 
-正则表达式是匹配模式，要么匹配字符，要么匹配位置。请记住这句话。
+**正则表达式是匹配模式，要么匹配字符，要么匹配位置。**请记住这句话。
 
 然而关于正则如何匹配字符的学习，大部分人都觉得这块比较杂乱。
 
@@ -78,7 +78,7 @@
 
 如果正则只有精确匹配是没多大意义的，比如`/hello/`，也只能匹配字符串中的"hello"这个子串。
 
-```
+```js
 var regex = /hello/;
 console.log( regex.test("hello") ); 
 // => true
@@ -97,7 +97,7 @@ console.log( regex.test("hello") );
 
 比如`/ab{2,5}c/`表示匹配这样一个字符串：第一个字符是“a”，接下来是2到5个字符“b”，最后是字符“c”。测试如下：
 
-```
+```js
 var regex = /ab{2,5}c/g;
 var string = "abc abbc abbbc abbbbc abbbbbc abbbbbbc";
 console.log( string.match(regex) ); 
@@ -115,7 +115,7 @@ console.log( string.match(regex) );
 
 比如`/a[123]b/`可以匹配如下三种字符串："a1b"、"a2b"、"a3b"。测试如下：
 
-```
+```js
 var regex = /a[123]b/g;
 var string = "a0b a1b a2b a3b a4b";
 console.log( string.match(regex) ); 
