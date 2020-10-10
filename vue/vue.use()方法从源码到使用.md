@@ -159,7 +159,6 @@ const installBase = {
     Object.keys(components).map(key => Vue.component(key, components[key]))
   }
 }
-复制代码
 ```
 
 main.js
