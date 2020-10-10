@@ -38,6 +38,26 @@ module.exports = {
     "@babel/plugin-proposal-optional-chaining"
   ]
 }
+```
 
+**3.项目中的使用:**
+
+```js
+ await this.$nextTick(()=>{
+        if(this.$refs?.purchaseTable?.$refs?.medicineDetail?.$refs?.formTable) {
+          this.$refs.purchaseTable.$refs.medicineDetail.$refs.formTable.clearValidate();
+        }
+      })
+ // ==> 等价于下面的
+ await this.$nextTick(() => {
+   if (
+     this.$refs &&
+     this.$refs.purchaseTable &&
+     this.$refs.purchaseTable.$refs.medicineDetail &&
+     this.$refs.purchaseTable.$refs.medicineDetail.$refs.formTable
+   ) {
+     this.$refs.purchaseTable.$refs.medicineDetail.$refs.formTable.clearValidate();
+   }
+ });
 ```
 
