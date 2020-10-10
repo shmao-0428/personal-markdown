@@ -11,7 +11,7 @@ const userName = Obj &&
 	Obj.userInfo.userName ；//这样判断是不是很繁琐
 ```
 
-所以es6引入链式判断运算符
+所以es6(es2020)引入链式判断运算符
 es6写法
 
 ```js
@@ -33,7 +33,6 @@ const userName = Obj?.userInfo?.userName;
 #### 2.添加至项目.babel.config.js文件中：
 
 ```js
-
 module.exports = {
   "plugins": [
     "@babel/plugin-proposal-optional-chaining"
