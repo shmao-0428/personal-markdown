@@ -22,7 +22,9 @@ You can import and export functions, components, logic, data, event emitters, an
 
 To make cross microfrontend imports possible, configure your bundler so that the microfrontends are treated as "externals" ([webpack docs](https://webpack.js.org/configuration/externals/#root) / [rollup docs](https://rollupjs.org/guide/en/#external)). Marking them as externals ensures that they are treated as [in-browser modules](https://zh-hans.single-spa.js.org/docs/recommended-setup/#in-browser-versus-build-time-modules) instead of build-time modules.
 
-**比如在基座或者'navbar'的main.js这样的应用中导出**
+**比如在基座或者`navbar`的main.js这样的应用中导出**
+
+**@org-name/auth 指的是基座中注册每个应用的`appName`**
 
 ```js
 // Inside of the "entry file" for a utility module called @org-name/auth,
@@ -34,7 +36,7 @@ export function userHasAccess(permission) {
 }
 ```
 
-**比如在业务应用'app1'的main.js中获取**
+**比如在业务应用`app1`的main.js中获取**
 
 ```js
 import { userHasAccess } from '@org-name/auth'
@@ -43,7 +45,9 @@ import { userHasAccess } from '@org-name/auth'
 const showLinkToInvoiceFeature = userHasAccess('invoicing');
 ```
 
-**比如在业务应用'app1'的webpack.config.js或者vue.config.js中配置**
+**比如在业务应用`app1`的webpack.config.js或者vue.config.js中配置**
+
+**比如参数来自`navbar` 这里的配置 `externals: ['navbar']`**
 
 ```js
 // In your webpack config, mark @org-name auth as a webpack external
