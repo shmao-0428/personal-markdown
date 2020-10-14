@@ -60,7 +60,7 @@ Webpack needs a configuration file called `webpack.config.js` which is just a Co
 module.exports = {
   entry: './main.js',
   output: {
-    filename: 'bundle.js'
+    filename: 'bundle.js'	
   }
 };
 ```
