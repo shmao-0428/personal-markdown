@@ -90,7 +90,22 @@ npm update -g package    #更新全局模块
 npm update -g package@version   #更新全局模块 package-name 到 x.x.x 版本
 ```
 
-### 指定版本
+### npm owner
+
+```js
+# 模块的维护者可以发布新版本。npm owner命令用于管理模块的维护者。
+
+# 列出指定模块的维护者
+$ npm owner ls <package name>
+
+# 新增维护者
+$ npm owner add <user> <package name>
+
+# 删除维护者
+$ npm owner rm <user> <package name>
+```
+
+### 指定版本	
 
 ```js
 npm view react versions    查看包在npm所有版本
@@ -131,6 +146,8 @@ npm outdated -g
 ### 常见通用命令
 
 ```js
+npm bin # npm bin命令显示相对于当前目录的，Node模块的可执行脚本所在的目录（即.bin目录）。
+ 
 npm root    #查看本地安装的目录
 
 npm root -g    #查看全局安装的目录
@@ -151,12 +168,66 @@ npm config ls -l    #查看npm配置
 
 npm view package versions    #查看包的所有版本
 
+npm adduser # npm publish用于将当前模块发布到npmjs.com。执行之前，需要向npmjs.com申请用户名。
+
+npm login # 登录 
+
 npm publish     #发布包
 
 npm access    #设置发布包的访问级别
 
 npm search modulNmae   #搜索包是否存在
+
+npm deprecate # 废弃某个版本的模块
+
+#如果当前模块是一个beta版，比如1.3.1-beta.3，那么发布的时候需要使用tag参数，将其发布到指定标签，默认的发布标签是latest。
+npm publish --tag beta
+
+#如果发布私有模块，模块初始化的时候，需要加上scope参数。只有npm的付费用户才能发布私有模块
+npm init --scope=<yourscope>
 ```
+
+### 语法转换
+
+如果你的模块是用ES6写的，那么发布的时候，最好转成ES5。首先，需要安装Babel。
+
+```
+npm install --save-dev babel-cli@6 babel-preset-es2015@6
+```
+
+然后，在`package.json`里面写入`build`脚本。
+
+```js
+"scripts": {
+  "build": "babel source --presets babel-preset-es2015 --out-dir distribution",
+  "prepublish": "npm run build"
+}
+```
+
+运行上面的脚本，会将`source`目录里面的ES6源码文件，转为`distribution`目录里面的ES5源码文件。然后，在项目根目录下面创建两个文件`.npmignore`和`.gitignore`，分别写入以下内容。
+
+```
+// .npmignore
+source
+
+// .gitignore
+node_modules
+distribution
+```
+
+### 通配符
+
+npm的通配符的规则如下。
+
+- `*` 匹配0个或多个字符
+- `?` 匹配1个字符
+- `[...]` 匹配某个范围的字符。如果该范围的第一个字符是`!`或`^`，则匹配不在该范围的字符。
+- `!(pattern|pattern|pattern)` 匹配任何不符合给定的模式
+- `?(pattern|pattern|pattern)` 匹配0个或1个给定的模式
+- `+(pattern|pattern|pattern)` 匹配1个或多个给定的模式
+- `*(a|b|c)` 匹配0个或多个给定的模式
+- `@(pattern|pat*|pat?erN)` 只匹配给定模式之一
+- `**` 如果出现在路径部分，表示0个或多个子目录。
 
 ## package.json参数介绍
 
@@ -232,7 +303,9 @@ npm start === npm run start
 ```
 
 
-作者：vipbic
-链接：https://juejin.im/post/6880719617317142536
-来源：掘金
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+## 参考文献
+
+1. [如何正确使用淘宝npm镜像](https://juejin.im/post/6880719617317142536)
+2. [npm模块管理器来自《JavaScript 标准参考教程（alpha）》 阮一峰](https://javascript.ruanyifeng.com/nodejs/npm.html)
+
