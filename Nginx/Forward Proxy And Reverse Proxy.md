@@ -67,10 +67,12 @@ PC无法直接访问WEB服务器, 但代理服务器可以访问.
 
 ```nginx
 server{
-    resolver 8.8.8.8;
+    resolver 8.8.8.8;# 谷歌的域名解析地址
     listen 80;
 
     location / {
+        # 当客户端请求我的时候，我会把请求转发给它
+        # $http_host 要访问的主机名 $request_uri 请求路径
         proxy_pass http://$http_host$request_uri;
     }
 }
