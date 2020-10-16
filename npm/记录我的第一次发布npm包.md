@@ -133,6 +133,22 @@ npm ERR! You do not have permission to publish "npmtest". Are you logged in as t
 
 ![image-20200821222522944](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200821222522944.png)
 
+4. 无法发布到私有包
+
+ ```
+   npm ERR! publish Failed PUT 402
+   npm ERR! code E402
+   npm ERR! You must sign up for private packages :
+ ```
+
+这个当你的包名为`@your-name/your-package`时才会出现，原因是当包名以`@your-name`开头时，`npm publish`会默认发布为私有包，但是 npm 的私有包需要付费，所以需要添加如下参数进行发布:
+
+```
+npm publish --access public
+```
+
+
+
 ## 删除发布的包
 
 删除24小时内发布的包
