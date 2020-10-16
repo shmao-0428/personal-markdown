@@ -42,3 +42,10 @@ import npmLinkModule from 'npm-link-module';
 cd src/npm-link-project
 npm unlink npm-link-moudle
 ```
+
+删除全局的npm link 包
+
+```
+npm unlink npm-link-moudle -g
+```
+
