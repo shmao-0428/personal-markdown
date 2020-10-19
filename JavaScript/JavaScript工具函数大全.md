@@ -1052,3 +1052,33 @@ escapeHTML('<a href="#">Me & you</a>'); // '&lt;a href=&quot;#&quot;&gt;Me &amp;
 
 
 
+
+
+## 7. 补充自定义
+
+### 1. 两个数组对象排除相同参数
+
+```js
+const arr1 = [
+  { a: 1, b: 2 },
+  { a: 2, b: 2 },
+  { a: 3, b: 2 },
+  { a: 4, b: 2 },
+  { a: 5, b: 2 },
+  { a: 6, b: 2 },
+];
+const arr2 = [{ a: 1 }, { a: 4 }];
+
+function excludeSameVariable(arr1, arr2) {
+  for (const item of arr2) {
+    const index = arr1.findIndex((i) => i.a === item.a);
+    if (index >= 0) {
+      arr1.splice(index, 1);
+    }
+  }
+}
+excludeSameVariable(arr1, arr2);
+
+console.log(arr1);
+```
+
