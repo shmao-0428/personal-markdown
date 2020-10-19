@@ -63,3 +63,6 @@ pause
 # 参考
 
 1. [bat文件同时打多个CMD窗口且执行多条命令](https://blog.csdn.net/qq15577969/article/details/103835153)
+2. [Windows CMD命令大全](https://www.cnblogs.com/accumulater/p/7110811.html)
+3. [Bat脚本编写以及cmd命令](https://blog.csdn.net/miracle_8/article/details/78909093)
+
