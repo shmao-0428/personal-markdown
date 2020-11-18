@@ -1,0 +1,68 @@
+<!--
+ * @Author: shmao
+ * @Date: 2020-11-18 21:27:45
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-11-18 21:46:38
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 观察者
+        class Observer {
+            constructor(name, fn = () => { }) {
+                this.name = name;
+                this.fn = fn;
+            }
+        }
+
+        // 被观察者
+        class Subject {
+            constructor(state) {
+                this.state = state;
+                this._observers = [];
+            }
+
+            setState(val) {
+                this.state = val
+
+                this._observers.forEach(item => [
+                    item.fn(this.state)
+                ])
+            }
+
+            addObserver(obs) {
+                // this._observers.push(obs)
+                this._observers = this._observers.filter(item => item !== obs)
+            }
+
+            delObserver(obs) {
+                // this._observers.push(obs)
+                this._observers = this._observers.filter(item => item !== obs)
+            }
+
+        }
+
+
+        // 两个观察者
+        const bzr = new Observer('班主任', (state) => {
+            console.log('把你爸找来');
+        })
+
+        const xz = new Observer('校长', (state) => {
+            console.log('骂你的班主任');
+        })
+
+        const xiaoming = new Subject('学习');
+
+    </script>
+</body>
+
+</html>

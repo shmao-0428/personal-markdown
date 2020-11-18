@@ -1,0 +1,66 @@
+<!--
+ * @Author: shmao
+ * @Date: 2020-11-18 20:54:36
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-11-18 21:13:10
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+         *  发布订阅
+         *  
+         */
+
+        class Observe {
+            constructor() {
+                this.subscribe = {};
+            }
+
+            on(name, fn) {
+                if (this.subscribe[name]) {
+
+                    return this.subscribe[name].push(fn);
+                }
+
+                this.subscribe[name] = [fn];
+            };
+
+            emit(name, params) {
+                if (this.subscribe[name]) {
+                    this.subscribe[name].forEach(item => {
+                        item(params);
+                    })
+                }
+            };
+
+            off(name, fn) {
+                delete this.subscribe[name];
+                fn()
+            };
+        }
+
+        const res = new Observe()
+
+        res.on('first', () => {
+            console.log('first', res.subscribe);
+        })
+        res.on('first', () => {
+            console.log('first__', res.subscribe)
+        })
+        res.emit('first')
+        res.off('first', () => {
+            console.log(res.subscribe);
+        })
+    </script>
+</body>
+
+</html>
