@@ -28,7 +28,7 @@ headers() {
         'X-AppCode': 'ima_outpatient',
         Authorization: 'UAP ' + localStorage.getItem('token'),
         'X-Requested-With': 'XMLHttpRequest',
-        'Content-Type': 'multipart/form-data',
+        'Content-Type': 'application/x-www-form-urlencoded',
       };
     },
 ```
