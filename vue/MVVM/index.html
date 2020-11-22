@@ -2,16 +2,57 @@
  * @Author: shmao
  * @Date: 2020-11-20 09:01:32
  * @LastEditors: shmao
- * @LastEditTime: 2020-11-20 09:01:44
+ * @LastEditTime: 2020-11-22 17:44:03
 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    
+
+    <div id="app">
+        <input type="text" v-model="school.name">
+        <button v-on:click="change">更新</button>
+        <div>{{ school.name }} </div>
+        <div>{{ school.age }} </div>
+        <div v-html="message"></div>
+        {{getNewName}}
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+    </div>
+
+    <script src="./MVVM.js"></script>
+
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                school: {
+                    name: 'shmao',
+                    age: 25
+                },
+                message: '<h1>message</h1>'
+            },
+            computed: {
+                getNewName() {
+                    return this.school.name + this.school.age
+                }
+            },
+            methods: {
+                change() {
+                    return this.school.name = 'feiye'
+                }
+            },
+        })
+    </script>
 </body>
+
 </html>
