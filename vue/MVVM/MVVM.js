@@ -2,7 +2,7 @@
  * @Author: shmao
  * @Date: 2020-11-20 09:01:53
  * @LastEditors: shmao
- * @LastEditTime: 2020-11-22 18:01:58
+ * @LastEditTime: 2020-11-24 15:30:34
  */
 
 //订阅
@@ -59,6 +59,7 @@ class Observer {
         this.defineReactive(data, key, data[key]);
       }
     }
+    // console.log(data);
   }
   defineReactive(obj, key, value) {
     // 递归绑定响应式
@@ -118,8 +119,8 @@ class Compiler {
       if (this.isDirective(name)) {
         //v-model
         // console.log(name);
-        let [, direcitve] = name.split('-'); // v-on:click
-        let [directiveName, eventName] = direcitve.split(':');
+        let [, directive] = name.split('-'); // v-on:click
+        let [directiveName, eventName] = directive.split(':');
         // 需要调用不同的指令
         CompileUtil[directiveName](node, expr, this.vm, eventName);
       }
@@ -141,7 +142,7 @@ class Compiler {
     [...childNodes].forEach((child) => {
       if (this.isElementNode(child)) {
         // console.log('element', child);
-        this.compileElement(child);
+        // this.compileElement(child);
         // 如果是元素 需要把自己穿进去 再次遍历
         this.compile(child);
       } else {

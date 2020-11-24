@@ -1,0 +1,51 @@
+<!--
+ * @Author: shmao
+ * @Date: 2020-11-23 16:58:54
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-11-24 15:19:18
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      name: <input type="text" v-model="school.name" />
+      age: <input type="text" v-model="school.age" />
+      <div>{{ school.name }}</div>
+      <div>{{ school.age }}</div>
+      <div>{{ school.name }} {{ school.age }}</div>
+      {{ message }}
+      <div v-html="h1"></div>
+      {{ combinationNameAndAge }}
+      <button v-on:click="handleClick">点击修改message</button>
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          school: {
+            name: "qiqi",
+            age: 10,
+          },
+          message: "测试",
+          h1: "<h1>这是一个v-html指令</h1>"
+        },
+        computed: {
+            combinationNameAndAge() {
+                return `这只小狗叫${this.school.name}, 今年${this.school.age}岁了`
+            }
+        },
+        methods: {
+            handleClick() {
+                this.message = '这是一条测试数据'
+            }
+        },
+      });
+    </script>
+  </body>
+</html>
