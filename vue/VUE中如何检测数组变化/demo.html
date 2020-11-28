@@ -1,0 +1,48 @@
+<!--
+ * @Author: shmao
+ * @Date: 2020-11-28 22:04:11
+ * @LastEditors: shmao
+ * @LastEditTime: 2020-11-28 22:22:19
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        let state = [1, 2, 3];
+
+        let originArrayMethods = Array.prototype;
+        let arrayMethods = Object.create(originArrayMethods);
+
+        function defineReactive(obj) {
+            // 函数劫持
+            arrayMethods.push = function (...arg) {
+                originArrayMethods.push.call(this, ...arg);
+                render()
+            }
+            obj.__proto__ = arrayMethods;
+        }
+        defineReactive(state);
+        // 插入到页面的功能 需要保存起来
+        function render() {
+            const app = document.querySelector('#app');
+            app.innerHTML = state;
+        }
+        render()
+
+        // 模拟
+        setTimeout(() => {
+            state.push(4)
+        }, 1000)
+
+    </script>
+</body>
+
+</html>
