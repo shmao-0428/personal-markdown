@@ -11,3 +11,7 @@
 ## 前端框架
 
 1. [vue](https://github.com/vuejs/vue)
+
+## 前端语言
+
+1. [TypeScript](https://www.tslang.cn/docs/home.html)
