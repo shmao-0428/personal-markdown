@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./01-防抖与队列.js"></script>
+    <script>
+        const task = () => {
+            console.log('run task');
+        }
+        const debounceTask = throttleAndQueue(task, 3000);
+
+        window.addEventListener('click', debounceTask)
+    </script>
+</body>
+
+</html>
