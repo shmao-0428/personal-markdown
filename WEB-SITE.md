@@ -12,9 +12,10 @@
 
 1. [vue](https://github.com/vuejs/vue)
 
-## 前端语言
+## 前端语法
 
 1. [TypeScript](https://www.tslang.cn/docs/home.html)
+2. [jsx](https://react.docschina.org/docs/introducing-jsx.html)
 
 ## 页面搭建
 
