@@ -19,7 +19,6 @@
 1. [TypeScript](https://www.tslang.cn/docs/home.html)
 2. [jsx](https://react.docschina.org/docs/introducing-jsx.html)
 3. [rxjs](https://cn.rx.js.org/)
-4. [three.js](http://threesjs.com/)
 
 ## 前端构建
 
@@ -37,6 +36,8 @@
 3. [printjs](https://printjs.crabbly.com/)
 4. [pdfjs](https://mozilla.github.io/pdf.js/)
 5. [lodash](https://www.lodashjs.com/)
+6. [three.js](http://threesjs.com/)
+7. [big.js](https://github.com/MikeMcl/big.js/)
 
 ## 页面搭建
 
