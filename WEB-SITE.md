@@ -49,6 +49,7 @@
 2. [fork](https://git-fork.com/)
 3. [typora](https://typora.io/)
 4. [xmind](https://www.xmind.cn/)
+5. [fiddler](https://www.telerik.com/fiddler)
 
 ## 其他
 
