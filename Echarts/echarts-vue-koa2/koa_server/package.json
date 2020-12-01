@@ -1,0 +1,13 @@
+{
+  "name": "koa_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "keywords": [],
+  "author": "shmao",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.13.0",
+    "ws": "^7.4.0"
+  }
+}
