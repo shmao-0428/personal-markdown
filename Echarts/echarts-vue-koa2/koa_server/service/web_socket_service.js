@@ -1,7 +1,7 @@
 const path = require('path');
 const readFile = require('../utils/file_utils');
 const WebSocket = require('ws');
-const { schedulingPolicy } = require('cluster');
+
 // 创建WebSocket服务端的对象, 绑定端口
 const wss = new WebSocket.Server({
   port: 10001,
