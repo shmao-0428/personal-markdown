@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mvvm</title>
+</head>
+<body>
+    <div id="app">
+        name: <input type="text" v-model="company.name">
+        age: <input type="text" v-model="company.age">
+        <div>{{ company.name }}</div>
+        <div>{{ company.age }}</div>
+        {{ company.name }}  -  {{ company.age }}
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                company: {
+                    name: 'xunfei',
+                    age: 10
+                },
+                message: '这是message',
+                html: '<h1>这是v-html</h1>'
+            },
+            computed: {
+                getInfo() {
+                    return '这家公司的名字叫' +　this.company.message + ', 今年' + this.company.age + '了'
+                }
+            },
+            methods: {
+                
+            },
+        })
+    </script>
+</body>
+</html>
