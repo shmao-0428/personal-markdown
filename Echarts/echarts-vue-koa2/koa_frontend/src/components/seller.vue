@@ -18,12 +18,20 @@ export default {
   mounted() {
     this.initCharts();
     this.getData();
+    window.addEventListener('resize', this.resizeEcharts);
+    this.resizeEcharts();
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.resizeEcharts);
   },
   methods: {
     initCharts() {
-      this.chartInstance = this.$echarts.init(this.$refs.seller);
+      this.chartInstance = this.$echarts.init(this.$refs.seller, 'chalk');
 
       const initOptions = {
+        title: {
+          text: '| 商家销售统计',
+        },
         xAxis: {
           type: 'value',
         },
@@ -33,6 +41,13 @@ export default {
         series: [
           {
             type: 'bar',
+            label: {
+              show: true,
+              position: 'right',
+              textStyle: {
+                color: 'white',
+              },
+            },
           },
         ],
       };
@@ -60,6 +75,36 @@ export default {
       };
 
       this.chartInstance.setOption(dataOptions);
+    },
+
+    resizeEcharts() {
+      const titleFontSize = (this.$refs.seller.offsetWidth / 100) * 3.6;
+      const data = {
+        title: {
+          textStyle: {
+            fontSize: titleFontSize,
+          },
+        },
+        tooltip: {
+          axisPointer: {
+            lineStyle: {
+              width: titleFontSize,
+            },
+          },
+        },
+        series: [
+          {
+            barWidth: titleFontSize,
+            itemStyle: {
+              barBorderRadius: [0, titleFontSize / 2, titleFontSize / 2, 0],
+            },
+          },
+        ],
+      };
+
+      this.chartInstance.setOption(data);
+
+      this.chartInstance.resize();
     },
   },
 };
