@@ -65,7 +65,7 @@ export default {
         },
         series: [
           {
-            type: 'bar',
+            type: 'line',
             label: {
               show: true,
               position: 'right',
@@ -96,38 +96,13 @@ export default {
         ],
       };
       this.chartInstance.setOption(initOptions);
-
-      // 对图表对象进行鼠标事件的监听
-      this.chartInstance.on('mouseover', () => {
-        clearInterval(this.timer);
-      });
-      this.chartInstance.on('mouseout', () => {
-        this.startInterval();
-      });
     },
     async getData() {
-      const { data } = await this.$http.get('seller');
-      this.allData = data.sort((a, b) => {
-        return a.value - b.value;
-      });
-
-      this.totalPage = Math.ceil(data.length / this.pageSize);
+      const { data } = await this.$http.get('trend');
+      this.allData = data;
+      console.log(data);
 
       this.updateOptions();
-
-      this.startInterval();
-    },
-    startInterval() {
-      if (this.timer) {
-        clearInterval(this.timer);
-      }
-      this.timer = setInterval(() => {
-        this.currentPage++;
-        if (this.currentPage > this.totalPage) {
-          this.currentPage = 1;
-        }
-        this.updateOptions();
-      }, 5000);
     },
     updateOptions() {
       const data = this.allData.slice((this.currentPage - 1) * 5, this.currentPage * 5);
