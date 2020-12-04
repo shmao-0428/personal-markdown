@@ -17,7 +17,7 @@
 
 ## 前端语法
 
-1. [TypeScript](https://www.tslang.cn/docs/home.html)
+1. [TypeScript](https://www.tslang.cn/docs/home.html) [ts教程](https://ts.xcatliu.com/basics/declaration-files.html)
 2. [jsx](https://react.docschina.org/docs/introducing-jsx.html)
 3. [rxjs](https://cn.rx.js.org/)
 
