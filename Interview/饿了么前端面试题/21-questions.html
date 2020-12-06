@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 页面上有1万个button, 如何绑定事件 js原生dom 被绑定的index是多少 为什么 怎么解决 -->
+    <script>
+        console.time();
+        for (let i = 0; i < 10000; i++) {
+            const button = document.createElement('button');
+            button.innerHTML = `button${i}`;
+            // button.addEventListener('click', () => {
+            //     alert('这是button' + i)
+            // })
+            document.documentElement.appendChild(button);
+        }
+        console.timeEnd();
+        const btns = document.querySelectorAll('button');
+        console.log(btns);
+        [...btns].forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                alert('这是button' + index)
+            })
+        })
+    </script>
+</body>
+
+</html>
