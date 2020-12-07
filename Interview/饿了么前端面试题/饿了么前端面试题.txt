@@ -6,8 +6,8 @@
 6. 在那个生命周期里面写
 7. 其中有几个name不存在, 通过异步接口获取, 怎么做
 8. 渲染的时候key给什么值, 可以使用index吗, 用id好还是index好(https://www.cnblogs.com/wuqun/p/13201558.html) 
-9. webpack如何配sass, 需要哪些loader, 配css需要哪些loader
-10. 如何把js, html, css 单独打包到一个文件中
+9. webpack如何配sass, 需要哪些loader, 配css需要哪些loader(https://www.cnblogs.com/yujiao-99/p/12586310.html)
+10. 如何把js, html, css 单独打包到一个文件中(https://www.cnblogs.com/luojianjian/p/8053113.html)
 11. div垂直水平居中
 12. 两个元素块, 一左一右, 中间相距10像素
 13. 上下固定, 中间滚动布局如何做
