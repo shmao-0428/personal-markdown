@@ -59,3 +59,4 @@
 3. [can i use](https://caniuse.com/ciu/index)
 4. [image-map](https://www.image-map.net/)
 5. [图片压缩](https://tinypng.com/)
+6. [二维码生成器](https://cli.im/)
