@@ -1,0 +1,25 @@
+<script>
+  function* gen() {
+    yield "测试";
+    yield "测试1";
+    yield sleep();
+    yield "测试2";
+
+    return "over";
+  }
+
+  function sleep() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("测试异步");
+      }, 2000);
+    });
+  }
+
+  const it = gen();
+  console.log(it.next());
+  console.log(it.next());
+  console.log(it.next().value.then(res=>console.log(res)));
+  console.log(it.next());
+  console.log(it.next());
+</script>

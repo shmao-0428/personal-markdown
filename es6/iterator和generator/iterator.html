@@ -1,0 +1,61 @@
+<script>
+  const arr = [1, 2];
+  const str = "sfas";
+  //  console.log(arr[Symbol.iterator]);
+  //  console.log(str[Symbol.iterator]);
+
+  const obj = {
+    a: 1,
+    b: 2,
+    [Symbol.iterator]: iterator,
+  };
+
+  function iterator() {
+    const target = this;
+    let keys = Object.keys(target);
+    let index = 0;
+    return {
+      next() {
+        if (index >= keys.length) {
+          return {
+            done: true,
+            value: undefined,
+          };
+        } else {
+          return {
+            done: false,
+            value: [keys[index], target[keys[index++]]],
+          };
+        }
+      },
+    };
+  }
+
+  const it = obj[Symbol.iterator]();
+  //  console.log(it);
+//   console.log(...obj);
+//   console.log(it.next());
+//   console.log(it.next());
+//   console.log(it.next());
+
+for (const item of obj) {
+    console.log(item);
+}
+
+const obj1 = {
+  a: 1,
+  b: 2,
+  c: 3
+};
+obj1[Symbol.iterator] = function* () {
+  yield 1;
+  yield 2;
+  yield 3;
+
+  return null;
+}
+
+for (const item of obj1) {
+  console.log(item);
+}
+</script>
