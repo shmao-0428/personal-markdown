@@ -5,6 +5,7 @@
 1. [阮一峰的个人网站](http://www.ruanyifeng.com/blog/)
 2. [鑫空间](https://www.zhangxinxu.com/)
 3. [NGTE某熊的笔记](https://ng-tech.icu/books/)
+4. [廖雪峰](https://www.liaoxuefeng.com/wiki/)
 
 ## 前端框架
 
