@@ -1,0 +1,15 @@
+{
+  "name": "command",
+  "version": "1.0.0",
+  "description": "https://juejin.cn/post/6844903797907521544, https://www.npmjs.com/package/commander",
+  "main": "index.js",
+  "dependencies": {
+    "commander": "^6.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "shmao",
+  "license": "ISC"
+}
