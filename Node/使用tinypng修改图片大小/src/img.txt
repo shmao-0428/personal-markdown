@@ -1,0 +1,1 @@
+src\assets\img\insurance_logo.png src\assets\img\ip.png src\assets\img\logo.png src\assets\img\logo_blue.png src\assets\img\logo_light.png src\assets\img\nodata.png

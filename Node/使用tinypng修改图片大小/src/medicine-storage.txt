@@ -1,0 +1,1 @@
+src\assets\img\medicine-storage\ai@2x.png src\assets\img\medicine-storage\custom@2x.png src\assets\img\medicine-storage\ocr@2x.png src\assets\img\medicine-storage\upload@2x.png
