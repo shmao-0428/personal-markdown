@@ -62,3 +62,4 @@
 5. [图片压缩](https://tinypng.com/)
 6. [二维码生成器](https://cli.im/)
 7. [智图](https://zhitu.isux.us/)
+8. [favicon在线制作](https://tool.lu/favicon/)
