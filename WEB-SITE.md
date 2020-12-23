@@ -63,3 +63,5 @@
 6. [二维码生成器](https://cli.im/)
 7. [智图](https://zhitu.isux.us/)
 8. [favicon在线制作](https://tool.lu/favicon/)
+9. [vue2 template](https://template-explorer.vuejs.org/#%3Cdiv%20id%3D%22app%22%3E%7B%7B%20msg%20%7D%7D%3C%2Fdiv%3E)
+10. [vue3 template](https://vue-next-template-explorer.netlify.app)
