@@ -1,5 +1,5 @@
 const path = require('path');
-export default {
+module.exports = {
   chainWebpack: (config) => {
     config.resolve.alias.set('@', path.resolve(__dirname, './src'));
   },

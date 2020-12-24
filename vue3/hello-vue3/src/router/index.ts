@@ -25,6 +25,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "v-model",
     component: () => import(/* webpackChunkName: "about" */ "../views/v-model/index.vue"),
   },
+  {
+    path: "/reactive",
+    name: "Reactive",
+    component: () => import(/* webpackChunkName: "about" */ "../views/Reactive.vue"),
+  },
 ];
 
 const router = createRouter({

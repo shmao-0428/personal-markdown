@@ -3,7 +3,8 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link> |
     <router-link to="/computed">Computed</router-link> |
-    <router-link to="/v-model">v-model</router-link>
+    <router-link to="/v-model">v-model</router-link> |
+    <router-link to="/reactive">Reactive</router-link>
   </div>
   <router-view />
 </template>
