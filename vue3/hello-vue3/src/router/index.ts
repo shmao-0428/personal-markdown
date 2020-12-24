@@ -23,12 +23,17 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/v-model",
     name: "v-model",
-    component: () => import(/* webpackChunkName: "about" */ "../views/v-model/index.vue"),
+    component: () => import(/* webpackChunkName: "model" */ "../views/v-model/index.vue"),
   },
   {
     path: "/reactive",
     name: "Reactive",
-    component: () => import(/* webpackChunkName: "about" */ "../views/Reactive.vue"),
+    component: () => import(/* webpackChunkName: "reactive" */ "../views/reactive/reactive.vue"),
+  },
+  {
+    path: "/ref",
+    name: "Ref",
+    component: () => import(/* webpackChunkName: "reactive" */ "../views/ref/ref.vue"),
   },
 ];
 
