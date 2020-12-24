@@ -12,7 +12,7 @@ export default defineComponent({
   },
   setup(props, ctx) {
     // console.log(ctx);
-    // console.log(ctx.attrs.modelValue);
+    console.log(ctx.attrs.modelValue);
 
     const value = ref(ctx.attrs.modelValue);
 
