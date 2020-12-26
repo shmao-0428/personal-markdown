@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   /** 指定入口文件 */
@@ -56,12 +56,37 @@ module.exports = {
         ],
         exclude: /node_modules/,
       },
+      /** 设置less */
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          /** 引入postcss */
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  [
+                    'postcss-preset-env',
+                    {
+                      browers: 'last 2 versions',
+                    },
+                  ],
+                ],
+              },
+            },
+          },
+          'less-loader',
+        ],
+      },
     ],
   },
 
   /** 处理插件 */
   plugins: [
-    new CleanWebpackPlugin(),
+    // new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       //   title: '这是我的title',
       /** 指定模板 */
