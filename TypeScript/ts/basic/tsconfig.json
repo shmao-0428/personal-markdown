@@ -1,0 +1,37 @@
+{
+    "include": ["src"],
+    "compilerOptions": {
+        /** 编译为es6, 指定编译后的js版本 */
+        "target": "ES6",
+        /** 指定模块化规范 */
+        "module": "commonjs",
+        /** 指定项目里面要使用的库, 默认不需要改;如果不是在浏览器环境中, 比如在node中就需要设置这个 */
+        // "lib": ["DOM"]
+        /** 编译后的js放在哪 */
+        "outDir": "./dist",
+        /** 将代码合并为一个文件, 仅支持amd和system模块, 设置这个配置, 会把全局的文件合并为一个js中 */
+        // "outFile": "./dist/app.js"
+        /** 是否会对js文件进行编译 ,默认是false */
+        "allowJs": false,
+        /** 检查js代码是否符合语法规范 */
+        "checkJs": false,
+        /** 所有严格检查的总开关, 如果是true, 所有strict都是开启的, 可以省略其他strict+的配置 */
+        "strict": true,
+        /** 编译后是否移除注释 */
+        "removeComments": false,
+        /** 不生成编译后的文件 */
+        "noEmit": false,
+        /** 当有错误不生成编译文件 */
+        "noEmitOnError": false,
+        /** 用来设置编译后的文件是否开启严格模式 */
+        "alwaysStrict": true,
+        /** 不允许隐式的any类型 */
+        "noImplicitAny": true,
+        /** 不允许隐式类型的this */
+        "noImplicitThis": true,
+        /** 严格检查空值 */
+        "strictNullChecks": true,
+        // "sourceMap": false,
+    },
+    // "exclude": ["node_modules"]
+}
