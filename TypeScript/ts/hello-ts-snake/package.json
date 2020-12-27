@@ -1,5 +1,5 @@
 {
-  "name": "hello-ts",
+  "name": "ts-snake",
   "version": "1.0.0",
   "description": "",
   "main": "./src/index.ts",

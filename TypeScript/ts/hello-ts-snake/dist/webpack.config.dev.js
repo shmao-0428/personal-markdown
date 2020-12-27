@@ -18,10 +18,15 @@ module.exports = {
     filename: 'bundle.[name].js',
     // filename: 'bundle.[hash].js',
     environment: {
-      arrowFunction: false
+      /** 告诉webpack不要使用箭头函数 */
+      arrowFunction: false,
+
+      /** 兼容ie */
+      "const": false
     }
   },
-  mode: 'production',
+  mode: 'development',
+  // mode: 'production',
 
   /** 指定webpack打包时的模块 */
   module: {
