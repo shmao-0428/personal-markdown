@@ -1,0 +1,79 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #eee;
+}
+.container {
+  display: flex;
+}
+.container .btn {
+  overflow: hidden;
+  position: relative;
+  width: 90px;
+  height: 90px;
+  text-align: center;
+  margin: 0 10px;
+  border-radius: 25px;
+  background-color: #fff;
+  box-shadow: 0px 5px 15px -5px rgba(0, 0, 0, 0.1);
+}
+.container .btn::before {
+  content: '';
+  position: absolute;
+  top: 90%;
+  left: -110%;
+  width: 120%;
+  height: 120%;
+  transform: rotate(45deg);
+  transition: all 0.4s cubic-bezier(0.31, -0.1, 0.43, 1.59);
+}
+.container .btn .fa {
+  font-size: 38px;
+  transform: scale(0.8);
+  line-height: 90px;
+  transition: all 0.4s cubic-bezier(0.31, -0.1, 0.43, 1.59);
+}
+.container .btn .fa-facebook {
+  color: #3b5988;
+}
+.container .btn.btn_facebook::before {
+  background-color: #3b5988;
+}
+.container .btn .fa-twitter {
+  color: #00aff0;
+}
+.container .btn.btn_twitter::before {
+  background-color: #00aff0;
+}
+.container .btn .fa-google {
+  color: #dc4a38;
+}
+.container .btn.btn_google::before {
+  background-color: #dc4a38;
+}
+.container .btn .fa-instagram {
+  color: #bf00ff;
+}
+.container .btn.btn_instagram::before {
+  background-color: #bf00ff;
+}
+.container .btn .fa-pinterest {
+  color: #c00;
+}
+.container .btn.btn_pinterest::before {
+  background-color: #c00;
+}
+.container .btn:hover::before {
+  top: -10%;
+  left: -10%;
+}
+.container .btn:hover .fa {
+  color: #fff;
+  transform: scale(1);
+}

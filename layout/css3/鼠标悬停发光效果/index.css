@@ -1,0 +1,62 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  height: 100vh;
+  width: 100vw;
+}
+.btn {
+  width: 100px;
+  height: 60px;
+  margin: 40px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 60px;
+  position: relative;
+  color: aqua;
+  transition: all 0.3s ease-in-out;
+  /* hue-rotate是颜色滤镜 可以加不同的度数来改变颜色
+  这里我们用了calc自动计算的方法,还有var函数来调用我们给每一个a设置的不同的属性值1~5,然后分别乘以60度,就能够分别得到不同的度数 */
+  filter: hue-rotate(calc(var(--i) * 60deg));
+}
+.btn::before,
+.btn::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  border: 2px solid aqua;
+  transition: all 0.3s ease-in-out 0.3s;
+}
+.btn::before {
+  left: 0;
+  top: 0;
+  border-right: none;
+  border-bottom: none;
+}
+.btn::after {
+  right: 0;
+  bottom: 0;
+  border-top: none;
+  border-left: none;
+}
+.btn:hover {
+  color: #000;
+  background-color: aqua;
+  box-shadow: 0px 0px 50px aqua;
+  /* below 是下倒影 1px是倒影的元素相隔的距离 最后是个渐变的颜色 */
+  -webkit-box-reflect: below 1px linear-gradient(transparent, rgba(0, 0, 0, 0.3));
+  /* 设置一下以上属性的延迟时间 */
+  transition-delay: 0.4s;
+}
+.btn:hover::before,
+.btn:hover::after {
+  width: 98px;
+  height: 58px;
+  transition-delay: 0s;
+}
