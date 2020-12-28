@@ -15,7 +15,7 @@
 
   - vue2中的虚拟dom是进行全量的对比
 
-    - <img src="\images\vue2对比vue3 diff.jpg" alt="vue2对比vue3 diff" style="zoom:50%;" />
+    - <img src="images\vue2对比vue3 diff.jpg" alt="vue2对比vue3 diff" style="zoom:50%;" />
 
     - ```html
       <div id="app">
@@ -60,7 +60,7 @@
       // Check the console for the AST
       ```
 
-    - ![](\images\PatchFlag.jpg)
+    - ![](images\PatchFlag.jpg)
 
 - hoistState 静态提升
 
