@@ -23,3 +23,7 @@
   - files
     - 指定被编译文件的列表, 只有需要被编译的文件少时才会用到
     - 示例: `"files":"["core.ts", "type.ts"]"`
+
+
+# 参考链接
+1. [ts入门教程](https://ts.xcatliu.com/basics/declaration-files.html)
