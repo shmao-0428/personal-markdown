@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+</head>
+
+<body>
+    <!-- 
+        canvas三要素: 
+        1. id: 作为唯一的标识
+        2. width: 画布内容宽度的像素大小, 与style的宽度和高度是有区别的
+        3. height: 画布内容高度的像素大小
+     -->
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <script>
+        /** 1. 画布对象 */
+        const canvas = document.getElementById('canvas');
+        /** 2. 上下文对象(画笔) */
+        const context = canvas.getContext('2d');
+
+        /** x坐标,y坐标,半径, */
+        context.arc(300, 300, 100, 0, 2 * Math.PI, true);
+        context.strokeStyle = 'aqua';
+        context.fillStyle = 'aqua';
+        context.fill();
+        context.stroke();
+
+    </script>
+</body>
+
+</html>

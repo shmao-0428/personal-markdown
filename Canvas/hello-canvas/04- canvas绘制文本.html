@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+</head>
+
+<body>
+    <!-- 
+        canvas三要素: 
+        1. id: 作为唯一的标识
+        2. width: 画布内容宽度的像素大小, 与style的宽度和高度是有区别的
+        3. height: 画布内容高度的像素大小
+     -->
+    <canvas id="canvas" width="1500" height="600"></canvas>
+    <script>
+        /** 1. 画布对象 */
+        const canvas = document.getElementById('canvas');
+        /** 2. 上下文对象(画笔) */
+        const context = canvas.getContext('2d');
+
+        context.font = '20px sans-serif';
+
+        context.shadowBlur = 20;
+        context.shadowColor = '#000';
+        context.shadowOffsetX = 10;
+        context.shadowOffsetY = 10;
+
+        context.fillText('hello canvas', 100, 100, 200);
+
+        context.font = '30px sans-serif';
+        context.strokeText('hello world', 100, 200);
+
+        /** 弹幕效果 */
+        let x = 1500;
+        setInterval(() => {
+            /** 清空画布 */
+            context.clearRect(0, 0, 1500, 600);
+            x -= 3;
+            if (x < -100) {
+                x = 1500
+            }
+            context.fillText('hello canvas', x, 100);
+            context.strokeText('hello world', x, 200);
+        }, 1 / 60 * 1000);
+
+    </script>
+</body>
+
+</html>

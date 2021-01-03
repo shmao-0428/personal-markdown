@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        canvas三要素: 
+        1. id: 作为唯一的标识
+        2. width: 画布内容宽度的像素大小, 与style的宽度和高度是有区别的
+        3. height: 画布内容高度的像素大小
+     -->
+    <canvas id="canvas" width="800" height="800"></canvas>
+    <script>
+        const WIDTH = document.body.offsetWidth;
+        const HEIGHT = document.body.offsetHeight;
+        /** 1. 画布对象 */
+        const canvas = document.getElementById('canvas');
+        canvas.style.width = WIDTH + 'px';
+        canvas.style.height = HEIGHT + 'px';
+        /** 2. 上下文对象(画笔) */
+        const context = canvas.getContext('2d');
+
+        /** 绘制图片对象 */
+        const img = new Image();
+        img.src = './images/01.jpg';
+        img.style.width = WIDTH + 'px';
+        /** 图片载入之后在进行绘制 */
+        img.onload = function () {
+            context.drawImage(img, 0, 0, 300, 300,);
+            context.font = '20px sans-serif';
+            context.fillStyle = 'red';
+            context.fillText('hello canvas', 100, 100);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.style.width = document.body.offsetWidth + 'px'
+            canvas.style.height = document.body.offsetHeight + 'px'
+        })
+
+
+    </script>
+</body>
+
+</html>
