@@ -40,6 +40,8 @@
 5. [lodash](https://www.lodashjs.com/)
 6. [three.js](http://threesjs.com/)
 7. [big.js](https://github.com/MikeMcl/big.js/)
+8. [白鹭引擎](http://developer.egret.com/cn/)
+9. [虚幻4](https://www.unrealengine.com/zh-CN/)
 
 ## 页面搭建
 
@@ -66,3 +68,5 @@
 9. [vue2 template](https://template-explorer.vuejs.org/#%3Cdiv%20id%3D%22app%22%3E%7B%7B%20msg%20%7D%7D%3C%2Fdiv%3E)
 10. [vue3 template](https://vue-next-template-explorer.netlify.app)
 11. [贝塞尔曲线](https://cubic-bezier.com/#.17,.67,.83,.67)
+12. [印记中国](https://docschina.org/)
+13. [pro git](https://gitee.com/progit/ )
