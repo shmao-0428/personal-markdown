@@ -144,13 +144,12 @@
   - 当有大量静态的内容的时候, 这些内容会被当做纯字符串推进一个`buffer`里面, 即使存在动态的绑定, 会通过模板插值嵌入进去. 这样会比通过虚拟dom来渲染的快上很多很多;
   - 当静态内容大到一定量级的时候, 会用`_createStaticVNode`方法在客户端去生成一个`static node`, 这些静态node, 会被innerHTML, 就不需要创建对象, 然后根据对象渲染.
 
-​	
-
 
 
 # 参考链接
 
 1. [vue3](vue3js.cn/docs/zh/guide/migration/introduction.html#概览)
 2. [深入理解vue3 reactivity api](https://www.bilibili.com/video/BV14k4y117LL?p=2)
-
 3. [李南江vue3](https://www.bilibili.com/video/BV14k4y117LL?p=2)
+4. [Vue3+TS 快速上手]((https://24kcs.github.io/vue3_study/))
+
