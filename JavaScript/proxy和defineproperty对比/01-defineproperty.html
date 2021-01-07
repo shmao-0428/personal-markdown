@@ -1,0 +1,77 @@
+<script>
+  const data = {
+    a: 1,
+    b: [1, 2, 3, 4],
+    c: [{ name: 1 }, { name: 2 }],
+    d: { code: 1 },
+  };
+
+  function arrayMethods() {
+    const METHODS = ["push", "pop", "shift", "unshift", "sort", "reserve", "splice"];
+    let arrPro = Array.prototype;
+    let arrayMethods = Object.create(arrPro);
+    METHODS.forEach((item) => {
+      // 原始方法
+      let originMethods = arrPro[item];
+      // 重写方法
+      Object.defineProperty(arrayMethods, item, {
+        value: function (...arg) {
+          console.log("%c item:", "color:skyblue;font-weight:700;", item);
+          originMethods.apply(this, arg);
+          // 更新视图
+          // todo
+        },
+      });
+    });
+    return arrayMethods;
+  }
+
+  /** 监听不到数组的push方法 */
+  function observer(data) {
+    if (typeof data === "object") {
+      if (Array.isArray(data)) {
+        data.__proto__ = arrayMethods();
+        Object.keys(data).forEach((key) => {
+          if (typeof data[key] === "object") {
+            let obj = data[key];
+            for (const item in obj) {
+              defineReactive(obj, item, obj[item]);
+            }
+          }
+        });
+      } else {
+        Object.keys(data).forEach((key) => {
+          defineReactive(data, key, data[key]);
+        });
+      }
+    }
+  }
+
+  function defineReactive(obj, key, val) {
+    observer(val);
+    Object.defineProperty(obj, key, {
+      get() {
+        console.log("%c get:", "color:red;font-weight:700;", "target=>", obj, "key=>", key);
+        return val;
+      },
+      set(newVal) {
+        console.log("%c set:", "color:aqua;font-weight:700;", "target=>", obj, "key=>", key, "value=>", newVal);
+        if (newVal !== val) val = newVal;
+      },
+    });
+  }
+
+  observer(data);
+
+  console.log(data);
+  //   data.a = 2;
+  data.b[1] = 3; // 监听不到变化 触发不了setter方法
+  data.b[4] = 3; // 监听不到变化 触发不了setter方法
+  //   data.d.code = 'xxi';
+  //   data.b.push(5);
+  //   data.b.pop();
+  // data.c.push({name:3})
+  //   data.c[0].name = "1"; // 监听不到数组属性的变化
+  //   data.c[2] = { name: 3 }; // 监听不到数组新增的属性
+  //   data.d.name = '1'; // 监听不到对象新增的属性
+</script>

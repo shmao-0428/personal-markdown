@@ -41,16 +41,21 @@ function defineReactive(obj, key, val) {
   observer(val);
   Object.defineProperty(obj, key, {
     get() {
-      console.log('get');
+      console.log('get', obj, key);
       return val;
     },
     set(newVal) {
-      console.log('set');
+      console.log('set', newVal);
       if (newVal !== val) val = newVal;
     },
   });
 }
 
 observer(data);
-console.log(data.h.c);
-console.log(data.n[0]);
+// console.log(data.h.c);
+// data.n[0] = 123;
+let n = data.n
+n.push(13)
+n[n.length - 1] = { name:1 }
+n[n.length - 1].name = '1'
+console.log(typeof n[n.length - 1].name);

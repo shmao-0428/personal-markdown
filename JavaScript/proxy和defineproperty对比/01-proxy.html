@@ -1,0 +1,49 @@
+<script>
+  const obj = {
+    a: 1,
+    b: [1, 2, 3, 4],
+    c: [{ name: 1 }, { name: 2 }],
+    d: { name: 1 },
+  };
+
+  function defineProxy(obj) {
+    /** 递归拦截 */
+    Object.keys(obj).forEach((item) => {
+      if (typeof obj[item] === "object") {
+        obj[item] = defineProxy(obj[item]);
+      }
+    });
+    return new Proxy(obj, {
+      get(target, key) {
+        console.log("%c get:", "color:red;font-weight:700;", "target=>", target, "key=>", key);
+        return target[key];
+      },
+      set(target, key, value) {
+        console.log("%c set:", "color:aqua;font-weight:700;", "target=>", target, "key=>", key, "value=>", value);
+        /**
+         * 必须有返回值 否则 调用数组的push方法会报错
+         * Uncaught TypeError: 'set' on proxy: trap returned falsish for property 'length' */
+        if (value === target[key]) return value;
+        return (target[key] = value);
+      },
+    });
+  }
+  const o = defineProxy(obj);
+
+  console.log(o);
+  //   o.a = 2;
+  //   o.b[0] = 3; // 可以监听到数组值域变化
+
+  o.b.push(5);
+  /**
+   * get: target=> (4) [1, 2, 3, 4] key=> push
+   * get: target=> (4) [1, 2, 3, 4] key=> length
+   * set: target=> (4) [1, 2, 3, 4] key=> 4 value=> 5
+   * set: target=> (5) [1, 2, 3, 4, 5] key=> length value=> 5 
+   * */
+
+  //   o.b.pop()
+  //   o.c[0].name = "1";
+  //   o.c.push({name:3})
+  //   o.d.code = 1;
+</script>

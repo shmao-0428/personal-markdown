@@ -18,7 +18,7 @@ function defineReactive(obj) {
       return target[key];
     },
     set(target, key, val) {
-      console.log('set');
+      console.log('set', key, val);
       return (target[key] = val);
     },
   });
@@ -26,4 +26,13 @@ function defineReactive(obj) {
 
 data = defineReactive(data);
 // console.log(data.h.c);
-console.log(data.n[0]);
+// console.log(data.n[0])
+let n = data.n
+// n[2] = { name: 1 }
+// n[2].name = '1'
+// console.log(typeof n[2].name);
+
+n.push(13)
+n[n.length - 1] = { name:1 }
+n[n.length - 1].name = '1'
+console.log(typeof n[n.length - 1].name);
