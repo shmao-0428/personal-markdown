@@ -1,3 +1,4 @@
+<!--<script src="https://cdn.bootcdn.net/ajax/libs/babel-polyfill/7.12.1/polyfill.js"></script>-->
 <script src="./implements.js"></script>
 <!-- <script src="./源码/promise.js"></script> -->
 <script>
@@ -8,7 +9,7 @@
   });
 
   console.log(p);
-  Promise.resolve().then(()=>console.log(1))
+  Promise.reject().then(()=>console.log(1)).finally(()=>console.log(2))
   // console.dir(Promise);
 //   p.then((value) => {
 //     console.log(value);
