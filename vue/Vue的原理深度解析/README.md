@@ -3,6 +3,7 @@
 ![image-20201219225954293](mvvm.png)
 
 - 传统的 `MVC` 指的是, 用户操作会请求服务器路由, 路由会调用对应的控制器来处理, 控制器会获取数据,将结果返回给前端, 页面会重新渲染;
+  - ![](mvc.png)
 - `MVVM`: 传统的前端会将数据手动渲染到页面上, `MVVM`模式不需要用户收到操作 dom 元素, 将数据绑定到`viewModel`层上, 会自动将数据渲染到页面中, 视图变化会通知`viewModel`层更新数据, `viewModel`就是我们`MVVM`模式的桥梁.
 
 # 2. 请说下响应式数据的原理
@@ -315,14 +316,37 @@ const arrayProto = Array.prototype
 
 ```js
 const VueTemplateCompiler = require('vue-template-compiler')
-let r1 = VueTemplateCompiler.compile(`<div> v-if="true"><span v-for="i in 3">hello</span></div>`)
+let r1 = VueTemplateCompiler.compile(`<div v-if="true"><span v-for="i in 3">hello</span></div>`)
 console.log(r1)
+
+function render() {
+  with(this) {
+    return (true) ? _c('div', _l((3), function (i) {
+      return _c('span', [_v("hello")])
+    }), 0) : _e()
+  }
+}
 ```
 
 ```js
 const VueTemplateCompiler = require('vue-template-compiler')
-let r2 = VueTemplateCompiler.compile(`<div> v-show="true"><span v-for="i in 3">hello</span></div>`)
+let r2 = VueTemplateCompiler.compile(`<div v-show="true"><span v-for="i in 3">hello</span></div>`)
 console.log(r2)
+
+function render() {
+  with(this) {
+    return _c('div', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (true),
+        expression: "true"
+      }]
+    }, _l((3), function (i) {
+      return _c('span', [_v("hello")])
+    }), 0)
+  }
+}
 ```
 
 # 13. 为什么`v-for`和`v-if`不能连用
@@ -333,6 +357,14 @@ console.log(r2)
 const VueTemplateCompiler = require('vue-template-compiler')
 let r1 = VueTemplateCompiler.compile(`<span v-if="false" v-for="i in 3">hello</span>`)
 console.log(r1.render)
+
+function render() {
+  with(this) {
+    return _c('div', _l((3), function (i) {
+      return (false) ? _c('span', [_v("hello")]) : _e()
+    }), 0)
+  }
+}
 ```
 
 - `v-for`会比`v-if`的优先级更高一些,如果连用的话会把`v-if`给每个元素都添加一下, 会造成性能问题
@@ -341,6 +373,7 @@ console.log(r1.render)
 
 - 虚拟节点就是用一个对象来描述真实的`dom`元素
 - `template`模板 `ast`树 => `codegen` => 转换成`render`函数 => 内部调用的就是`_c`方法 =>虚拟`dom`
+- [ast与前端工程化实战](http://www.imooc.com/article/290884)
 
 ```js
 function $createElement(tag, data, ...children){
@@ -399,7 +432,7 @@ export function vnode(tag, data,key,children, text){
 
 ![](render.jpg)
 
-# 19. 组件中的`data`为什么是一个函数
+# 19. `组件`中的`data`为什么是一个函数
 
 ```js
 function VueComponent() {}
@@ -414,8 +447,9 @@ console.log(v2.$options.data)
 
 **理解**
 
-- 同一个组件被复用多次,会创建多个实例. 这些实例用的是同一个构造函数, 如果`data`是一个对象的话 , 那么所有组件都共享同一个对象, 为了保证组件的数据独立性要求每个组件必须通过`data`函数返回一个对象作为组件的状态.
+- 同一个`组件被复用`多次,会创建多个实例. 这些实例用的是同一个构造函数, 如果`data`是一个对象的话 , 那么所有组件都共享同一个对象, 为了保证组件的数据独立性要求每个组件必须通过`data`函数返回一个对象作为组件的状态.
 - 一个组件被使用多次, 用的都是同一个构造函数, 为了保证组件的不同的实例data不冲突, 要求data必须是一个函数, 这样组件间不会相互影响
+- `core/global-api/extend.js line:33`
 
 **原理**
 
@@ -433,16 +467,47 @@ vue的事件绑定分为两种一种是原生的事件绑定, 还有一种是组
 
 **原理**
 
-- `vdom/create-componetn.js`
-
+- `vdom/create-component.js`
+- `src/platforms/web/runtime/modules/events.js`
 - 事件的编译是
 
 ```js
 let compiler = require('vue-template-compiler')
 let r1 = compiler.compile('<div @click="fn()" />')
-let r1 = compiler.compile('<my-component @click.native="fn()" @click="fn()" />')
+let r2 = compiler.compile('<my-component @click.native="fn()" @click="fn()" />')
+
 console.log(r1.render)
+
+function render() {
+  with(this) {
+    return _c('div', {
+      on: {
+        "click": function ($event) {
+          return fn()
+        }
+      }
+    })
+  }
+}
+
 console.log(r2.render)
+
+function render() {
+  with(this) {
+    return _c('my-component', {
+      on: {
+        "click": function ($event) {
+          return fn()
+        }
+      },
+      nativeOn: {
+        "click": function ($event) {
+          return fn()
+        }
+      }
+    })
+  }
+}
 ```
 
 - 事件代理
@@ -454,7 +519,7 @@ console.log(r2.render)
 </div>
 
 // 通过事件代理 事件冒泡解决问题
-<div  @click="fn">
+<div @click="fn">
  <div v-for="i in 100">
 	<div />    
  </div>
@@ -484,6 +549,44 @@ console.log(r2.render)
 ```js
 const VueTemplateCompiler = require('vue-template-compiler')
 const ele = VueTemplateCompiler.compile('<input type="checkbox" v-model="value" />')
+
+function render() {
+  with(this) {
+    return _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (value),
+        expression: "value"
+      }],
+      attrs: {
+        "type": "checkbox"
+      },
+      domProps: {
+        "checked": Array.isArray(value) ? _i(value, null) > -1 : (value)
+      },
+      on: {
+        "change": function ($event) {
+          var $$a = value,
+            $$el = $event.target,
+            $$c = $$el.checked ? (true) : (false);
+          if (Array.isArray($$a)) {
+            var $$v = null,
+              $$i = _i($$a, $$v);
+            if ($$el.checked) {
+              $$i < 0 && (value = $$a.concat([$$v]))
+            } else {
+              $$i > -1 && (value = $$a.slice(0, $$i).concat($$a.slice(
+                $$i + 1)))
+            }
+          } else {
+            value = $$c
+          }
+        }
+      }
+    })
+  }
+}
 ```
 
 # 22.`vue`中的`v-html`会导致哪些问题
@@ -498,12 +601,13 @@ const ele = VueTemplateCompiler.compile('<input type="checkbox" v-model="value" 
 ```
 
 - `v-html`会替换掉标签内部的子元素
+- `src/pathforms/web/runtime/modules/dom-props.js`
 
 **原理**
 
 ```js
 const VueTemplateCompiler = require('vue-template-compiler')
-let r = VueTemplateCompiler.compile('<div v-html="<span>hello</span>" />')
+let r = VueTemplateCompiler.compile('<div v-html="'<span>hello</span>'" />')
 
 console.log(r)
 
@@ -554,6 +658,8 @@ components: {
 - 作用域插槽
   - 作用域插槽在解析的时候, 不会作为组件的孩子节点. 会解析成函数, 当子组件渲染时, 会调用次函数进行渲染 (插槽的作用域为子组件)
 
+![](slot.jpg)
+
 # 28. 谈谈你对`keep-alive`的理解
 
 - `src/core/components/keep-alive.js`
@@ -596,7 +702,7 @@ components: {
 - 双向绑定和vuex是否冲突
 - vue中内置组件transition, transition-group实现原理
 - 说说patch函数里做了啥
-- 知道vue的什么周期内部怎么实现的
+- 知道vue的生命周期内部怎么实现的
 - ssr项目如果并发很大服务器怎么优化
 - 说下项目中怎么实现权限校验
 - 将vue-lazyloader的原理, 手写伪代码
