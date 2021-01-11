@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>
-      <a href="https://www.bilibili.com/video/BV1D54y1C7ST?from=search&seid=9989379109570125677"
+      <a href="https://www.bilibili.com/video/BV1D54y1C7ST?from=search&seid=9989379109570125677" target="_blank"
         >使用Vue.extend动态创建弹框</a
       >
     </h1>
