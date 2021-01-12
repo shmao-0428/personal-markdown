@@ -90,4 +90,15 @@ const shuffle = ([...arr]) => {
 const foo = [1, 2, 3];
 shuffle(foo); // [2, 3, 1], foo = [1, 2, 3]
 
-export { all, castArray };
+/** 计算文本元素的宽度 */
+const getTextWidth = (text) => {
+  let ele = document.createElement('span');
+  ele.innerHTML = text;
+  document.body.appendChild(ele);
+  const width = ele.offsetWidth;
+  document.body.removeChild(ele);
+  ele = null;
+  return width;
+};
+console.log(getTextWidth('这是一个文本'));
+console.log(getTextWidth('abc'));
