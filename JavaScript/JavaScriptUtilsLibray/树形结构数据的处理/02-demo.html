@@ -1,0 +1,50 @@
+<script>
+    let arr = [
+        {
+            id: 1,
+            parent_id: null,
+            children: [
+                { id: 2, parent_id: 1, children: [{ id: 4, parent_id: 2, children: [{ id: 5, parent_id: 4, children: [] }] }] },
+                { id: 3, parent_id: 1, children: [] },
+            ],
+        },
+        {
+            id: 6,
+            parent_id: null,
+            children: [
+                { id: 7, parent_id: 6, children: [{ id: 9, parent_id: 7, children: [{ id: 11, parent_id: 9, children: [] }] }] },
+                { id: 8, parent_id: 6, children: [{ id: 10, parent_id: 8, children: [] }] },
+            ],
+        },
+    ];
+
+    function setDisabledToFalse(arr) {
+        arr.forEach(father => {
+            father.disabled = false;
+            setDisabledToFalse(father.children)
+        })
+    }
+
+    function findValueToChange(arr, value) {
+        for (let i = 0; i < arr.length; i++) {
+            let ele = arr[i];
+            if (ele.id === value) {
+                ele.disabled = true;
+                return;
+            } else {
+                ele.disabled = false;
+                findValueToChange(arr[i].children, value)
+            }
+        }
+    }
+    findValueToChange(arr, 11)
+    setDisabledToFalse(arr)
+    // console.log(arr);
+
+    findValueToChange(arr, 7)
+
+    setDisabledToFalse(arr);
+    findValueToChange(arr, 1)
+    console.log(arr);
+
+</script>
