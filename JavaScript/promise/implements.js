@@ -1,3 +1,4 @@
+
 ((window) => {
   /**
    *  Promise 实现异步的原理 `asap(as soon as possible)` => https://www.cnblogs.com/xiaonian8/p/13847393.html
@@ -164,6 +165,34 @@
               throw err;
             })
         );
+      }
+
+      static allSettled(events) {
+        if(!Array.isArray(events)) events = [];
+        if(events.length === 0) return Promise.resolve([]);
+        return new Promise((resolve,reject)=>{
+          let counts = 0;
+          let results = [];
+          for (let i = 0; i < events.length; i++) {
+            events[i].then(
+              (v)=>{
+                counts++;
+                results[i] = v;
+                if(counts === events.length){
+                  resolve(results)
+                }
+              },
+              (r)=>{
+                counts++;
+                results[i] = r;
+                if(count === events.length){
+                  resolve(results)
+                }
+              }
+            )
+            
+          }
+        }) 
       }
     }
     return Promise;
