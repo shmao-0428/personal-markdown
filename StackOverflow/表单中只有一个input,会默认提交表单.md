@@ -1,0 +1,8 @@
+- **问题**
+  - vue页面开发中遇到了表单中只有一个input框,使用@keyup.enter.native事件时会默认刷新页面
+- **原因**
+  - 浏览器默认没有设置type的input框的type=submit
+- **解决**
+  - el-form上设置@submit.native.prevent
+  - 给el-input设置type=button
+  - 事件做取消默认行为处理
