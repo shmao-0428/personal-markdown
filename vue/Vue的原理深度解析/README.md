@@ -127,6 +127,60 @@ const arrayProto = Array.prototype
 **理解:(宏任务和微任务) 异步方法** 
 `nextTick`方法主要是使用了宏任务和微任务,定义了一个异步方法.多次调用` nextTick` 会将方法存入 队列中，通过这个异步方法清空当前队列。 所以这个 nextTick 方法就是异步方法
 
+Vue 在观察到数据变化时并不是直接更新 DOM，而是开启一个队列（微任务），去更新 DOM 。 所以如果你用一个for循环来动态改变数据100次，其实它只会应用最后一次改变，如果没有这种机制，DOM就要重绘100次。（Vue.js使用异步更新队列更新DOM）
+
+$nextTick 接收一个回调函数作为参数，它的作用是将回调延迟到下次 DOM 更新周期之后执行。将回调函数放入异步队列中。Vue会根据当前浏览器环境优先使用原生的 Promise.then、 MutationObserver 和 setImmediate, 如果都不支持，就会采用 setTimeout 替换。
+
+在 vue2.5 的源码中，macrotask 降级的方案依次是：setImmediate、MessageChannel、setTimeout
+
+vue 的 nextTick 方法的实现原理:
+
+- vue 用异步队列的方式来控制 DOM 更新和 nextTick 回调先后执行
+- microtask 因为其高优先级特性，能确保队列中的微任务在一次事件循环前被执行完毕
+- 考虑兼容问题, vue 做了 microtask 向 macrotask 的降级方案
+
+```js
+  //模拟 nextTick
+  const callbacks = [];
+  //变量控制 microTimerFunc 一次事件循环中只执行一次。
+  let pending = false;
+  function flushCallbacks(){
+      pending = false;
+      const copies = callbacks.slice(0);
+      callbacks.length = 0;
+      for(let i = 0;i < copies.length; i++){
+          copies[i]()
+      }
+  }
+  let microTimerFunc;
+  const p = Promise.resolve();
+  microTimerFunc = ()=>{
+      // 开启微任务队列
+      p.then(flushCallbacks)
+  }
+  function nextTick(cb, ctx){
+      callbacks.push(()=>{
+          if(cb){
+              cb.call(ctx)
+          }
+      })
+      // 开始是false 第一次push事件后 pending为true 一次循环事件中只执行一次
+      if(!pending){
+          pending = true;
+          microTimerFunc()
+      }
+  }
+  //测试一下
+  nextTick(function(){
+      console.log(this.name);
+  }, {name: 'Berwin'});
+  console.log("start...");
+  nextTick(function(){
+      console.log(this.name);
+  }, {name: 'lisi'});
+
+```
+
 ![image-20201219225809181](nexttick.png)
 
 ```js
