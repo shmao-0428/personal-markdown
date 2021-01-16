@@ -6,7 +6,7 @@ function copy(data) {
     Reflect.ownKeys(data).forEach((k) => {
       if (data.hasOwnProperty(k)) {
         let value = data[k];
-        if (typeof value === 'object' && value) {
+        if (typeof value === 'object' && value && !(value instanceof Date)) {
           result[k] = Array.isArray(value) ? [] : {};
           return fn(value, result[k]);
         } else {
@@ -26,7 +26,7 @@ function deepCopy(data) {
       // console.log('key', key);
       let value = data[key];
       // console.log('value', value);
-      if (typeof value === 'object' && value) {
+      if (typeof value === 'object' && value && !(value instanceof Date)) {
         result[key] = deepCopy(value);
       } else {
         result[key] = value;

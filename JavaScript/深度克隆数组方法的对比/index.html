@@ -23,31 +23,31 @@
          * 我们将copy方法改写 一下 将 Object.keys方法改为Reflect.owns方法遍历
          * ! 最后通过耗时对比 我们推荐使用**copy**方法
          */
-        console.time('copy');
-        let arrCopy = copy(arr);
-        console.timeEnd('copy');
+        // console.time('copy');
+        // let arrCopy = copy(arr);
+        // console.timeEnd('copy');
 
-        console.time('deepcopy');
-        let arrDeepCopy = deepCopy(arr);
-        console.timeEnd('deepcopy');
+        // console.time('deepcopy');
+        // let arrDeepCopy = deepCopy(arr);
+        // console.timeEnd('deepcopy');
 
-        console.time('json');
-        let clones = cloneJson(arr);
-        console.timeEnd('json');
+        // console.time('json');
+        // let clones = cloneJson(arr);
+        // console.timeEnd('json');
 
-        console.time('lodash');
-        let deep = _.cloneDeep(arr);
-        console.timeEnd('lodash');
+        // console.time('lodash');
+        // let deep = _.cloneDeep(arr);
+        // console.timeEnd('lodash');
 
 
         /** 使用json深度克隆的缺陷 */
-        // let s = Symbol('a')
-        // let obj = { a: [{ a: 1 }], b: undefined, c: null, [s]: 1, fn: () => { } }
-        // let _obj = cloneJson(obj)
-        // console.log(_obj); // {a: Array(1), c: null}
-        // console.log('lodash', _.cloneDeep(obj)); // {a: Array(1), b: undefined, c: null, Symbol(a): 1, fn: ƒ}
-        // console.log('copy', copy(obj)); // {a: Array(1), b: undefined, c: null, Symbol(a): 1, fn: ƒ}
-        // console.log('deepcopy', deepCopy(obj)); // {a: Array(1), b: undefined, c: null, Symbol(a): 1, fn: ƒ}
+        let s = Symbol('a')
+        let obj = { a: [{ a: 1 }], b: undefined, c: null, [s]: 1, fn: () => { }, t: new Date() }
+        let _obj = cloneJson(obj)
+        console.log(_obj); // {a: Array(1), c: null}
+        console.log('lodash', _.cloneDeep(obj)); // {a: Array(1), b: undefined, c: null, Symbol(a): 1, fn: ƒ}
+        console.log('copy', copy(obj)); // {a: Array(1), b: undefined, c: null, Symbol(a): 1, fn: ƒ}
+        console.log('deepcopy', deepCopy(obj)); // {a: Array(1), b: undefined, c: null, Symbol(a): 1, fn: ƒ}
     </script>
 </body>
 
