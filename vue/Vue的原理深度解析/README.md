@@ -1,14 +1,14 @@
 # 1. 谈谈你对 `MVVM` 的理解
 
-![image-20201219225954293](mvvm.png)
+![image-20201219225954293](imgs/mvvm.png)
 
 - 传统的 `MVC` 指的是, 用户操作会请求服务器路由, 路由会调用对应的控制器来处理, 控制器会获取数据,将结果返回给前端, 页面会重新渲染;
-  - ![](mvc.png)
+  - ![](imgs/mvc.png)
 - `MVVM`: 传统的前端会将数据手动渲染到页面上, `MVVM`模式不需要用户收到操作 dom 元素, 将数据绑定到`viewModel`层上, 会自动将数据渲染到页面中, 视图变化会通知`viewModel`层更新数据, `viewModel`就是我们`MVVM`模式的桥梁.
 
 # 2. 请说下响应式数据的原理
 
-![image-20201219225937868](model.png)
+![image-20201219225937868](imgs/model.png)
 
 ```js
 
@@ -47,7 +47,7 @@
 
 # 3. `vue` 中如何检测数组变化
 
-![image-20201219230021203](array.png)
+![image-20201219230021203](imgs/array.png)
 
 ```js
 const arrayProto = Array.prototype 
@@ -81,7 +81,7 @@ const arrayProto = Array.prototype
 
 # 4. 为何 `vue` 采用异步渲染
 
-![image-20201219225835986](async-render.png)
+![image-20201219225835986](imgs/async-render.png)
 
 ```js
  update () {    /* istanbul ignore else */    
@@ -181,7 +181,7 @@ vue 的 nextTick 方法的实现原理:
 
 ```
 
-![image-20201219225809181](nexttick.png)
+![image-20201219225809181](imgs/nexttick.png)
 
 ```js
   let timerFunc  // 会定义一个异步方法
@@ -231,7 +231,7 @@ vue 的 nextTick 方法的实现原理:
 
 # 6. `vue` 中 `computed` 的特点
 
-![image-20201219231122455](computed.png)
+![image-20201219231122455](imgs/computed.png)
 
 ```js
  function initComputed (vm: Component, computed: Object) {  
@@ -328,9 +328,9 @@ vue 的 nextTick 方法的实现原理:
 
 # 8. `vue` 组件的生命周期
 
-![	](life.png)
+![	](imgs/life.png)
 
-![](life1.png)
+![](imgs/life1.png)
 
 # 9. `ajax`请求放到哪个生命周期中
 
@@ -353,11 +353,11 @@ vue 的 nextTick 方法的实现原理:
 
 将 template 转化成 render 函数
 
-![](render01.png)
+![](imgs/render01.png)
 
-![](render02.png)
+![](imgs/render02.png)
 
-![](render03.png)
+![](imgs/render03.png)
 
 # 12. `vue`中`v-if`和`v-show`的区别
 
@@ -476,7 +476,7 @@ export function vnode(tag, data,key,children, text){
 
 就地复用原则
 
-![](v-for的key.jpg)
+![](imgs/v-for的key.jpg)
 
 # 18. 描述组件渲染和更新的过程
 
@@ -484,7 +484,7 @@ export function vnode(tag, data,key,children, text){
 
 - 渲染组件时, 会通过`Vue.extend`方法构建子组件的构造函数, 并进行实例化. 最终手动调用`$mount`进行挂载. 更新组件时会进行`patchVnode`流程, 核心就是`diff`算法
 
-![](render.jpg)
+![](imgs/render.jpg)
 
 # 19. `组件`中的`data`为什么是一个函数
 
