@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Toast from './toast.vue';
-console.log(Toast);
+// console.log(Toast);
 const ToastConstructor = Vue.extend(Toast);
-console.log(ToastConstructor);
+// console.log(ToastConstructor);
 function showToast(text, duration = 1000) {
   if (document.querySelector('#toast')) return;
   let ToastDom = new ToastConstructor({

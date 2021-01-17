@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
-import router from './router';
+// import router from './router/hash';
+import router from './router/history';
 
 // 引入toast组件
 import toastRegister from '@/components/Toast/toast.js';
