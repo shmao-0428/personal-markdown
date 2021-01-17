@@ -5,9 +5,9 @@
   </div>
 </template>
 <script>
-import RouterComponent from '@/components/home';
+import RouterComponent from "@/components/home";
 console.log(RouterComponent);
 export default {
-  components: { RouterComponent },
+  components: { RouterComponent }
 };
 </script>

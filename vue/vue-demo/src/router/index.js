@@ -24,6 +24,11 @@ const routes = [
     name: 'render',
     component: () => import(/* webpackChunkName: "render" */ '@/views/render/index.vue'),
   },
+  {
+    path: '/custom-store',
+    name: 'custom-store',
+    component: () => import(/* webpackChunkName: "custom-store" */ '@/views/custom-store/index.vue'),
+  },
 ];
 
 const router = new VueRouter({

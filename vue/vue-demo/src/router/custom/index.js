@@ -9,13 +9,13 @@ class VueRouter {
         // console.log('自定义router');
         // 启动理由
         this.$options.router && this.$options.router.init();
-      },
+      }
     });
   }
   constructor(options) {
     this.$options = options;
-    this.mode = options.mode || 'hash';
-    this.to = '';
+    this.mode = options.mode || "hash";
+    this.to = "";
     this.from = this.getHash();
     this.fn = () => {};
     // console.log(options);
@@ -25,8 +25,8 @@ class VueRouter {
     this.app = new Vue({
       data: {
         // 默认根目录
-        currentComponent: '/',
-      },
+        currentComponent: "/"
+      }
     });
   }
   init() {
@@ -39,12 +39,28 @@ class VueRouter {
   }
   bindEvents() {
     // window.addEventListener('load', this.onHashChange.bind(this), false);
-    if (this.mode === 'history') {
-      window.addEventListener('DOMContentLoaded', this.onPopStateChange.bind(this), false);
-      window.addEventListener('popstate', this.onPopStateChange.bind(this), false);
+    if (this.mode === "history") {
+      window.addEventListener(
+        "DOMContentLoaded",
+        this.onPopStateChange.bind(this),
+        false
+      );
+      window.addEventListener(
+        "popstate",
+        this.onPopStateChange.bind(this),
+        false
+      );
     } else {
-      window.addEventListener('DOMContentLoaded', this.onHashChange.bind(this), false);
-      window.addEventListener('hashchange', this.onHashChange.bind(this), false);
+      window.addEventListener(
+        "DOMContentLoaded",
+        this.onHashChange.bind(this),
+        false
+      );
+      window.addEventListener(
+        "hashchange",
+        this.onHashChange.bind(this),
+        false
+      );
     }
   }
   onPopStateChange(e) {
@@ -53,8 +69,8 @@ class VueRouter {
   onHashChange(e) {
     // console.log(e);
     if (e.newURL || e.oldURL) {
-      this.to = e.newURL.split('#')[1];
-      this.from = e.oldURL.split('#')[1];
+      this.to = e.newURL.split("#")[1];
+      this.from = e.oldURL.split("#")[1];
     }
     let hash = this.getHash();
     this.beforeEach(this.fn);
@@ -64,17 +80,17 @@ class VueRouter {
     return window.location.hash.slice(1);
   }
   createRouteMap() {
-    this.$options.routes.forEach((route) => {
+    this.$options.routes.forEach(route => {
       this.routeMap[route.path] = route;
     });
   }
   initComponent() {
     let mode = this.mode;
     let that = this;
-    Vue.component('router-view', {
-      render: (h) => {
+    Vue.component("router-view", {
+      render: h => {
         let component,
-          current = that.app.currentComponent || '/',
+          current = that.app.currentComponent || "/",
           map = that.routeMap;
         if (map[current].redirect) {
           component = map[map[current].redirect].component;
@@ -82,42 +98,42 @@ class VueRouter {
           component = map[current].component;
         }
         return h(component);
-      },
+      }
     });
 
-    Vue.component('router-link', {
+    Vue.component("router-link", {
       props: {
-        to: String,
+        to: String
       },
       render(h) {
         return h(
-          'a',
+          "a",
           {
             attrs: {
-              href: `#${this.to}`,
+              href: `#${this.to}`
             },
             on: {
-              click: (e) => {
-                if (mode === 'history') {
+              click: e => {
+                if (mode === "history") {
                   e.preventDefault();
-                  history.pushState(null, '', this.to);
+                  history.pushState(null, "", this.to);
                   that.onPopStateChange();
                 }
-              },
-            },
+              }
+            }
           },
           [this.$slots.default]
         );
-      },
+      }
     });
   }
   beforeEach(fn) {
     this.fn = this.fn ? fn : fn;
-    this.fn(this.to, this.from, (value) => {
-      if (typeof value === 'string') {
+    this.fn(this.to, this.from, value => {
+      if (typeof value === "string") {
         this.app.currentComponent = value;
       }
-      if (typeof value === 'object') {
+      if (typeof value === "object") {
         this.app.currentComponent = value.path;
       }
       this.app.currentComponent = this.getHash();

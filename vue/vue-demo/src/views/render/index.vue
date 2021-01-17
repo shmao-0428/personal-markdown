@@ -6,21 +6,21 @@
   </div>
 </template>
 <script>
-import RenderComponent from '@/components/render/render.js';
+import RenderComponent from "@/components/render/render.js";
 export default {
   components: {
-    RenderComponent,
+    RenderComponent
   },
   data() {
     return {
-      isRed: true,
+      isRed: true
     };
   },
   methods: {
     onChange(isRed) {
       this.isRed = isRed;
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

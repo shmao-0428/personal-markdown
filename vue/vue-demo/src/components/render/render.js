@@ -2,48 +2,48 @@ export default {
   props: {
     isRed: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
   data() {
     return {
       //   isRed: true,
       arr: [1, 2, 3, 4],
-      input: '',
+      input: ""
     };
   },
   render(h) {
     const value = `isRed 为 ${this.isRed}`;
     if (!this.isRed)
       return h(
-        'div',
+        "div",
         {
-          style: { color: 'red', cursor: 'pointer' },
-          attrs: { id: 'div' },
-          class: ['is-false-red'],
+          style: { color: "red", cursor: "pointer" },
+          attrs: { id: "div" },
+          class: ["is-false-red"],
           on: {
             // click.once
-            '~click'() {
+            "~click"() {
               alert(value);
-            },
-          },
+            }
+          }
         },
         value
       );
     return h(
-      'div',
+      "div",
       {
-        class: { 'is-red': this.isRed },
+        class: { "is-red": this.isRed }
       },
       [
-        h('p', value),
+        h("p", value),
         h(
-          'ul',
-          this.arr.map((child) => {
-            return h('li', `item is ${child}`);
+          "ul",
+          this.arr.map(child => {
+            return h("li", `item is ${child}`);
           })
-        ),
+        )
       ]
     );
-  },
+  }
 };
