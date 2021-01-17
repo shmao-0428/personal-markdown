@@ -36,6 +36,23 @@ function deepCopy(data) {
   return result;
 }
 
+function _deepCopy(data) {
+  let result = Array.isArray(data) ? [] : {};
+  for (const key in data) {
+    if (Object.prototype.hasOwnProperty.call(data, key)) {
+      // console.log('key', key);
+      let value = data[key];
+      // console.log('value', value);
+      if (typeof value === 'object' && value && !(value instanceof Date)) {
+        result[key] = deepCopy(value);
+      } else {
+        result[key] = value;
+      }
+    }
+  }
+  return result;
+}
+
 function cloneJson(data) {
   return JSON.parse(JSON.stringify(data));
 }
