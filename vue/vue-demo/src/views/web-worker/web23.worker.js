@@ -1,9 +1,10 @@
 import { encrypt, decrypt } from './encrypto';
 onmessage = function(evt) {
   //工作线程接收到主线程的消息
+  // console.log(evt.data);
   //向主线程发送消息
   console.time('worker');
-  let encryptData = evt.data.data.map((i) => {
+  let encryptData = evt.data.map((i) => {
     Object.keys(i).forEach((k) => {
       let value = encrypt(typeof i[k] === 'number' ? i[k] + '' : i[k]);
       i[k] = value;
@@ -11,7 +12,7 @@ onmessage = function(evt) {
     return i;
   });
 
-  console.log('encryptData>>>', encryptData[0]);
+  console.log('%c worker>>>', 'color:skyblue;font-weight:700;', encryptData[0]);
 
   let decryptData = encryptData.map((i) => {
     Object.keys(i).forEach((k) => {
