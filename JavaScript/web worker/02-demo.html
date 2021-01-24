@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /** https://juejin.cn/post/6844903496550989837#heading-7 */
+
+        var uInt8Array = new Uint8Array(1024 * 1024 * 32); // 32MB
+        for (var i = 0; i < uInt8Array.length; ++i) {
+            uInt8Array[i] = i;
+        }
+
+        console.log(uInt8Array.length); // 传递前长度:33554432
+
+        var myTask = `
+            onmessage = function (e) {
+                console.log(this)
+                // console.log(self === this) // true
+                var data = e.data;
+                console.log('worker:', data);
+                postMessage('xixo')
+            };
+        `;
+
+        var blob = new Blob([myTask]);
+        var myWorker = new Worker(window.URL.createObjectURL(blob));
+        myWorker.postMessage(uInt8Array.buffer, [uInt8Array.buffer]);
+        var that = this
+        myWorker.onmessage = (e) => {
+            // console.log(this === that)
+            // console.log(self === that)
+            // console.log(self === this)
+            console.log(e.data);
+        }
+
+        console.log(uInt8Array.length); // 传递后长度:0
+
+        //终止
+
+        // 主页面调用
+        // myWorker.terminate();
+
+        // // Worker 线程调用
+        // self.close();
+    </script>
+</body>
+
+</html>

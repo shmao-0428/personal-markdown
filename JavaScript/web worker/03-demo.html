@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /** https://juejin.cn/post/6844903496550989837#heading-7 */
+        let myTask = `
+            onmessage = function (e) {
+                var data = e.data;
+                console.log('worker:', data);
+                data.d = {name: 4}
+                postMessage(data);
+                this.close();
+            };
+        `;
+
+        let blob = new Blob([myTask]);
+        // console.log(blob);
+        let url = window.URL.createObjectURL(blob)
+        // console.log(url);
+        let myWorker = new Worker(url);
+
+        myWorker.onmessage = function (e) {
+            var data = e.data;
+            console.log('page:', data, data === arr);
+            // 重新赋值
+            arr = data;
+            console.log('arr:', arr, arr === data);
+        };
+
+        var arr = {
+            a: { name: 1, a: { a: [123, 2] } },
+            b: { name: 1 },
+            c: { name: 1 },
+        }
+        myWorker.postMessage(arr);
+
+        // myWorker.terminate() // 终止整个进程
+        console.log(url);
+
+
+        setTimeout(() => {
+            console.log(1);
+        });
+
+        Promise.resolve('xixx').then(r => console.log(r))
+
+        setTimeout(() => {
+            console.log(2);
+        }, 100);
+
+        Promise.resolve('fff').then(r => console.log(r))
+
+
+    </script>
+</body>
+
+</html>

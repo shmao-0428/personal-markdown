@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /** https://juejin.cn/post/6844903496550989837#heading-7 */
+        let myTask = `
+            // let i = 0;
+            // function timedCount(){
+            //     i = i+1;
+            //     postMessage(i);
+            //     i < 5 && setTimeout(timedCount, 1000);
+            // }
+            // timedCount();
+            onmessage = function (e) {
+                var data = e.data;
+                Array.isArray(data) && data.push('hello');
+                postMessage(data);
+            };
+        `;
+
+        let blob = new Blob([myTask]);
+        let myWorker = new Worker(window.URL.createObjectURL(blob));
+
+        myWorker.onmessage = function (e) {
+            var data = e.data;
+            console.log('worker:', data); // worker: [1, 2, 3, "hello"]
+            console.log('page:', data); // page: [1, 2, 3, "hello"]
+            // arr = data;
+            console.log('arr:', arr); // arr: [1, 2, 3]
+        };
+
+        var arr = [1, 2, 3];
+        myWorker.postMessage(arr);
+
+        console.log(33);
+
+        setTimeout(() => {
+            console.log('这是定时器');
+            myWorker.postMessage('这是定时器发来的')
+            Promise.resolve('xixi').then(r => console.log(r))
+        }, 3000)
+
+    </script>
+</body>
+
+</html>
