@@ -9,7 +9,7 @@
 <script>
 export default {
   methods: {
-    goBack() {
+    goBack () {
       if (location.pathname !== ('/home' || '/')) {
         this.$router.push('/home');
       }

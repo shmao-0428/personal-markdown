@@ -9,12 +9,12 @@ function install(_Vue) {
       } else {
         this.$store = this.$parent && this.$parent.$store;
       }
-    },
+    }
   });
 }
 
 function forEach(obj, callback) {
-  Reflect.ownKeys(obj).forEach((key) => {
+  Reflect.ownKeys(obj).forEach(key => {
     callback(key, obj[key]);
   });
 }
@@ -25,8 +25,8 @@ class Store {
     // this.state = options.state;
     this.vm = new Vue({
       data: {
-        state: this.options.state,
-      },
+        state: this.options.state
+      }
     });
     this.initGetters();
     this.initMutatios();
@@ -42,7 +42,7 @@ class Store {
       Object.defineProperty(this.getters, item, {
         get: () => {
           return value(this.state);
-        },
+        }
       });
     });
   };
@@ -50,7 +50,7 @@ class Store {
     let mutations = this.options.mutations;
     this.mutations = {};
     forEach(mutations, (mutationName, value) => {
-      this.mutations[mutationName] = (payload) => {
+      this.mutations[mutationName] = payload => {
         value(this.state, payload);
       };
     });
@@ -59,7 +59,7 @@ class Store {
     let actions = this.options.actions;
     this.actions = {};
     forEach(actions, (actionsName, value) => {
-      this.actions[actionsName] = (payload) => {
+      this.actions[actionsName] = payload => {
         value(this, payload);
       };
     });

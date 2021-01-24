@@ -29,6 +29,11 @@ const routes = [
     name: 'custom-store',
     component: () => import(/* webpackChunkName: "custom-store" */ '@/views/custom-store/index.vue'),
   },
+  {
+    path: '/web-worker',
+    name: 'web-worker',
+    component: () => import(/* webpackChunkName: "web-worker" */ '@/views/web-worker/index.vue'),
+  },
 ];
 
 const router = new VueRouter({

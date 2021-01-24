@@ -16,12 +16,12 @@ export default {
   methods: {
     onClick() {
       //   this.$store.state.name = 'zs';
-      let names = ['zs', 'ls', 'ww', 'yf', 'zf'];
+      let names = ["zs", "ls", "ww", "yf", "zf"];
       let randoms = Math.floor(Math.random() * 5);
-      this.$store.commit('changName', names[randoms]);
-      this.$store.dispatch('changeAgeByAction', randoms * 3);
-    },
-  },
+      this.$store.commit("changName", names[randoms]);
+      this.$store.dispatch("changeAgeByAction", randoms * 3);
+    }
+  }
 };
 </script>
 <style lang="less">
