@@ -1,0 +1,62 @@
+<script>
+  let data = [
+    { name: 1, code: 1 },
+    { name: 2, code: 2 },
+    { name: 3, code: 3 },
+    { name: 4, code: 4 },
+    { name: 5, code: 5 },
+    { name: 6, code: 6 },
+    { name: 7, code: 7 },
+    { name: 8, code: 8 },
+    { name: 9, code: 9 },
+    { name: 0, code: 0 },
+  ];
+
+  let obj = {
+    a: { name: 1, code: 2 },
+    b: { name: 2, code: 1 },
+  };
+
+  /** 降级兼容proxy */
+  function singleDefine(obj) {
+    Object.keys(obj).forEach((key) => {
+      if (typeof obj[key] === 'object') {
+        define(obj, key, obj[key]);
+      }
+    });
+    return obj;
+  }
+  function define(obj, key, value) {
+    Object.defineProperty(obj, key, {
+      get() {
+        console.log('get>>', 'key>>', key);
+        return value;
+      },
+      set(val) {
+        console.log('set>>', key, val);
+        obj[key] = val;
+      },
+    });
+  }
+
+  function setData(obj, key) {
+    console.log('setData>>>', key);
+    return obj[key] ? obj[key] : (obj[key] = { name: 11, code: 11 });
+  }
+
+  // let d = singleDefine(data, setData);
+  // console.log(d[0]);
+  // console.log(d[1]);
+
+  // console.log(d[10]);
+
+  let o = singleDefine(obj);
+  console.log(o);
+  console.log(o.a);
+  // console.log(o.b);
+
+  o.c = { name: 3 }
+  o = singleDefine(o)
+  console.log(o.c);
+
+</script>
