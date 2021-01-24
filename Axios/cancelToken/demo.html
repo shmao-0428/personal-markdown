@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let cancel, resolve;
+        let p = new Promise((r, j) => {
+            resolve = r
+            cancel = j;
+        }).then(r => console.log(r)).catch(e => console.log(e))
+        resolve('ok')
+        cancel(new Error('err'))
+    </script>
+</body>
+
+</html>
