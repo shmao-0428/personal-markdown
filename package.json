@@ -1,0 +1,27 @@
+{
+  "name": "personal-markdown",
+  "version": "1.0.0",
+  "description": "Record my personal learning",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shmao-0428/personal-markdown.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shmao-0428/personal-markdown/issues"
+  },
+  "homepage": "https://github.com/shmao-0428/personal-markdown#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "husky": "^4.3.8",
+    "lint-staged": "^10.5.3",
+    "pre-commit": "^1.2.2"
+  }
+}
