@@ -6,6 +6,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
+    name: '/',
     redirect: '/home',
   },
   {
@@ -48,13 +49,13 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  const paths = routes.map((route) => route.path);
-  // console.log(paths);
-  if (paths.includes(to.path)) {
-    next();
-  } else {
-    next({ path: '/' });
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   const paths = routes.map((route) => route.path);
+//   // console.log(paths);
+//   if (paths.includes(to.path)) {
+//     next();
+//   } else {
+//     next({ path: '/' });
+//   }
+// });
 export default router;

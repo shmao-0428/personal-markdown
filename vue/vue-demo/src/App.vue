@@ -1,9 +1,13 @@
 <template>
   <div id="app">
-    <button type="button" @click="goBack">go back to home page</button>
-    <!-- <input type="button" class="d-button" @click="goBack" value="go back to home page" /> -->
-    <hr />
-    <router-view />
+    <div v-show="$route.name" >
+      <button type="button" @click="goBack">go back to home page</button>
+      <!-- <input type="button" class="d-button" @click="goBack" value="go back to home page" /> -->
+      <hr />
+      <router-view />
+    </div>
+    <div v-show="!$route.name" id="vue"></div>
+    <div v-show="!$route.name" id="vueTemplate"></div>
   </div>
 </template>
 <script>

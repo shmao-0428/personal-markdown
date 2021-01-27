@@ -1,4 +1,5 @@
 import { encrypt, decrypt } from './encrypto';
+console.log('ceshi,打印了');
 onmessage = function(evt) {
   //工作线程接收到主线程的消息
   // console.log(evt.data);
