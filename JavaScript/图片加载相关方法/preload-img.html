@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+      }
+      img {
+        width: 100px;
+        height: 100px;
+        object-fit: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      // 创建本体对象，生成img标签，对外提供setSrc接口
+      // 引入代理对象，图片加载之前会有个loading.gif
+      var proxyImage = function () {
+        var img = new Image();
+        var imgNode = document.createElement("img");
+        document.body.appendChild(imgNode);
+
+        var myImage = function (src) {
+          imgNode.src = src;
+        };
+
+        img.onload = function () {
+          myImage(this.src);
+        };
+
+        return {
+          setSrc: function (src) {
+            myImage("https://img.lanrentuku.com/img/allimg/1212/5-121204193R5-50.gif");
+            setTimeout(() => {
+              img.src = src;
+            }, 500);
+          },
+        };
+      };
+      // 通过代理得到图片
+      try {
+        proxyImage().setSrc("http://console.devops.iflytek.com/ipipeline/assets/img/logoB.54a871fe.png");
+        proxyImage().setSrc("http://console.devops.iflytek.com/ipipeline/assets/img/logoB.54a871fe.png");
+        proxyImage().setSrc("http://console.devops.iflytek.com/ipipeline/assets/img/logoB.54a871fe.png");
+        proxyImage().setSrc("http://console.devops.iflytek.com/ipipeline/assets/img/logoB.54a871fe.png");
+        proxyImage().setSrc("http://console.devops.iflytek.com/ipipeline/assets/img/logoB.54a871fe.png");
+        proxyImage().setSrc("http://console.devops.iflytek.com/ipipeline/assets/img/logoB.54a871fe.png");
+        proxyImage().setSrc("http://console.devops.iflytek.com/ipipeline/assets/img/logoB.54a871fe.png");
+        proxyImage().setSrc("http://console.devops.iflytek.com/ipipeline/assets/img/logoB.54a871fe.png");
+        proxyImage().setSrc("http://console.devops.iflytek.com/ipipeline/assets/img/logoB.54a871fe.png");
+        proxyImage().setSrc("http://console.devops.iflytek.com/ipipeline/assets/img/logoB.54a871fe.png");
+        proxyImage().setSrc("http://console.devops.iflytek.com/ipipeline/assets/img/logoB.54a871fe.png");
+      } catch (error) {
+        console.log(error);
+      }
+    </script>
+  </body>
+</html>
