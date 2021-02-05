@@ -1,0 +1,51 @@
+<script>
+  /*
+   * @Author: shmao
+   * @Date: 2021-02-05 09:12:34
+   * @LastEditors: shmao
+   * @LastEditTime: 2021-02-05 09:28:39
+   */
+  class A {
+    constructor(name = "A") {
+      this.name = name;
+    }
+    getName = () => {
+      return this.name;
+    };
+  }
+
+  class B extends A {
+    constructor() {
+      super("B");
+    }
+  }
+
+  let b = new B();
+  console.log('A>>>', A);
+  console.log('B>>>', B);
+  console.log('B.prototype>>>', B.prototype); // a
+  console.log('B.prototype instanceof A>>>', B.prototype instanceof A); // a
+  console.log('B.prototype.constructor>>>', B.prototype.constructor); // B
+  console.log('B.prototype.constructor.__proto__>>>', B.prototype.constructor.__proto__); // A
+  console.log('B.prototype.__proto__>>>', B.prototype.__proto__); // {}
+  console.log('B.prototype.__proto__ === A.prototype>>>', B.prototype.__proto__ === A.prototype); // {}
+  console.log('B.prototype.__proto__.constructor>>>', B.prototype.__proto__.constructor); // A
+  console.log('B.prototype.__proto__.constructor.prototype>>>', B.prototype.__proto__.constructor.prototype); // {}
+  console.log('B.prototype.__proto__.constructor.prototype.__proto__>>>', B.prototype.__proto__.constructor.prototype.__proto__); // null
+  console.log('B.prototype.__proto__.constructor.prototype.__proto__ === Object.prototype>>>', B.prototype.__proto__.constructor.prototype.__proto__ === Object.prototype); // null
+
+  console.log("*******");
+  console.log('B.__proto__>>>', B.__proto__); // A
+  console.log('B.__proto__.prototype>>>', B.__proto__.prototype); // {}
+  console.log('B.__proto__.constructor>>>', B.__proto__.constructor); // Function
+  console.log('B.__proto__.prototype.constructor>>>', B.__proto__.prototype.constructor); // A
+  console.log('B.__proto__.prototype.constructor.prototype>>>', B.__proto__.prototype.constructor.prototype); // {}
+  console.log('B.__proto__.prototype.constructor.prototype.__proto__>>>', B.__proto__.prototype.constructor.prototype.__proto__); // null
+
+  console.log(">>>>>");
+  console.log('b>>>', b);
+  console.log('b.__proto__>>>', b.__proto__); // a
+  console.log('b.__proto__.constructor>>>', b.__proto__.constructor); // B
+  console.log('b.__proto__.constructor.prototype>>>', b.__proto__.constructor.prototype); // a
+  console.log('b.__proto__.constructor.prototype.__proto__>>>', b.__proto__.constructor.prototype.__proto__); // {}
+</script>
