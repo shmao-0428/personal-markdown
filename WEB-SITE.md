@@ -55,6 +55,7 @@
 3. [typora](https://typora.io/)
 4. [xmind](https://www.xmind.cn/)
 5. [fiddler](https://www.telerik.com/fiddler)
+   1. [fiddler自动响应AutoResponder之正则匹配Rule Editor](https://blog.csdn.net/lovedingd/article/details/97642790)
 
 ## 其他
 
