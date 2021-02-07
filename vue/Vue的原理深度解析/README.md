@@ -509,6 +509,40 @@ console.log(v2.$options.data)
 
 `core/global-api/extend.js line 33`
 
+**补充**
+
+举个例子
+
+```js
+export default {
+  name: 'App',
+  components: {
+    HelloWorld
+  },
+  data: {
+      msg: 'xxx'
+  },
+  // 添加
+  sockets: {
+    connect: function () {
+      console.log('socket connected in components')
+    },
+  },
+  mounted () {
+    console.log(this.$options); // ...
+    this.sockets.subscribe("EVENT_NAME", function(data) {
+        console.log(data)
+    })
+  }
+}
+```
+
+我们打印`this.$options.__proto__`
+
+ ![](G:\demo\mygithub\personal-markdown\vue\Vue的原理深度解析\imgs\组件中data是函数的原理.png)
+
+结果一目了然, 因为原型对象中引用类型数据如果被复用, 数据就会被修改;
+
 # 20. vue中事件绑定的原理
 
 vue的事件绑定分为两种一种是原生的事件绑定, 还有一种是组件的事件绑定
