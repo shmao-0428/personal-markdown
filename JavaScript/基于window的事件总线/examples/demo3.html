@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>demo3</title>
+</head>
+
+<body>
+    <script src="../lib/index.js"></script>
+    <script>
+        let events = new windowEventBus()
+        console.log(events);
+        const handler1 = (str) => {
+            if (str) {
+                console.log('this is demo3.html, trigger again');
+            } else {
+                console.log('trigger immediately');
+            }
+        }
+        events.addEvents('first', handler1, true)
+
+        const handler2 = (str = 'trigger first') => {
+            console.log(str);
+        }
+        events.addEvents('first', handler2)
+
+        const handler3 = () => {
+            console.log('this is handler3 in first');
+        }
+
+        events.addEvents('first', handler3)
+
+        // events.emitEvents('first', 'trigger first')
+
+        // events.removeEvents('first', handler1);
+        // events.removeEvents('first', handler2);
+        // events.removeEvents('first', handler3);
+
+        events.removeEvents('first')
+
+        events.emitEvents('first')
+    </script>
+</body>
+
+</html>
