@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+  lintOnSave: false,
   devServer: {
     proxy: {
       // 设置vue-element-admin代理

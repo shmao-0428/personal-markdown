@@ -3,7 +3,9 @@ import App from './App.vue';
 import router from './router';
 // import router from './router/hash';
 // import router from './router/history';
-import store from './store';
+// import store from './store';
+// import store from '@/store/vuex';
+import store from '@/store/vuex/modules.js';
 
 import VueWorker from 'vue-worker';
 Vue.use(VueWorker);
