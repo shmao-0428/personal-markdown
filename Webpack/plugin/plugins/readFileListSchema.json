@@ -1,0 +1,14 @@
+{
+    "type": "object",
+    "properties": {
+        "namespaced": {
+            "type": "string"
+        },
+        "output": {
+            "type": "string"
+        },
+        "ignore": {
+            "type": "array"
+        }
+    }
+}
