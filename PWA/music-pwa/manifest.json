@@ -1,0 +1,18 @@
+{
+    "manifest_version": 2,
+    "name": "Music Pwa",
+    "version": "1.0.0",
+    "description": "Music Pwa",
+    "short_name": "Music Pwa",
+    "display": "standalone",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "/assets/icon.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        }
+    ],
+    "background_color": "aqua",
+    "theme_color": "aqua"
+}

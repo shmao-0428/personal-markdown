@@ -1,0 +1,17 @@
+#app {
+    display: flex;
+}
+.commit {
+    margin-top: 190px;
+}
+
+body {
+    position: relative;
+}
+
+button {
+    position: absolute;
+    right: 50%;
+    top: 0;
+    transform: translateX(-50%, -50%);
+}

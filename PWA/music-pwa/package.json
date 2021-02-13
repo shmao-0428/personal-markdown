@@ -1,0 +1,23 @@
+{
+  "name": "music-pwa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "webpack serve --mode=development"
+  },
+  "keywords": [],
+  "author": "shmao",
+  "license": "ISC",
+  "devDependencies": {
+    "axios": "^0.21.1"
+  },
+  "dependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/preset-env": "^7.12.16",
+    "babel-loader": "^8.2.2",
+    "core-js": "^3.8.3",
+    "html-webpack-plugin": "^5.1.0"
+  }
+}
