@@ -41,6 +41,20 @@ server.listen(3000, function (err) {
 
  ![img](https://images2018.cnblogs.com/blog/922445/201807/922445-20180716213148609-265191278.png)
 
+
+
+# 调试webpack插件
+
+package.json
+
+```json
+"script": {
+	"debug": "node --inspect-brk ./node_modules/webpack/bin/webpack.js"
+}
+```
+
+然后在你需要断点调试的地方 打上`debugger`
+
 # 参考链接：
 
 https://cnodejs.org/topic/5a9661ff71327bb413bbff5b
