@@ -9,7 +9,8 @@
   });
 
   console.log(p);
-  Promise.reject().then(()=>console.log(1)).finally(()=>console.log(2))
+  console.log(p.queue);
+  Promise.reject().then(() => console.log(1)).finally(() => console.log(2))
   // console.dir(Promise);
 //   p.then((value) => {
 //     console.log(value);

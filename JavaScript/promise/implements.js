@@ -13,6 +13,8 @@
    *  而 asap 方法是对 rawAsap 方法的进一步封装，
    *  通过缓存的 domain 和 try/finally 实现了即使某个任务抛出异常也可以恢复任务栈的继续执行
    * （再次调用rawAsap.requestFlush）https://juejin.cn/post/6844903512845860872#heading-4
+   * 
+   *  https://github.com/kriskowal/asap/blob/3e3d99381444379bb0483cb9216caa39ac67bebb/browser-raw.js#L140
    *
    *  参考:
    *  https://www.bilibili.com/video/BV1GA411x7z1
@@ -24,16 +26,17 @@
   const PromiseResult = '[[PromiseResult]]';
   const Promise = (() => {
     class Promise {
+      #queue = [];
       constructor(execute) {
         this[PromiseState] = 'pending';
         this[PromiseResult] = undefined;
-        this._queue = [];
+        this.#queue = [];
         const resolve = (value) => {
           if (this[PromiseState] !== 'pending') return;
           this[PromiseState] = 'fulfilled';
           this[PromiseResult] = value;
           setTimeout(() => {
-            this._queue.forEach((e) => e.onResolved(value));
+            this.#queue.forEach((e) => e.onResolved(value));
           });
         };
         const reject = (err) => {
@@ -41,7 +44,7 @@
           this[PromiseState] = 'rejected';
           this[PromiseResult] = err;
           setTimeout(() => {
-            this._queue.forEach((e) => e.onRejected(err));
+            this.#queue.forEach((e) => e.onRejected(err));
           });
         };
 
@@ -53,7 +56,11 @@
         }
       }
 
-      then(onResolved, onRejected) {
+      get queue () {
+        return this.#queue;
+      }
+
+      then (onResolved, onRejected) {
         if (typeof onResolved !== 'function') {
           onResolved = (value) => value;
         }
@@ -92,7 +99,7 @@
             });
           }
           if (this[PromiseState] === 'pending') {
-            this._queue.push({
+            this.#queue.push({
               onResolved: () => callback(onResolved),
               onRejected: () => callback(onRejected),
             });
@@ -100,11 +107,11 @@
         });
       }
 
-      catch(onRejected) {
+      catch (onRejected) {
         return this.then(undefined, onRejected);
       }
 
-      static resolve(value) {
+      static resolve (value) {
         return new Promise((resolve, reject) => {
           if (value instanceof Promise) {
             value.then(
@@ -117,13 +124,13 @@
         });
       }
 
-      static reject(value) {
+      static reject (value) {
         return new Promise((resolve, reject) => {
           reject(value);
         });
       }
 
-      static all(events) {
+      static all (events) {
         if (!Array.isArray(events)) events = [];
         if (events.length === 0) return Promise.resolve([]);
         return new Promise((resolve, reject) => {
@@ -144,7 +151,7 @@
         });
       }
 
-      static race(events) {
+      static race (events) {
         if (!Array.isArray(events)) events = [];
         if (events.length === 0) return Promise.resolve([]);
         return new Promise((resolve, reject) => {
@@ -157,7 +164,7 @@
         });
       }
 
-      finally(event) {
+      finally (event) {
         return this.then(
           (value) => Promise.resolve(event()).then(() => value),
           (err) =>
@@ -167,32 +174,32 @@
         );
       }
 
-      static allSettled(events) {
-        if(!Array.isArray(events)) events = [];
-        if(events.length === 0) return Promise.resolve([]);
-        return new Promise((resolve,reject)=>{
+      static allSettled (events) {
+        if (!Array.isArray(events)) events = [];
+        if (events.length === 0) return Promise.resolve([]);
+        return new Promise((resolve, reject) => {
           let counts = 0;
           let results = [];
           for (let i = 0; i < events.length; i++) {
             events[i].then(
-              (v)=>{
+              (v) => {
                 counts++;
                 results[i] = v;
-                if(counts === events.length){
+                if (counts === events.length) {
                   resolve(results)
                 }
               },
-              (r)=>{
+              (r) => {
                 counts++;
                 results[i] = r;
-                if(count === events.length){
+                if (count === events.length) {
                   resolve(results)
                 }
               }
             )
-            
+
           }
-        }) 
+        })
       }
     }
     return Promise;
