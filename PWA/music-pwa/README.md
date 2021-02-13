@@ -510,7 +510,7 @@ function fetchAndSave (req) {
 
 ### 5. 项目地址
 
-1. [music-pwa]()
+1. [music-pwa](https://github.com/shmao-0428/shmao-markdown/tree/master/PWA/music-pwa)
 2. [NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
 3. [pwa-prepare](https://gitee.com/jw-speed/pwa-prepare)
 
