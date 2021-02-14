@@ -22,6 +22,8 @@
 
 ### [编写 WebSocket 服务器](https://developer.mozilla.org/zh-CN/docs/Web/API/WebSockets_API/Writing_WebSocket_servers)
 
+### [WebSocket 教程 - 阮一峰的网络日志](http://www.ruanyifeng.com/blog/2017/05/websocket.html)
+
 ### 案例一: **Vuex中封装WebSocket**
 
 #### 1.通过Vuex创建WebSocket
