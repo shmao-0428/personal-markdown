@@ -1,5 +1,3 @@
-import { type } from "os"
-
 type Vm = {
     state: Data
 }
